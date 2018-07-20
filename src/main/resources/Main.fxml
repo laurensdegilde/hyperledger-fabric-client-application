@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainController">
+    <children>
+      <AnchorPane prefHeight="314.0" prefWidth="630.0">
+         <children>
+            <TabPane prefHeight="314.0" prefWidth="823.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Connect">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <Label layoutX="15.0" layoutY="36.0" text="Choose network" />
+                            <ComboBox fx:id="cbNetworks" layoutX="216.0" layoutY="31.0" onAction="#changeNetwork" prefWidth="150.0" />
+                            <TextField fx:id="txAdminUsername" layoutX="216.0" layoutY="73.0" text="admin" />
+                            <TextField fx:id="txAdminPassword" layoutX="216.0" layoutY="112.0" text="adminpw" />
+                            <Label layoutX="15.0" layoutY="78.0" text="Admin username" />
+                            <Label layoutX="15.0" layoutY="117.0" text="Admin password" />
+                            <Label layoutX="15.0" layoutY="152.0" text="Build network status: " />
+                            <Label fx:id="lbBuildStatus" layoutX="216.0" layoutY="152.0" prefHeight="21.0" prefWidth="459.0" />
+                            <Button layoutX="15.0" layoutY="204.0" mnemonicParsing="false" onAction="#connectNetwork" text="Connect" />
+                        </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="tabInvoke" disable="true" text="Invoke">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                                  <Button fx:id="btnInvoke" disable="false" layoutX="16.0" layoutY="207.0" mnemonicParsing="false" onAction="#invokeChaincode" text="Invoke" />
+                              <Label layoutX="14.0" layoutY="14.0" text="Chaincode name" />
+                              <Label layoutX="14.0" layoutY="61.0" text="Chaincode function name" />
+                              <TextField fx:id="tfChaincodeName" layoutX="217.0" layoutY="9.0" text="mycc" />
+                              <TextField fx:id="tfChaincodeFunctionName" layoutX="217.0" layoutY="56.0" text="invoke" />
+                              <Label layoutX="14.0" layoutY="117.0" text="Argument" />
+                              <TextField fx:id="tfArgument" layoutX="217.0" layoutY="112.0" />
+                              <Button fx:id="btAddArgument" layoutX="418.0" layoutY="9.0" mnemonicParsing="false" onAction="#addArgument" text="Add argument" />
+                              <ListView fx:id="lvArguments" layoutX="549.0" layoutY="4.0" prefHeight="268.0" prefWidth="271.0" />
+                              <Label layoutX="14.0" layoutY="164.0" text="Invoke status:" />
+                              <Label fx:id="lbInvokeStatus" layoutX="217.0" layoutY="164.0" prefHeight="21.0" prefWidth="324.0" />
+                              <Button fx:id="btDeleteArgument" layoutX="418.0" layoutY="56.0" mnemonicParsing="false" onAction="#deleteArgument" text="Delete argument" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab fx:id="tabQuery" disable="true" text="Query">
+                     <content>
+                        <AnchorPane disable="true" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="22.0" layoutY="79.0" text="Query response" />
+                              <Label fx:id="lbQueryResponse" layoutX="153.0" layoutY="79.0" prefHeight="21.0" prefWidth="500.0" />
+                              <Button fx:id="btnQuery" disable="false" layoutX="22.0" layoutY="206.0" mnemonicParsing="false" onAction="#queryChaincode" text="Query" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+    </children>
+</VBox>
