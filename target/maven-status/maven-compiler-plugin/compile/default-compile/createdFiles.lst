@@ -1,0 +1,10 @@
+specification\AlphaNetworkSpecification.class
+client\ChannelClient.class
+user\UserContext.class
+user\CAEnrollment.class
+client\FabricClient.class
+gui\Main.class
+specification\NetworkSpecification.class
+util\Util.class
+network\Builder.class
+gui\Test.class
