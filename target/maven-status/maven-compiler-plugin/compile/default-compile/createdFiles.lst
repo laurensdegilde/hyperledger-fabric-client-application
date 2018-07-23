@@ -1,1 +1,14 @@
+<<<<<<< HEAD
 gui\MainController.class
+=======
+specification\AlphaNetworkSpecification.class
+client\ChannelClient.class
+user\UserContext.class
+user\CAEnrollment.class
+client\FabricClient.class
+gui\Main.class
+specification\NetworkSpecification.class
+util\Util.class
+network\Builder.class
+gui\Test.class
+>>>>>>> 4e4371c1c439a3581e5432020bdba70ef9676c68

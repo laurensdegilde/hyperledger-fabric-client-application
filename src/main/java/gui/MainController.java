@@ -36,6 +36,8 @@ public class MainController {
     ChannelClient channelClient;
     //Build tab
     @FXML
+    private Tab tabInvoke;
+    @FXML
     private Label lbBuildStatus;
     @FXML
     private TextField txAdminUsername;
@@ -52,8 +54,6 @@ public class MainController {
 
     //Invoke tab
     @FXML
-    private Tab tabInvoke;
-    @FXML
     private ListView<String> lvArguments;
     @FXML
     private TextField tfArgument;
@@ -69,6 +69,7 @@ public class MainController {
     private final String COlOUR_WARNING = "#f44242";
 
     private final String COLOUR_SUCCESS = "#17b25a";
+
     @FXML
     void initialize(){
         cbNetworks.setItems(FXCollections.observableArrayList(
