@@ -18,6 +18,7 @@ import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.hyperledger.fabric_ca.sdk.exception.EnrollmentException;
 import specification.AlphaNetworkSpecification;
 import specification.BetaNetworkSpecification;
+import specification.PlaygroundNetwork;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -40,12 +41,6 @@ public class MainController {
     @FXML
     private ComboBox cbNetworks;
 
-    //Query tab
-    @FXML
-    private Tab tabQuery;
-    @FXML
-    private Label lbQueryResponse;
-
     //Invoke tab
     @FXML
     private ListView<String> lvArguments;
@@ -57,12 +52,11 @@ public class MainController {
     private TextField tfChaincodeFunctionName;
     @FXML
     private Label lbInvokeStatus;
-//    @FXML
-//    private Button btDeleteArgument;
     @FXML
     private ListView<String> lvInvokeOverview;
     @FXML
     private Label lbAverageTimeSpend;
+
     @FXML
     private TextField tfInvokeAmountOfTime;
 
@@ -70,18 +64,27 @@ public class MainController {
 
     private final String COLOUR_SUCCESS = "#17b25a";
 
+    private long computedTimeSpend = 0;
+
     @FXML
     void initialize() throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {
         cbNetworks.setItems(FXCollections.observableArrayList(
+                new String("Playground network"),
                 new String("Alpha network"),
                 new String("Beta network")));
         cbNetworks.getSelectionModel().select(0);
+        lvArguments.getItems().add("a");
+        lvArguments.getItems().add("b");
+        lvArguments.getItems().add("10");
         changeNetwork();
     }
     @FXML
     public void changeNetwork() throws InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {
         String network = cbNetworks.getSelectionModel().getSelectedItem().toString();
         switch (network) {
+            case "Playground network":
+                builder = new Builder(new PlaygroundNetwork());
+                break;
             case "Alpha network":
                 builder = new Builder(new AlphaNetworkSpecification());
                 break;
@@ -108,7 +111,6 @@ public class MainController {
         label.setText(message);
         label.setTextFill(Color.web(colorCode));
         tabInvoke.disableProperty().set(!(client != null));
-        tabQuery.disableProperty().set(!(client != null));
     }
 
     public void invokeChaincode() throws InvalidArgumentException, ProposalException {
@@ -122,19 +124,17 @@ public class MainController {
     }
 
     public void queryChaincode() throws InvalidArgumentException, ProposalException {
-        QueryByChaincodeRequest qcr = builder.constructQCR("mycc", "query", new String[]{"a"}, client);
-        Collection<ProposalResponse> queryResponse = channelClient.queryChainCode(qcr);
-        for (ProposalResponse pres : queryResponse) {
-            String stringResponse = new String(
-                    pres.getChaincodeActionResponsePayload());
-            lbQueryResponse.setText("Query Response from Peer " + pres.getPeer().getName() + ":" +stringResponse);
-        }
+        QueryByChaincodeRequest qcr = builder.constructQCR(tfChaincodeName.getText(), tfChaincodeFunctionName.getText(), new String[]{"a"}, client);
+        List<TransactionWrapper> queryResponse = channelClient.queryChainCode(qcr);
+        this.addInvokeInformation(queryResponse);
     }
 
     private void addInvokeInformation(List<TransactionWrapper> transactionWrappers){
         for (TransactionWrapper transactionWrapper : transactionWrappers) {
             lvInvokeOverview.getItems().add(transactionWrapper.toString());
+            computedTimeSpend += transactionWrapper.getExecutionTime();
         }
+        lbAverageTimeSpend.setText(String.valueOf(computedTimeSpend / lvInvokeOverview.getItems().size()) + " ms");
     }
 
     public void addArgument(){

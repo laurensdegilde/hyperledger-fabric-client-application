@@ -42,14 +42,20 @@ public class ChannelClient {
         return (int) channel.queryBlockchainInfo().getHeight();
 
     }
-	public Collection<ProposalResponse> queryChainCode(QueryByChaincodeRequest req)
-			throws InvalidArgumentException, ProposalException {
-		Collection<ProposalResponse> response = channel.queryByChaincode(req);
-		return response;
+	public List<TransactionWrapper> queryChainCode(QueryByChaincodeRequest req) throws InvalidArgumentException, ProposalException {
+		long startTime = System.currentTimeMillis();
+		Collection<ProposalResponse> responses = channel.queryByChaincode(req);
+		List<TransactionWrapper> temp = new ArrayList<>();
+		long endTime = System.currentTimeMillis();
+
+		for (ProposalResponse pr : responses){
+			temp.add(new TransactionWrapper(TransactionType.QUERY, endTime - startTime, pr));
+		}
+
+		return temp;
 	}
 
-	public List<TransactionWrapper> invokeChainCode(TransactionProposalRequest request)
-			throws ProposalException, InvalidArgumentException {
+	public List<TransactionWrapper> invokeChainCode(TransactionProposalRequest request)	throws ProposalException, InvalidArgumentException {
 	    long startTime = System.currentTimeMillis();
 		Collection<ProposalResponse> responses = channel.sendTransactionProposal(request, channel.getPeers());
         CompletableFuture<BlockEvent.TransactionEvent> cf = channel.sendTransaction(responses);
@@ -58,7 +64,8 @@ public class ChannelClient {
         List<TransactionWrapper> temp = new ArrayList<>();
 
         for (ProposalResponse pr : responses){
-            temp.add(new TransactionWrapper(endTime - startTime, pr));
+			System.out.println(pr.getChaincodeActionResponsePayload());
+            temp.add(new TransactionWrapper(TransactionType.INVOKE,endTime - startTime, pr));
         }
 
         return temp;

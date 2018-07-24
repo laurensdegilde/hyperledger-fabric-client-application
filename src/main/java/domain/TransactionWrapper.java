@@ -1,30 +1,35 @@
 package domain;
 
 import org.hyperledger.fabric.sdk.ProposalResponse;
-
-import java.util.Collection;
+import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 
 public class TransactionWrapper {
 
+    private TransactionType type;
     private long executionTime;
     private ProposalResponse proposalResponses;
 
 
-    public TransactionWrapper(long l, ProposalResponse response) {
+    public TransactionWrapper(TransactionType type, long l, ProposalResponse response) {
+        this.type = type;
         this.executionTime = l;
         this.proposalResponses = response;
     }
 
-    public long getExecutionTime() {
-        return executionTime;
-    }
-
-    public void setExecutionTime(long executionTime) {
-        this.executionTime = executionTime;
-    }
-
     @Override
     public String toString(){
-        return "Status: " + this.proposalResponses.getStatus() + " execution time: " + this.executionTime + " valid: " + !this.proposalResponses.isInvalid();
+        try {
+            return "Type: " + this.type +
+                    " status: " + this.proposalResponses.getStatus() +
+                    " execution time: " + this.executionTime +
+                    " response: " + new String(this.proposalResponses.getChaincodeActionResponsePayload());
+        } catch (InvalidArgumentException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public long getExecutionTime() {
+        return executionTime;
     }
 }

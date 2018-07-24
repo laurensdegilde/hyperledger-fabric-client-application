@@ -50,6 +50,7 @@ public class Builder {
         ChannelClient channelClient = client.createChannelClient(channelName);
         channelClient.getChannel().addOrderer(client.getInstance().newOrderer(specification.getOrdererName(), specification.getOrdererUrl(), this.getOrdererProperties()));
         channelClient.getChannel().addPeer(client.getInstance().newPeer("peer0.org1.ldegilde.com", "grpc://192.168.99.100:7051", this.getPeerProperties("org1.ldegilde.com", "peer0.org1.ldegilde.com")));
+        channelClient.getChannel().addPeer(client.getInstance().newPeer("peer0.org2.ldegilde.com", "grpc://192.168.99.100:9051", this.getPeerProperties("org2.ldegilde.com", "peer0.org2.ldegilde.com")));
         channelClient.getChannel().initialize();
         return channelClient;
     }
