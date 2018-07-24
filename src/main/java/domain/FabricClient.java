@@ -1,4 +1,4 @@
-package client;
+package domain;
 
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.exception.CryptoException;

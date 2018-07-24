@@ -1,5 +1,6 @@
-package client;
+package domain;
 
+import org.hyperledger.fabric.protos.peer.FabricTransaction;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.exception.ChaincodeEndorsementPolicyParseException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
@@ -7,10 +8,7 @@ import org.hyperledger.fabric.sdk.exception.ProposalException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Timer;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,29 +48,20 @@ public class ChannelClient {
 		return response;
 	}
 
-	public Collection<ProposalResponse> invokeChainCode(TransactionProposalRequest request)
+	public List<TransactionWrapper> invokeChainCode(TransactionProposalRequest request)
 			throws ProposalException, InvalidArgumentException {
-	    long start = System.currentTimeMillis();
+	    long startTime = System.currentTimeMillis();
+		Collection<ProposalResponse> responses = channel.sendTransactionProposal(request, channel.getPeers());
+        CompletableFuture<BlockEvent.TransactionEvent> cf = channel.sendTransaction(responses);
+        long endTime = System.currentTimeMillis();
 
-		Collection<ProposalResponse> response = channel.sendTransactionProposal(request, channel.getPeers());
-        for (ProposalResponse pres : response) {
-			String stringResponse;
-        	try {
-				stringResponse = new String(pres.getChaincodeActionResponsePayload());
-			}catch(InvalidArgumentException e){
-        		return null;
-			}
-            Logger.getLogger(ChannelClient.class.getName()).log(Level.INFO,
-                    "Transaction proposal on channel " + channel.getName() + " " + pres.getMessage() + " "
-                            + pres.getStatus() + " with transaction id:" + pres.getTransactionID());
-            Logger.getLogger(ChannelClient.class.getName()).log(Level.INFO,stringResponse);
+        List<TransactionWrapper> temp = new ArrayList<>();
+
+        for (ProposalResponse pr : responses){
+            temp.add(new TransactionWrapper(endTime - startTime, pr));
         }
-        CompletableFuture<BlockEvent.TransactionEvent> cf = channel.sendTransaction(response);
-        Logger.getLogger(ChannelClient.class.getName()).log(Level.INFO,cf.toString());
 
-		long end = System.currentTimeMillis();
-        System.out.println(end - start);
-        return response;
+        return temp;
 	}
 
 	/**

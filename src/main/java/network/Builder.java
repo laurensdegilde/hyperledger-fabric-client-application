@@ -1,7 +1,7 @@
 package network;
 
-import client.ChannelClient;
-import client.FabricClient;
+import domain.ChannelClient;
+import domain.FabricClient;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.QueryByChaincodeRequest;
@@ -11,13 +11,10 @@ import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
-import org.hyperledger.fabric_ca.sdk.exception.EnrollmentException;
 import specification.NetworkSpecification;
 import user.UserContext;
-import util.Util;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;

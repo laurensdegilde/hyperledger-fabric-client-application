@@ -1,11 +1,9 @@
 package gui;
 
-import client.ChannelClient;
-import client.FabricClient;
-import javafx.beans.value.ObservableValue;
+import domain.ChannelClient;
+import domain.FabricClient;
+import domain.TransactionWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -20,13 +18,9 @@ import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.hyperledger.fabric_ca.sdk.exception.EnrollmentException;
 import specification.AlphaNetworkSpecification;
 import specification.BetaNetworkSpecification;
-import specification.NetworkSpecification;
-import util.Util;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.channels.Channel;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -63,21 +57,29 @@ public class MainController {
     private TextField tfChaincodeFunctionName;
     @FXML
     private Label lbInvokeStatus;
+//    @FXML
+//    private Button btDeleteArgument;
     @FXML
-    private Button btDeleteArgument;
+    private ListView<String> lvInvokeOverview;
+    @FXML
+    private Label lbAverageTimeSpend;
+    @FXML
+    private TextField tfInvokeAmountOfTime;
 
     private final String COlOUR_WARNING = "#f44242";
 
     private final String COLOUR_SUCCESS = "#17b25a";
 
     @FXML
-    void initialize(){
+    void initialize() throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {
         cbNetworks.setItems(FXCollections.observableArrayList(
                 new String("Alpha network"),
                 new String("Beta network")));
+        cbNetworks.getSelectionModel().select(0);
+        changeNetwork();
     }
     @FXML
-    public void changeNetwork() {
+    public void changeNetwork() throws InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {
         String network = cbNetworks.getSelectionModel().getSelectedItem().toString();
         switch (network) {
             case "Alpha network":
@@ -89,8 +91,10 @@ public class MainController {
             default:
                 builder = null;
         }
+        connectNetwork();
     }
-    public void connectNetwork() throws IllegalAccessException, InvalidArgumentException, InstantiationException, IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException, EnrollmentException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException {
+    @FXML
+    public void connectNetwork() throws IllegalAccessException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException, EnrollmentException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException {
         client = builder.constructFabricClient(txAdminUsername.getText(), txAdminPassword.getText());
         if (client == null){
             this.setStatusLabel(lbBuildStatus, this.COlOUR_WARNING, "Network connection failed.");
@@ -108,22 +112,28 @@ public class MainController {
     }
 
     public void invokeChaincode() throws InvalidArgumentException, ProposalException {
-        TransactionProposalRequest tpr = builder.constructTPR(tfChaincodeName.getText(), tfChaincodeFunctionName.getText(),lvArguments.getItems().toArray(new String[lvArguments.getItems().size()]), client);
-        Collection<ProposalResponse> invokeResponse = channelClient.invokeChainCode(tpr);
-        if(invokeResponse == null){
-            this.setStatusLabel(lbInvokeStatus, this.COlOUR_WARNING, "Invocation failed.");
-            return;
+        TransactionProposalRequest tpr;
+        List<TransactionWrapper> response;
+        for (int i = 0; i < Integer.valueOf(tfInvokeAmountOfTime.getText()); i++){
+            tpr = builder.constructTPR(tfChaincodeName.getText(), tfChaincodeFunctionName.getText(),lvArguments.getItems().toArray(new String[lvArguments.getItems().size()]), client);
+            response = channelClient.invokeChainCode(tpr);
+            this.addInvokeInformation(response);
         }
-        this.setStatusLabel(lbInvokeStatus, this.COLOUR_SUCCESS, "Invocation successful.");
     }
 
-    public void queryChaincode() throws InvalidArgumentException, InstantiationException, IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException, ProposalException {
+    public void queryChaincode() throws InvalidArgumentException, ProposalException {
         QueryByChaincodeRequest qcr = builder.constructQCR("mycc", "query", new String[]{"a"}, client);
         Collection<ProposalResponse> queryResponse = channelClient.queryChainCode(qcr);
         for (ProposalResponse pres : queryResponse) {
             String stringResponse = new String(
                     pres.getChaincodeActionResponsePayload());
             lbQueryResponse.setText("Query Response from Peer " + pres.getPeer().getName() + ":" +stringResponse);
+        }
+    }
+
+    private void addInvokeInformation(List<TransactionWrapper> transactionWrappers){
+        for (TransactionWrapper transactionWrapper : transactionWrappers) {
+            lvInvokeOverview.getItems().add(transactionWrapper.toString());
         }
     }
 

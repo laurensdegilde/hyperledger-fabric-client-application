@@ -1,6 +1,6 @@
 package specification;
 
-import client.FabricClient;
+import domain.FabricClient;
 
 public class Discoverer {
 
