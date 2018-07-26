@@ -1,7 +1,5 @@
 package network;
 
-import domain.ChannelClient;
-import domain.FabricClient;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.QueryByChaincodeRequest;
@@ -13,6 +11,7 @@ import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import specification.NetworkSpecification;
 import user.UserContext;
+import util.Generator;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -50,7 +49,7 @@ public class Builder {
         ChannelClient channelClient = client.createChannelClient(channelName);
         channelClient.getChannel().addOrderer(client.getInstance().newOrderer(specification.getOrdererName(), specification.getOrdererUrl(), this.getOrdererProperties()));
         channelClient.getChannel().addPeer(client.getInstance().newPeer("peer0.org1.ldegilde.com", "grpc://192.168.99.100:7051", this.getPeerProperties("org1.ldegilde.com", "peer0.org1.ldegilde.com")));
-        channelClient.getChannel().addPeer(client.getInstance().newPeer("peer0.org2.ldegilde.com", "grpc://192.168.99.100:9051", this.getPeerProperties("org2.ldegilde.com", "peer0.org2.ldegilde.com")));
+//        channelClient.getChannel().addPeer(client.getInstance().newPeer("peer0.org2.ldegilde.com", "grpc://192.168.99.100:9051", this.getPeerProperties("org2.ldegilde.com", "peer0.org2.ldegilde.com")));
         channelClient.getChannel().initialize();
         return channelClient;
     }
@@ -71,6 +70,10 @@ public class Builder {
         if (args != null)
             req.setArgs(args);
         return req;
+    }
+
+    public Generator constructGenerator(){
+        return null;
     }
 
     private Properties getOrdererProperties(){

@@ -1,4 +1,4 @@
-package gui;
+package main;
 
 
 import javafx.application.Application;
@@ -18,8 +18,8 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IllegalAccessException, InvalidArgumentException, InstantiationException, IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException, ProposalException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Main.fxml"));
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Build.fxml"));
         primaryStage.setTitle("Alpha client application");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

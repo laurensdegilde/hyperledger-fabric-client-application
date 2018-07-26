@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BuildController">
+      <AnchorPane prefHeight="265.0" prefWidth="448.0">
+        <Label layoutX="15.0" layoutY="36.0" text="Choose network" />
+        <ComboBox fx:id="cbNetworks" layoutX="216.0" layoutY="31.0" onAction="#changeNetwork" prefHeight="31.0" prefWidth="209.0" />
+        <TextField fx:id="txAdminUsername" layoutX="216.0" layoutY="73.0" prefHeight="31.0" prefWidth="209.0" text="admin" />
+        <TextField fx:id="txAdminPassword" layoutX="216.0" layoutY="112.0" prefHeight="31.0" prefWidth="209.0" text="adminpw" />
+        <Label layoutX="15.0" layoutY="78.0" text="Admin username" />
+        <Label layoutX="15.0" layoutY="117.0" text="Admin password" />
+        <Label layoutX="15.0" layoutY="152.0" text="Build network status: " />
+        <Label fx:id="lbBuildStatus" layoutX="216.0" layoutY="152.0" prefHeight="21.0" prefWidth="209.0" />
+        <Button layoutX="54.0" layoutY="204.0" mnemonicParsing="false" onAction="#openSearch" text="Search" />
+        <Button layoutX="321.0" layoutY="204.0" mnemonicParsing="false" onAction="#openGenerate" text="Generate" />
+      </AnchorPane>
+</VBox>

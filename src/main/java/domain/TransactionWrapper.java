@@ -20,9 +20,11 @@ public class TransactionWrapper {
     public String toString(){
         try {
             return "Type: " + this.type +
+                    " peer: " + this.proposalResponses.getPeer().getName() +
                     " status: " + this.proposalResponses.getStatus() +
                     " execution time: " + this.executionTime +
-                    " response: " + new String(this.proposalResponses.getChaincodeActionResponsePayload());
+                    " response: " + new String(this.proposalResponses.getChaincodeActionResponsePayload()) +
+                    " transaction id : " + this.proposalResponses.getTransactionID();
         } catch (InvalidArgumentException e) {
             e.printStackTrace();
         }
