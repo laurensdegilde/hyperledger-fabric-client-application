@@ -53,28 +53,6 @@ public class Builder {
         channelClient.getChannel().initialize();
         return channelClient;
     }
-    public TransactionProposalRequest constructTPR(String chaincodeName, String chaincodeMethod, String[] args, FabricClient client){
-        TransactionProposalRequest req = client.getInstance().newTransactionProposalRequest();
-        ChaincodeID cid = ChaincodeID.newBuilder().setName(chaincodeName).build();
-        req.setChaincodeID(cid);
-        req.setFcn(chaincodeMethod);
-        req.setArgs(args);
-        return req;
-    }
-
-    public QueryByChaincodeRequest constructQCR(String chaincodeName, String chaincodeMethod, String[] args, FabricClient client){
-        QueryByChaincodeRequest req = client.getInstance().newQueryProposalRequest();
-        ChaincodeID ccid = ChaincodeID.newBuilder().setName(chaincodeName).build();
-        req.setChaincodeID(ccid);
-        req.setFcn(chaincodeMethod);
-        if (args != null)
-            req.setArgs(args);
-        return req;
-    }
-
-    public Generator constructGenerator(){
-        return null;
-    }
 
     private Properties getOrdererProperties(){
         Properties properties = new Properties();

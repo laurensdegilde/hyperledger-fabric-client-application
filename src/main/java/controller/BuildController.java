@@ -75,12 +75,12 @@ public class BuildController {
 
     @FXML
     public boolean connectNetwork() throws IllegalAccessException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException, EnrollmentException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, IOException {
-        NetworkExposure.client = NetworkExposure.builder.constructFabricClient(txAdminUsername.getText(), txAdminPassword.getText());
-        if (NetworkExposure.client == null){
+        NetworkExposure.fabricClient = NetworkExposure.builder.constructFabricClient(txAdminUsername.getText(), txAdminPassword.getText());
+        if (NetworkExposure.fabricClient == null){
             this.setStatusLabel(lbBuildStatus, this.COlOUR_WARNING, "Network connection failed.");
             return false;
         }
-        NetworkExposure.channelClient = NetworkExposure.builder.constructChannelClient("mychannel", NetworkExposure.client);
+        NetworkExposure.channelClient = NetworkExposure.builder.constructChannelClient("mychannel", NetworkExposure.fabricClient);
         this.setStatusLabel(lbBuildStatus, this.COLOUR_SUCCESS, "Network connection successful.");
         return true;
     }

@@ -23,7 +23,7 @@ public class GenerateController {
     private Generator generator;
 
     public GenerateController() throws IOException, InvalidFormatException {
-        generator = new Generator();
+        this.generator = new Generator();
     }
 
     @FXML
@@ -39,8 +39,8 @@ public class GenerateController {
             if (isSpecific){
                 specificTempCounter++;
             }
-            TransactionProposalRequest tpr = NetworkExposure.builder.constructTPR(
-                    "emptycc", "empty", generator.generateRecord(isSpecific), NetworkExposure.client);
+            TransactionProposalRequest tpr = NetworkExposure.fabricClient.constructTPR(
+                    "emptycc", "empty", generator.generateRecord(isSpecific));
             NetworkExposure.channelClient.invokeChainCode(tpr);
         }
         System.out.println("Specifc amount of records has been generated: " + (Integer.valueOf(tfSpecificRecords.getText()) == specificTempCounter));
