@@ -1,6 +1,5 @@
 package util;
 
-import domain.RecordWrapper;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 
@@ -11,58 +10,79 @@ import java.util.*;
 
 public class Generator {
 
-    private final int AMOUNT_OF_DECLARATIONS = 320000;
-    private final int AMOUNT_OF_INVALID_OPTICAL_DECLARATIONS = 2000;
-    private final int AMOUNT_OF_VALID_OPTICAL_DECLARATIONS = 1200;
     private final String XLS_FILE_PATH = getClass().getClassLoader().getResource("generation-codes.xlsx").getFile();
 
-    private Map healthInsuredCodes;
-    private Map agbCodes;
-    private Map serviceCodes;
+    private Map<String, Integer> healthInsuredCodes;
+    private Map<String, Integer> agbCodes;
+    private Map<String, Integer> serviceCodes;
+    private Map<String, Integer> serviceDates;
+    private Map<Boolean, Integer> acknowledged;
 
-    private List<RecordWrapper> generatedRecords;
 
     private Workbook workbook;
     private Sheet sheet;
     private DataFormatter dataFormatter;
 
 
-    public Generator(){
-        healthInsuredCodes= new HashMap();
-        agbCodes = new HashMap();
-        serviceCodes = new HashMap();
-        dataFormatter = new DataFormatter();
+    public Generator() throws IOException, InvalidFormatException {
+        this.healthInsuredCodes= new HashMap();
+        this.agbCodes = new HashMap();
+        this.serviceCodes = new HashMap();
+        this.serviceDates = new HashMap();
+        this.acknowledged = new HashMap();
+        this.dataFormatter = new DataFormatter();
+        this.readPredefinedCodes();
+
     }
 
-    public void generateRecords(int randomRecords, int specificRecords) throws IOException, InvalidFormatException {
-        this.readPredefinedCodes();
-        this.generatedRecords = new ArrayList<>();
+    public String[] generateRecord(boolean isSpecific) {
+
         int amountOfRecordsInSheet = this.sheet.getPhysicalNumberOfRows();
         Random random = new Random();
 
-        for (int i = 0; i < randomRecords; i++){
-            int randomRow = random.nextInt(amountOfRecordsInSheet);
-            boolean randomIsAcknowledged = random.nextBoolean();
 
-            Row row = sheet.getRow(randomRow);
-            this.generatedRecords.add(new RecordWrapper(
-                    dataFormatter.formatCellValue(row.getCell(0)),
-                    dataFormatter.formatCellValue(row.getCell(1)),
-                    randomIsAcknowledged)
-            );
-        }
-        for (RecordWrapper rw : this.generatedRecords){
-            System.out.println(rw.toString());
+        String randomAGBCode = sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(0).getRichStringCellValue().toString();
+        String randomHealthInsuredCode = String.format ("%.0f", sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(2).getNumericCellValue());
+        String randomServiceDate = sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(3).getDateCellValue().toString();
+        boolean randomIsAcknowledged = random.nextBoolean();
+        String randomServiceCode = sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(1).getRichStringCellValue().toString();
+
+        if (isSpecific){
+            randomServiceCode = "00/0000";
         }
 
+        this.healthInsuredCodes.merge(randomHealthInsuredCode, 1, Integer::sum);
+        this.agbCodes.merge(randomAGBCode, 1, Integer::sum);
+        this.serviceCodes.merge(randomServiceCode, 1, Integer::sum);
+        this.serviceDates.merge(randomServiceDate, 1, Integer::sum);
+        this.acknowledged.merge(randomIsAcknowledged, 1, Integer::sum);
+
+        return new String [] {randomHealthInsuredCode, randomAGBCode, randomServiceCode,
+                randomServiceDate, String.valueOf(randomIsAcknowledged)};
     }
 
     private void readPredefinedCodes() throws IOException, InvalidFormatException {
         this.workbook = WorkbookFactory.create(new File(XLS_FILE_PATH));
         this.sheet = workbook.getSheetAt(0);
     }
-    public String [] getNewRandomDataRecord(){
-        return new String [] { "test1", "test2", "test3", "test4", "test5"};
+
+    public Map<String, Integer> getHealthInsuredCodes() {
+        return healthInsuredCodes;
     }
 
+    public Map<String, Integer> getAgbCodes() {
+        return agbCodes;
+    }
+
+    public Map<String, Integer> getServiceCodes() {
+        return serviceCodes;
+    }
+
+    public Map<String, Integer> getServiceDates() {
+        return serviceDates;
+    }
+
+    public Map<Boolean, Integer> getAcknowledged() {
+        return acknowledged;
+    }
 }
