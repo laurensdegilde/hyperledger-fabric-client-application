@@ -74,15 +74,16 @@ public class BuildController {
     }
 
     @FXML
-    public void connectNetwork() throws IllegalAccessException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException, EnrollmentException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, IOException {
+    public boolean connectNetwork() throws IllegalAccessException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException, EnrollmentException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, IOException {
         NetworkExposure.client = NetworkExposure.builder.constructFabricClient(txAdminUsername.getText(), txAdminPassword.getText());
         if (NetworkExposure.client == null){
             this.setStatusLabel(lbBuildStatus, this.COlOUR_WARNING, "Network connection failed.");
-            return;
+            return false;
         }
         NetworkExposure.channelClient = NetworkExposure.builder.constructChannelClient("mychannel", NetworkExposure.client);
         this.setStatusLabel(lbBuildStatus, this.COLOUR_SUCCESS, "Network connection successful.");
-      }
+        return true;
+    }
 
     private void setStatusLabel(Label label, String colorCode, String message){
         label.setText(message);
@@ -90,22 +91,22 @@ public class BuildController {
     }
 
     public void openSearch() throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {
-        connectNetwork();
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Interact.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle("Alpha client application");
-        stage.setScene(new Scene(root));
-        stage.show();
-
+        if(connectNetwork()){
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Interact.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Alpha client application");
+            stage.setScene(new Scene(root));
+            stage.show();
+        };
     }
     public void openGenerate() throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {
-        connectNetwork();
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Generate.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle("Alpha client application");
-        stage.setScene(new Scene(root));
-        stage.show();
-
+        if(connectNetwork()){
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Generate.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Alpha client application");
+            stage.setScene(new Scene(root));
+            stage.show();
+        };
     }
 
 }

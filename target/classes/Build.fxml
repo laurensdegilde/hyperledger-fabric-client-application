@@ -7,8 +7,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BuildController">
-      <AnchorPane prefHeight="314.0" prefWidth="426.0">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BuildController">
+      <AnchorPane prefHeight="265.0" prefWidth="448.0">
         <Label layoutX="15.0" layoutY="36.0" text="Choose network" />
         <ComboBox fx:id="cbNetworks" layoutX="216.0" layoutY="31.0" onAction="#changeNetwork" prefHeight="31.0" prefWidth="209.0" />
         <TextField fx:id="txAdminUsername" layoutX="216.0" layoutY="73.0" prefHeight="31.0" prefWidth="209.0" text="admin" />
