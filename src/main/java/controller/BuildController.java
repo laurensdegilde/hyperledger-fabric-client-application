@@ -93,20 +93,28 @@ public class BuildController {
     public void openSearch() throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {
         if(connectNetwork()){
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Interact.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Alpha client application");
-            stage.setScene(new Scene(root));
-            stage.show();
+            this.openStage(root);
         };
     }
     public void openGenerate() throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {
         if(connectNetwork()){
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Generate.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Alpha client application");
-            stage.setScene(new Scene(root));
-            stage.show();
+            this.openStage(root);
         };
+    }
+
+    public void openLookup() throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {
+        if(connectNetwork()){
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Lookup.fxml"));
+            this.openStage(root);
+        };
+    }
+
+    private void openStage(Parent root){
+        Stage stage = new Stage();
+        stage.setTitle("Alpha client application");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 }

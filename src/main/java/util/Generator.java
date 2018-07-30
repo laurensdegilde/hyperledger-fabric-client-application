@@ -32,14 +32,11 @@ public class Generator {
         this.acknowledged = new HashMap();
         this.dataFormatter = new DataFormatter();
         this.readPredefinedCodes();
-
     }
 
     public String[] generateRecord(boolean isSpecific) {
-
         int amountOfRecordsInSheet = this.sheet.getPhysicalNumberOfRows();
         Random random = new Random();
-
 
         String randomAGBCode = sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(0).getRichStringCellValue().toString();
         String randomHealthInsuredCode = String.format ("%.0f", sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(2).getNumericCellValue());

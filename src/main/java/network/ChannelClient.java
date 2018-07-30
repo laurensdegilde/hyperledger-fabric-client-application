@@ -2,6 +2,9 @@ package network;
 
 import domain.TransactionType;
 import domain.TransactionWrapper;
+import org.hyperledger.fabric.protos.common.Common;
+import org.hyperledger.fabric.protos.peer.PeerEvents;
+import org.hyperledger.fabric.protos.peer.Query;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
@@ -74,9 +77,12 @@ public class ChannelClient {
 		TransactionInfo info = null;
 		for (Peer peer : peers) {
 			info = channel.queryTransactionByID(peer, txnId);
-
 		}
 		return info;
+	}
+	public void queryBlockInfo() throws ProposalException, InvalidArgumentException {
+		for (PeerEvents.FilteredTransaction ft : channel.queryBlockByNumber(10).getFilteredBlock().getFilteredTransactionsList()){
+		}
 	}
 
 }
