@@ -10,7 +10,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package user;
+package domain;
 
 import org.hyperledger.fabric.sdk.*;
 
@@ -24,7 +24,7 @@ import java.util.Set;
  *
  */
 
-public class UserContext implements User, Serializable {
+public class UserWrapper implements User, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	protected String name;

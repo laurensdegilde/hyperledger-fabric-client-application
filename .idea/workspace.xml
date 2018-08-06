@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e3c9712-e88f-4912-8b4d-fbb0bcdeda64" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/java/trie/Trie.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/BuildController.java" afterPath="$PROJECT_DIR$/src/main/java/controller/BuildController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/network/ChannelClient.java" afterPath="$PROJECT_DIR$/src/main/java/network/ChannelClient.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/Generator.java" afterPath="$PROJECT_DIR$/src/main/java/util/Generator.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Build.fxml" afterPath="$PROJECT_DIR$/src/main/resources/Build.fxml" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Build.fxml" afterPath="$PROJECT_DIR$/target/classes/Build.fxml" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/BuildController.class" afterPath="$PROJECT_DIR$/target/classes/controller/BuildController.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/util/Generator.class" afterPath="$PROJECT_DIR$/target/classes/util/Generator.class" />
+      <change beforePath="$PROJECT_DIR$/src/java/controller/BuildController.java" afterPath="$PROJECT_DIR$/src/java/controller/ConnectController.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/controller/InteractController.java" afterPath="$PROJECT_DIR$/src/java/controller/InteractController.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/network/Builder.java" afterPath="$PROJECT_DIR$/src/java/network/Builder.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/network/FabricClient.java" afterPath="$PROJECT_DIR$/src/java/network/FabricClient.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/network/NetworkExposure.java" afterPath="$PROJECT_DIR$/src/java/network/NetworkExposure.java" />
+      <change beforePath="$PROJECT_DIR$/src/resources/Build.fxml" afterPath="$PROJECT_DIR$/src/resources/Build.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,17 +20,118 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="Builder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/network/Builder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="593">
+              <caret line="43" column="24" lean-forward="false" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConnectController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/controller/ConnectController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="386">
+              <caret line="95" column="40" lean-forward="false" selection-start-line="95" selection-start-column="40" selection-end-line="95" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Build.fxml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/resources/Build.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="441">
+              <caret line="21" column="83" lean-forward="true" selection-start-line="21" selection-start-column="83" selection-end-line="21" selection-end-column="93" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Generator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/generator/Generator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="609">
+              <caret line="51" column="9" lean-forward="true" selection-start-line="51" selection-start-column="9" selection-end-line="51" selection-end-column="9" />
+              <folding>
+                <element signature="e#2122#2123#0" expanded="true" />
+                <element signature="e#2172#2173#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FabricClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/network/FabricClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="36" column="70" lean-forward="false" selection-start-line="36" selection-start-column="70" selection-end-line="36" selection-end-column="70" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChannelClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/network/ChannelClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="845">
+              <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NetworkExposure.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/network/NetworkExposure.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding>
+                <element signature="e#531#532#0" expanded="true" />
+                <element signature="e#572#573#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InteractController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/controller/InteractController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="593">
+              <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2184#2185#0" expanded="true" />
+                <element signature="e#2280#2281#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
         <option value="JavaFXApplication" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>leftEdge</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,14 +144,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/client/ChannelClient.java" />
-        <option value="$PROJECT_DIR$/src/main/java/domain/FabricClient.java" />
-        <option value="$PROJECT_DIR$/src/main/java/domain/ProposalResponseWrapper.java" />
-        <option value="$USER_HOME$/fabric-networks/chaincode/java-example/test-chaincode.java" />
-        <option value="$USER_HOME$/fabric-networks/chaincode/java-example/alpha-chaincode.java" />
         <option value="$PROJECT_DIR$/src/main/java/specification/PlaygroundNetwork.java" />
         <option value="$PROJECT_DIR$/src/main/java/domain/TransactionType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/domain/TransactionWrapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/domain/ChannelClient.java" />
         <option value="$PROJECT_DIR$/src/main/resources/Main.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/gui/Main.java" />
@@ -58,13 +153,11 @@
         <option value="$PROJECT_DIR$/src/main/java/gui/BuildController.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/InteractController.java" />
         <option value="$PROJECT_DIR$/src/main/java/network/MainController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/Interact.fxml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/domain/RecordWrapper.java" />
         <option value="$PROJECT_DIR$/src/main/resources/Generate.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/network/FabricClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/network/NetworkExposure.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/InteractController.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/GenerateController.java" />
         <option value="$PROJECT_DIR$/src/main/java/network/Builder.java" />
         <option value="$PROJECT_DIR$/src/main/java/util/Generator.java" />
@@ -72,7 +165,36 @@
         <option value="$PROJECT_DIR$/src/main/java/controller/BuildController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/Build.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/controller/LookupController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/InteractController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/Interact.fxml" />
+        <option value="$PROJECT_DIR$/src/main/java/domain/TransactionWrapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/network/ChannelClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/trie/Edge.java" />
+        <option value="$PROJECT_DIR$/src/main/java/trie/Node.java" />
+        <option value="$PROJECT_DIR$/src/common/java/trie/trie/Node.java" />
+        <option value="$PROJECT_DIR$/src/common/java/network/Builder.java" />
+        <option value="$PROJECT_DIR$/src/common/java/network/NetworkExposure.java" />
+        <option value="$PROJECT_DIR$/src/common/java/controller/BuildController.java" />
+        <option value="$PROJECT_DIR$/src/common/resources/Generate.fxml" />
+        <option value="$PROJECT_DIR$/src/common/resources/Interact.fxml" />
+        <option value="$PROJECT_DIR$/src/common/java/controller/GenerateController.java" />
+        <option value="$PROJECT_DIR$/src/server/java/generator/Generator.java" />
+        <option value="$PROJECT_DIR$/src/server/java/trie/Node.java" />
+        <option value="$PROJECT_DIR$/src/server/java/trie/Edge.java" />
+        <option value="$PROJECT_DIR$/src/java/controller/GenerateController.java" />
+        <option value="$PROJECT_DIR$/src/java/network/ChannelClient.java" />
+        <option value="$PROJECT_DIR$/src/java/controller/LookupController.java" />
+        <option value="$PROJECT_DIR$/src/java/domain/TransactionType.java" />
+        <option value="$PROJECT_DIR$/src/java/generator/Generator.java" />
+        <option value="$PROJECT_DIR$/src/java/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/java/domain/UserWrapper.java" />
+        <option value="$PROJECT_DIR$/src/java/trie/Trie.java" />
+        <option value="$PROJECT_DIR$/src/java/network/FabricClient.java" />
+        <option value="$PROJECT_DIR$/src/java/network/Builder.java" />
+        <option value="$PROJECT_DIR$/src/java/network/NetworkExposure.java" />
+        <option value="$PROJECT_DIR$/src/java/controller/InteractController.java" />
+        <option value="$PROJECT_DIR$/src/java/controller/BuildController.java" />
+        <option value="$PROJECT_DIR$/src/java/controller/ConnectController.java" />
       </list>
     </option>
   </component>
@@ -110,7 +232,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -127,20 +252,12 @@
               <item name="alpha-fabric-client" type="b2602c69:ProjectViewProjectNode" />
               <item name="alpha-fabric-client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="alpha-fabric-client" type="b2602c69:ProjectViewProjectNode" />
-              <item name="alpha-fabric-client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="alpha-fabric-client" type="b2602c69:ProjectViewProjectNode" />
               <item name="alpha-fabric-client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -148,7 +265,6 @@
               <item name="alpha-fabric-client" type="b2602c69:ProjectViewProjectNode" />
               <item name="alpha-fabric-client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="domain" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -156,7 +272,13 @@
               <item name="alpha-fabric-client" type="b2602c69:ProjectViewProjectNode" />
               <item name="alpha-fabric-client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="generator" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="alpha-fabric-client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="alpha-fabric-client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -164,7 +286,6 @@
               <item name="alpha-fabric-client" type="b2602c69:ProjectViewProjectNode" />
               <item name="alpha-fabric-client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="network" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -172,7 +293,6 @@
               <item name="alpha-fabric-client" type="b2602c69:ProjectViewProjectNode" />
               <item name="alpha-fabric-client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="specification" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -180,15 +300,13 @@
               <item name="alpha-fabric-client" type="b2602c69:ProjectViewProjectNode" />
               <item name="alpha-fabric-client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="trie" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="alpha-fabric-client" type="b2602c69:ProjectViewProjectNode" />
               <item name="alpha-fabric-client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -196,29 +314,32 @@
               <item name="alpha-fabric-client" type="b2602c69:ProjectViewProjectNode" />
               <item name="alpha-fabric-client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/alpha-fabric-client" />
+    <property name="settings.editor.selected.configurable" value="reference.idesettings.quicklists" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\laure\Documents\Git-repositories\alpha-fabric-client\src" />
+      <recent name="C:\Users\laure\Documents\Git-repositories\alpha-fabric-client\src\common\resources" />
+      <recent name="C:\Users\laure\Documents\Git-repositories\alpha-fabric-client\src\server\resources" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="trie" />
       <recent name="main" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -253,9 +374,9 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="main.Main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="VM_PARAMETERS" value="--add-modules &quot;java.xml.bind&quot;" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
@@ -365,45 +486,57 @@
       <workItem from="1532525100247" duration="17273000" />
       <workItem from="1532613316861" duration="4040000" />
       <workItem from="1532688274666" duration="13935000" />
-      <workItem from="1532949074665" duration="5648000" />
+      <workItem from="1532949074665" duration="15697000" />
+      <workItem from="1533289009715" duration="78000" />
+      <workItem from="1533289115622" duration="10421000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59554000" />
+    <option name="totallyTimeSpent" value="80102000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.9156821" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Tool Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.4699248" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29558325" sideWeight="0.4377014" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42355606" sideWeight="0.2744361" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21088435" sideWeight="0.29269603" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42355606" sideWeight="0.7255639" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21088435" sideWeight="0.707304" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.49570355" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23952739" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26638025" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.49785176" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="ANTLR Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.49785176" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -417,107 +550,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/InteractController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2373">
-          <caret line="135" column="62" lean-forward="false" selection-start-line="135" selection-start-column="62" selection-end-line="135" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/network/Builder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="55" column="38" lean-forward="false" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
-          <folding>
-            <element signature="e#894#895#0" expanded="true" />
-            <element signature="e#944#945#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/network/ChannelClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="54" column="93" lean-forward="false" selection-start-line="54" selection-start-column="93" selection-end-line="54" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/network/FabricClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/user/UserContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="26" column="36" lean-forward="false" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/domain/TransactionWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="17" column="36" lean-forward="true" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/InteractController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2163">
-          <caret line="131" column="25" lean-forward="false" selection-start-line="131" selection-start-column="25" selection-end-line="131" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/user/UserContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="26" column="36" lean-forward="false" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/fabric-networks/chaincode/java-example/test-chaincode.java" />
-    <entry file="file://$USER_HOME$/fabric-networks/chaincode/java-example/alpha-chaincode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="699">
-          <caret line="70" column="9" lean-forward="true" selection-start-line="70" selection-start-column="9" selection-end-line="70" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/specification/AlphaNetworkSpecification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="80" column="0" lean-forward="true" selection-start-line="5" selection-start-column="39" selection-end-line="80" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/chaincode/alpha-chaincode/alpha-chaincode.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/sdk/BlockEvent.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
@@ -532,14 +564,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/domain/TransactionType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/sdk/ChaincodeResponse.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -551,20 +575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2142">
           <caret line="142" column="13" lean-forward="false" selection-start-line="142" selection-start-column="13" selection-end-line="142" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/sdk/ProposalResponse.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2541">
-          <caret line="153" column="21" lean-forward="false" selection-start-line="153" selection-start-column="21" selection-end-line="153" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.5.1/protobuf-java-3.5.1.jar!/com/google/protobuf/ByteString.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="231" column="24" lean-forward="false" selection-start-line="231" selection-start-column="24" selection-end-line="231" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -618,44 +628,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/domain/RecordWrapper.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Interact.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="18" column="8" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Generate.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="127" lean-forward="false" selection-start-line="16" selection-start-column="127" selection-end-line="16" selection-end-column="127" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/util/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/domain/TransactionWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/util/function/BiFunction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
@@ -670,154 +642,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/specification/PlaygroundNetwork.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="54" column="39" lean-forward="false" selection-start-line="54" selection-start-column="39" selection-end-line="54" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/network/FabricClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="37" column="38" lean-forward="false" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/network/NetworkExposure.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="38" lean-forward="false" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/GenerateController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="42" column="76" lean-forward="false" selection-start-line="42" selection-start-column="76" selection-end-line="42" selection-end-column="76" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/util/Generator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="33" column="30" lean-forward="false" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2702#2703#0" expanded="false" />
-            <element signature="e#2743#2744#0" expanded="false" />
-            <element signature="e#2792#2793#0" expanded="false" />
-            <element signature="e#2823#2824#0" expanded="false" />
-            <element signature="e#2876#2877#0" expanded="false" />
-            <element signature="e#2911#2912#0" expanded="false" />
-            <element signature="e#2964#2965#0" expanded="false" />
-            <element signature="e#2999#3000#0" expanded="false" />
-            <element signature="e#3053#3054#0" expanded="false" />
-            <element signature="e#3088#3089#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/BuildController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="108" column="31" lean-forward="false" selection-start-line="108" selection-start-column="31" selection-end-line="108" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1299#1300#0" expanded="true" />
-            <element signature="e#1322#1323#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Build.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="21" column="83" lean-forward="true" selection-start-line="21" selection-start-column="83" selection-end-line="21" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Lookup.fxml">
+    <entry file="file://$PROJECT_DIR$/src/resources/Lookup.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
           <caret line="13" column="45" lean-forward="false" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/LookupController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="17" column="65" lean-forward="false" selection-start-line="17" selection-start-column="65" selection-end-line="17" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/sdk/QuerySCCRequest.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="12" column="65" lean-forward="true" selection-start-line="12" selection-start-column="65" selection-end-line="12" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/InteractController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="47" column="49" lean-forward="false" selection-start-line="47" selection-start-column="49" selection-end-line="47" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/network/Builder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="51" column="81" lean-forward="false" selection-start-line="51" selection-start-column="81" selection-end-line="51" selection-end-column="81" />
-          <folding>
-            <element signature="e#894#895#0" expanded="true" />
-            <element signature="e#944#945#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/sdk/Channel.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12">
-          <caret line="1380" column="27" lean-forward="false" selection-start-line="1380" selection-start-column="27" selection-end-line="1380" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/network/ChannelClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="80" column="20" lean-forward="true" selection-start-line="80" selection-start-column="20" selection-end-line="80" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -825,8 +663,297 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1489">
           <caret line="4048" column="30" lean-forward="false" selection-start-line="4048" selection-start-column="30" selection-end-line="4048" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/sdk/ProposalResponse.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="152" column="18" lean-forward="false" selection-start-line="152" selection-start-column="18" selection-end-line="152" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/util/Base64.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="713" column="0" lean-forward="false" selection-start-line="713" selection-start-column="0" selection-end-line="713" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/protos/peer/FabricProposalResponse.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="1448" column="20" lean-forward="true" selection-start-line="1448" selection-start-column="20" selection-end-line="1448" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.5.1/protobuf-java-3.5.1.jar!/com/google/protobuf/ByteString.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="262" column="47" lean-forward="false" selection-start-line="262" selection-start-column="47" selection-end-line="262" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/nio/charset/Charset.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="484" column="43" lean-forward="true" selection-start-line="484" selection-start-column="43" selection-end-line="484" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/nio/charset/spi/CharsetProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="112" column="28" lean-forward="false" selection-start-line="112" selection-start-column="28" selection-end-line="112" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/sdk/Channel.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="1537" column="40" lean-forward="false" selection-start-line="1537" selection-start-column="40" selection-end-line="1537" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/sdk/TransactionProposalRequest.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/sdk/HFClient.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="44" column="15" lean-forward="true" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/sdk/User.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-189">
+          <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/resources/Generate.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" column="43" lean-forward="false" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/resources/Interact.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" column="100" lean-forward="false" selection-start-line="15" selection-start-column="100" selection-end-line="15" selection-end-column="100" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/specification/AlphaNetworkSpecification.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/user/CAEnrollment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/util/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/controller/GenerateController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="2" lean-forward="true" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/controller/LookupController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="18" column="24" lean-forward="false" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/domain/TransactionType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="14" lean-forward="true" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/domain/TransactionWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/specification/PlaygroundNetwork.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="693">
+          <caret line="54" column="39" lean-forward="false" selection-start-line="54" selection-start-column="39" selection-end-line="54" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/trie/Edge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/util/Random.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-535">
+          <caret line="446" column="19" lean-forward="false" selection-start-line="446" selection-start-column="19" selection-end-line="446" selection-end-column="19" />
+          <folding>
+            <element signature="e#17097#17098#0" expanded="true" />
+            <element signature="e#17132#17133#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/domain/UserWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="40" column="8" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/trie/Trie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/trie/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/generator/Generator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="51" column="9" lean-forward="true" selection-start-line="51" selection-start-column="9" selection-end-line="51" selection-end-column="9" />
+          <folding>
+            <element signature="e#2122#2123#0" expanded="true" />
+            <element signature="e#2172#2173#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/network/FabricClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="36" column="70" lean-forward="false" selection-start-line="36" selection-start-column="70" selection-end-line="36" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/network/ChannelClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="845">
+          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/network/Builder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="593">
+          <caret line="43" column="24" lean-forward="false" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/network/NetworkExposure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#531#532#0" expanded="true" />
+            <element signature="e#572#573#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/controller/InteractController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="593">
+          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2184#2185#0" expanded="true" />
+            <element signature="e#2280#2281#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/controller/ConnectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="95" column="40" lean-forward="false" selection-start-line="95" selection-start-column="40" selection-end-line="95" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/resources/Build.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="21" column="83" lean-forward="true" selection-start-line="21" selection-start-column="83" selection-end-line="21" selection-end-column="93" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
   </component>
@@ -905,6 +1032,18 @@
         </settings>
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: com.github.virtuald:curvesapi:1.04</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
         <settings>
           <splitter-proportions>
             <option name="proportions">

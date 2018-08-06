@@ -34,7 +34,7 @@ public class FabricClient {
 		return client;
 	}
 
-	public TransactionProposalRequest constructTPR(String chaincodeName, String chaincodeMethod, String[] args){
+	public TransactionProposalRequest createTransactionProposalRequest(String chaincodeName, String chaincodeMethod, String[] args){
 		TransactionProposalRequest req = this.getInstance().newTransactionProposalRequest();
 		ChaincodeID cid = ChaincodeID.newBuilder().setName(chaincodeName).build();
 		req.setChaincodeID(cid);

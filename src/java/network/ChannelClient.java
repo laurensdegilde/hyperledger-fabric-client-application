@@ -2,13 +2,12 @@ package network;
 
 import domain.TransactionType;
 import domain.TransactionWrapper;
-import org.hyperledger.fabric.protos.common.Common;
 import org.hyperledger.fabric.protos.peer.PeerEvents;
-import org.hyperledger.fabric.protos.peer.Query;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
@@ -20,38 +19,14 @@ public class ChannelClient {
 	Channel channel;
 	FabricClient fabClient;
 
-	public String getName() {
-		return name;
-	}
-
 	public Channel getChannel() {
 		return channel;
-	}
-
-	public FabricClient getFabClient() {
-		return fabClient;
 	}
 
 	public ChannelClient(String name, Channel channel, FabricClient fabClient) {
 		this.name = name;
 		this.channel = channel;
 		this.fabClient = fabClient;
-	}
-    public int queryNumberOfBlocks() throws InvalidArgumentException, ProposalException {
-        return (int) channel.queryBlockchainInfo().getHeight();
-
-    }
-	public List<TransactionWrapper> queryChainCode(QueryByChaincodeRequest req) throws InvalidArgumentException, ProposalException {
-		long startTime = System.currentTimeMillis();
-		Collection<ProposalResponse> responses = channel.queryByChaincode(req);
-		List<TransactionWrapper> temp = new ArrayList<>();
-		long endTime = System.currentTimeMillis();
-
-		for (ProposalResponse pr : responses){
-			temp.add(new TransactionWrapper(TransactionType.QUERY, endTime - startTime, pr));
-		}
-
-		return temp;
 	}
 
 	public List<TransactionWrapper> invokeChainCode(TransactionProposalRequest request)	throws ProposalException, InvalidArgumentException {
@@ -77,12 +52,9 @@ public class ChannelClient {
 		TransactionInfo info = null;
 		for (Peer peer : peers) {
 			info = channel.queryTransactionByID(peer, txnId);
+
 		}
 		return info;
-	}
-	public void queryBlockInfo() throws ProposalException, InvalidArgumentException {
-		for (PeerEvents.FilteredTransaction ft : channel.queryBlockByNumber(10).getFilteredBlock().getFilteredTransactionsList()){
-		}
 	}
 
 }

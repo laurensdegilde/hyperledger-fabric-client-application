@@ -10,21 +10,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import network.Builder;
 import network.NetworkExposure;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
-import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.hyperledger.fabric_ca.sdk.exception.EnrollmentException;
-import specification.AlphaNetworkSpecification;
-import specification.BetaNetworkSpecification;
+import specification.NetworkSpecification;
 import specification.PlaygroundNetwork;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-public class BuildController {
+public class ConnectController {
 
     @FXML
     private Label lbBuildStatus;
@@ -34,54 +31,37 @@ public class BuildController {
     private TextField txAdminPassword;
     @FXML
     private ComboBox cbNetworks;
-
     private final String COlOUR_WARNING = "#f44242";
 
-    private final String COLOUR_SUCCESS = "#17b25a";
-
-    public BuildController(){
-        super();
-    }
-
-
     @FXML
-    void initialize() throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException, ProposalException {
+    void initialize() {
         this.cbNetworks.setItems(FXCollections.observableArrayList(
-                new String("Playground network"),
-                new String("Alpha network"),
-                new String("Beta network")));
+                new String("Playground network")));
         cbNetworks.getSelectionModel().select(0);
         changeNetwork();
     }
 
     @FXML
-    public void changeNetwork() throws InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException, ProposalException, IOException {
+    public void changeNetwork() {
         String network = cbNetworks.getSelectionModel().getSelectedItem().toString();
+        NetworkSpecification ns = null;
 
         switch (network) {
             case "Playground network":
-                NetworkExposure.builder = new Builder(new PlaygroundNetwork());
+                ns = new PlaygroundNetwork();
                 break;
-            case "Alpha network":
-                NetworkExposure.builder = new Builder(new AlphaNetworkSpecification());
-                break;
-            case "Beta network":
-                NetworkExposure.builder = new Builder(new BetaNetworkSpecification());
-                break;
-            default:
-                NetworkExposure.builder = null;
         }
+        NetworkExposure.setBuilder(ns);
     }
 
     @FXML
-    public boolean connectNetwork() throws IllegalAccessException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException, EnrollmentException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, IOException {
-        NetworkExposure.fabricClient = NetworkExposure.builder.constructFabricClient(txAdminUsername.getText(), txAdminPassword.getText());
+    public boolean connectNetwork() throws IllegalAccessException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException, InvalidArgumentException{
+        NetworkExposure.setFabricClient(txAdminUsername.getText(), txAdminPassword.getText());
         if (NetworkExposure.fabricClient == null){
-            this.setStatusLabel(lbBuildStatus, this.COlOUR_WARNING, "Network connection failed.");
+            this.setStatusLabel(lbBuildStatus, this.COlOUR_WARNING, "Network connection failed. fabricClient is null, did you setFabricClient?");
             return false;
         }
-        NetworkExposure.channelClient = NetworkExposure.builder.constructChannelClient("mychannel", NetworkExposure.fabricClient);
-        this.setStatusLabel(lbBuildStatus, this.COLOUR_SUCCESS, "Network connection successful.");
+        NetworkExposure.setChannelClient("mychannel", NetworkExposure.fabricClient);
         return true;
     }
 

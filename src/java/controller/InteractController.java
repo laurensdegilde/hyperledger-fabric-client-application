@@ -37,7 +37,7 @@ public class InteractController {
         List<TransactionWrapper> response;
 
         for (int i = 0; i < Integer.valueOf(tfInvokeAmountOfTime.getText()); i++){
-            tpr = NetworkExposure.fabricClient.constructTPR(tfChaincodeName.getText(), tfChaincodeFunctionName.getText(),lvArguments.getItems().toArray(new String[lvArguments.getItems().size()]));
+            tpr = NetworkExposure.fabricClient.createTransactionProposalRequest(tfChaincodeName.getText(), tfChaincodeFunctionName.getText(),lvArguments.getItems().toArray(new String[lvArguments.getItems().size()]));
             response = NetworkExposure.channelClient.invokeChainCode(tpr);
             this.addInvokeInformation(response);
         }

@@ -15,7 +15,7 @@ public class LookupController {
 
     public void lookUp() throws InvalidArgumentException, ProposalException {
         long startTime = System.currentTimeMillis();
-        TransactionInfo tf = NetworkExposure.channelClient.queryByTransactionId(txID.getText());
+        NetworkExposure.channelClient.queryByTransactionId(txID.getText());
         long endTime = System.currentTimeMillis();
         System.out.println(endTime - startTime);
     }

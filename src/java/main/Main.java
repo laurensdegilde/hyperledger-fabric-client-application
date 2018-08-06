@@ -6,10 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.hyperledger.fabric.sdk.exception.*;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 public class Main extends Application {
 
