@@ -3,9 +3,9 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import network.NetworkExposure;
-import org.hyperledger.fabric.sdk.TransactionInfo;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
+import trie.TrieParser;
 
 
 public class LookupController {

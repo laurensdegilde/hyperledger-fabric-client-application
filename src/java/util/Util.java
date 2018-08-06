@@ -67,7 +67,7 @@ public class Util {
         File certificateFile = this.getCertificateFile(Org1UserAdminCertificatePath);
         return new String(this.fileToByteArray(certificateFile), "UTF-8");
     }
-    private byte[] fileToByteArray(File file) throws IOException {
+    public byte[] fileToByteArray(File file) throws IOException {
         return IOUtils.toByteArray(new FileInputStream(file));
     }
 

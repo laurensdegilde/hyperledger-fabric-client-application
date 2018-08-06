@@ -34,10 +34,11 @@ public class Generator {
 
         for (int i = 0; i < amount_of_attributes; i++){
             boolean isSpecific = false;
+
             if (1 != specificTempCounter){
                 isSpecific = random.nextBoolean();
             }
-
+            System.out.println(i);
             key = "User_" + user_id + "_" + this.sheet.getRow(i).getCell(0).getStringCellValue();
             value = sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(1).getStringCellValue();
 

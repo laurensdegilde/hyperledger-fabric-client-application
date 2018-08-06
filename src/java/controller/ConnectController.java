@@ -89,6 +89,10 @@ public class ConnectController {
             this.openStage(root);
         };
     }
+    public void openTrie() throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Trie.fxml"));
+        this.openStage(root);
+    }
 
     private void openStage(Parent root){
         Stage stage = new Stage();

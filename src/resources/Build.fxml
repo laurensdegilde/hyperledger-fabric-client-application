@@ -18,7 +18,8 @@
         <Label layoutX="15.0" layoutY="152.0" text="Build network status: " />
         <Label fx:id="lbBuildStatus" layoutX="216.0" layoutY="152.0" prefHeight="21.0" prefWidth="209.0" />
         <Button layoutX="54.0" layoutY="204.0" mnemonicParsing="false" onAction="#openSearch" text="Search" />
-        <Button layoutX="321.0" layoutY="204.0" mnemonicParsing="false" onAction="#openGenerate" text="Generate" />
+        <Button layoutX="321.0" layoutY="204.0" mnemonicParsing="false" onAction="#openGenerate" text="Insert" />
         <Button layoutX="193.0" layoutY="204.0" mnemonicParsing="false" onAction="#openLookup" text="Look up" />
+        <Button layoutX="54.0" layoutY="234.0" mnemonicParsing="false" onAction="#openTrie" prefWidth="65.0" text="Trie" />
       </AnchorPane>
 </VBox>
