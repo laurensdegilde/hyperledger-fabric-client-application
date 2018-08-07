@@ -115,4 +115,18 @@ public class CompactEncoder {
         result[result.length - 1] = b;
         return result;
     }
+    public static String nibblesToPrettyString(byte[] nibbles){
+        StringBuffer buffer = new StringBuffer();
+        for (byte nibble : nibbles) {
+            String nibleString = oneByteToHexString(nibble);
+            buffer.append("\\x" + nibleString);
+        }
+        return buffer.toString();
+    }
+    public static String oneByteToHexString(byte value) {
+        String retVal = Integer.toString(value & 0xFF, 16);
+        if (retVal.length() == 1) retVal = "0" + retVal;
+        return retVal;
+    }
+
 }

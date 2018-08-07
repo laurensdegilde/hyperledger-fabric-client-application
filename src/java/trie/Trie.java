@@ -1,24 +1,30 @@
 package trie;
 
-import network.NetworkExposure;
+import org.bouncycastle.util.encoders.Hex;
+import org.iq80.leveldb.DB;
+import util.CompactEncoder;
 
 import static java.util.Arrays.copyOfRange;
-import static org.bouncycastle.pqc.math.linearalgebra.ByteUtils.concatenate;
 import static util.CompactEncoder.binToNibbles;
 import static util.CompactEncoder.packNibbles;
 import static util.CompactEncoder.unpackToNibbles;
 
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
-public class TrieParser {
+public class Trie {
 
     private static byte PAIR_SIZE = 2;
     private static byte LIST_SIZE = 17;
 
     private Object root;
+    private DatabaseWrapper databaseWrapper;
 
-    public TrieParser(Object root) {
+    public Trie(Object root) throws IOException {
         this.root = root;
+        this.databaseWrapper = new DatabaseWrapper("trie");
     }
 
     public byte[] get(String key) {
@@ -27,28 +33,18 @@ public class TrieParser {
 
     public byte[] get(byte[] key) {
         byte[] k = binToNibbles(key);
-        Node c = new Node(this.get(this.root, k));
+        Value c = new Value(this.get(this.root, k));
 
         return (c == null)? null : c.asBytes();
     }
 
-    public void insert(String key, String value) {
-        byte[] k = binToNibbles(key.getBytes());
-        Object temp = this.insert(this.root, k, value);
-
-        this.root = temp;
-
-        System.out.println();
-    }
-
     private Object get(Object node, byte[] key) {
-
         // Return the node if key is empty (= found)
         if (key.length == 0 || isEmptyNode(node)) {
             return node;
         }
 
-        Node currentNode = this.getNode(node);
+        Value currentNode = this.getNode(node);
         if (currentNode == null) return null;
 
         if (currentNode.length() == PAIR_SIZE) {
@@ -67,17 +63,23 @@ public class TrieParser {
     }
 
 
-    private Object insert(Object node, byte[] key, Object value) {
+    public void insert(String key, String value) throws NoSuchAlgorithmException {
+        byte[] k = binToNibbles(key.getBytes());
+        this.root = this.insert(this.root, k, value);
+    }
+
+    private Object insert(Object node, byte[] key, Object value) throws NoSuchAlgorithmException {
         if (key.length == 0) {
             return value;
         }
 
         if (isEmptyNode(node)) {
             Object[] newNode = new Object[] { packNibbles(key), value };
+            this.databaseWrapper.put(newNode);
             return newNode;
         }
 
-        Node currentNode = this.getNode(node);
+        Value currentNode = this.getNode(node);
 
         if (currentNode.length() == PAIR_SIZE) {
             byte[] k = unpackToNibbles(currentNode.get(0).asBytes());
@@ -85,6 +87,7 @@ public class TrieParser {
 
             if (Arrays.equals(k, key)) {
                 Object[] newNode = new Object[] {packNibbles(key), value};
+                this.databaseWrapper.put(newNode);
                 return newNode;
             }
 
@@ -108,6 +111,8 @@ public class TrieParser {
                 // Set the copied and new node
                 scaledSlice[k[matchingLength]] = oldNode;
                 scaledSlice[key[matchingLength]] = newNode;
+                this.databaseWrapper.put(scaledSlice);
+
                 newHash = scaledSlice;
             }
 
@@ -116,89 +121,22 @@ public class TrieParser {
                 return newHash;
             } else {
                 Object[] newNode = new Object[] { packNibbles(copyOfRange(key, 0, matchingLength)), newHash};
+                this.databaseWrapper.put(newNode);
                 return newNode;
             }
         } else {
 
             // Copy the current node over to the new node
             Object[] newNode = copyNode(currentNode);
-
             // Replace the first nibble in the key
             newNode[key[0]] = this.insert(currentNode.get(key[0]).asObj(), copyOfRange(key, 1, key.length), value);
+            this.databaseWrapper.put(newNode);
             return newNode;
         }
     }
 
-    private Object delete(Object node, byte[] key) {
-
-        if (key.length == 0 || isEmptyNode(node)) {
-            return "";
-        }
-
-        // New node
-        Node currentNode = this.getNode(node);
-        // Check for "special" 2 slice type node
-        if (currentNode.length() == PAIR_SIZE) {
-            // Decode the key
-            byte[] k = unpackToNibbles(currentNode.get(0).asBytes());
-            Object v = currentNode.get(1).asObj();
-
-            // Matching key pair (ie. there's already an object with this key)
-            if (Arrays.equals(k, key)) {
-                return "";
-            } else if (Arrays.equals(copyOfRange(key, 0, k.length), k)) {
-                Object hash = this.delete(v, copyOfRange(key, k.length, key.length));
-                Node child = this.getNode(hash);
-
-                Object newNode;
-                if (child.length() == PAIR_SIZE) {
-                    byte[] newKey = concatenate(k, unpackToNibbles(child.get(0).asBytes()));
-                    newNode = new Object[] {packNibbles(newKey), child.get(1).asObj()};
-                } else {
-                    newNode = new Object[] {currentNode.get(0).asString(), hash};
-                }
-                return newNode;
-            } else {
-                return node;
-            }
-        } else {
-            // Copy the current node over to a new node
-            Object[] itemList = copyNode(currentNode);
-
-            // Replace the first nibble in the key
-            itemList[key[0]] = this.delete(itemList[key[0]], copyOfRange(key, 1, key.length));
-
-            byte amount = -1;
-            for (byte i = 0; i < LIST_SIZE; i++) {
-                if (itemList[i] != "") {
-                    if (amount == -1) {
-                        amount = i;
-                    } else {
-                        amount = -2;
-                    }
-                }
-            }
-
-            Object[] newNode = null;
-            if (amount == 16) {
-                newNode = new Object[] { packNibbles(new byte[] {16} ), itemList[amount]};
-            } else if (amount >= 0) {
-                Node child = this.getNode(itemList[amount]);
-                if (child.length() == PAIR_SIZE) {
-                    key = concatenate(new byte[]{amount}, unpackToNibbles(child.get(0).asBytes()));
-                    newNode = new Object[] {packNibbles(key), child.get(1).asObj()};
-                } else if (child.length() == LIST_SIZE) {
-                    newNode = new Object[] { packNibbles(new byte[]{amount}), itemList[amount]};
-                }
-            } else {
-                newNode = itemList;
-            }
-            return newNode;
-        }
-    }
-
-    private Node getNode(Object node) {
-        Node val = new Node(node);
+    private Value getNode(Object node) {
+        Value val = new Value(node);
 
         // in that case we got a node
         // so no need to encode it
@@ -210,18 +148,18 @@ public class TrieParser {
         if (keyBytes.length == 0) {
             return val;
         } else if (keyBytes.length < 32) {
-            return new Node(keyBytes);
+            return new Value(keyBytes);
         }
         return null;
     }
 
 
     private boolean isEmptyNode(Object node) {
-        Node n = new Node(node);
+        Value n = new Value(node);
         return (node == null || (n.isString() && (n.asString() == "" || n.get(0).isNull())) || n.length() == 0);
     }
 
-    private Object[] copyNode(Node currentNode) {
+    private Object[] copyNode(Value currentNode) {
         Object[] itemList = emptyStringSlice(LIST_SIZE);
         for (int i = 0; i < LIST_SIZE; i++) {
             Object cpy = currentNode.get(i).asObj();
@@ -239,7 +177,20 @@ public class TrieParser {
         }
         return slice;
     }
-
+    public byte[] getRootHash() throws NoSuchAlgorithmException {
+        if (root == null
+                || (root instanceof byte[] && ((byte[]) root).length == 0)
+                || (root instanceof String && "".equals((String) root))) {
+            return CompactEncoder.EMPTY_BYTE_ARRAY;
+        } else if (root instanceof byte[]) {
+            return (byte[]) this.root;
+        } else {
+            Value rootValue = new Value(this.root);
+            byte[] val = rootValue.encode();
+            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+            return sha256.digest(val);
+        }
+    }
     public static int matchingNibbleLength(byte[] a, byte[] b) {
         int i = 0;
         int length = a.length < b.length ? a.length : b.length;
@@ -249,5 +200,45 @@ public class TrieParser {
             i++;
         }
         return i;
+    }
+
+    private void scanTree(byte[] hash, ScanAction scanAction) {
+        byte [] data = this.databaseWrapper.get(hash);
+        Value node = Value.fromRlpEncoded(data);
+        if (node == null) return;
+
+        if (node.isList()) {
+            List<Object> siblings =  node.asList();
+            if (siblings.size() == PAIR_SIZE) {
+                Value val = new Value(siblings.get(1));
+                if (val.isHashCode())
+                    scanTree(val.asBytes(), scanAction);
+            } else {
+                for (int j = 0; j < LIST_SIZE; ++j) {
+                    Value val = new Value(siblings.get(j));
+                    if (val.isHashCode())
+                        scanTree(val.asBytes(), scanAction);
+                }
+            }
+            scanAction.doOnNode(hash, node);
+        }
+    }
+
+    public String getTrieDump() throws NoSuchAlgorithmException {
+
+        String root = "";
+        TraceAllNodes traceAction = new TraceAllNodes();
+        this.scanTree(this.getRootHash(), traceAction);
+
+        if (this.root instanceof Value) {
+            root = "root: " + Hex.toHexString(getRootHash()) +  " => " + this.root +  "\n";
+        } else {
+            root = "root: " + Hex.toHexString(getRootHash()) + "\n";
+        }
+        return root + traceAction.getOutput();
+    }
+
+    public interface ScanAction {
+        public void doOnNode(byte[] hash, Value node);
     }
 }
