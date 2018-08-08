@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CompactEncoder {
+public class NibbleEncoder {
 
     private final static byte TERMINATOR = 16;
     public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];

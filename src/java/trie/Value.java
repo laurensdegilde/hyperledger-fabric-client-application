@@ -1,7 +1,7 @@
 package trie;
 
 import org.bouncycastle.util.encoders.Hex;
-import util.CompactEncoder;
+import util.NibbleEncoder;
 import util.RLP;
 
 import java.util.Arrays;
@@ -53,7 +53,7 @@ public class Value {
         } else if(isString()) {
             return asString().getBytes();
         }
-        return CompactEncoder.EMPTY_BYTE_ARRAY;
+        return NibbleEncoder.EMPTY_BYTE_ARRAY;
     }
 
     public Value get(int index) {
@@ -111,35 +111,35 @@ public class Value {
             // special case - key/value node
             if (list.length == 2) {
 
-                buffer.append("[ ");
+                buffer.append("{ \n \t");
 
                 Value key = new Value(list[0]);
 
-                byte[] keyNibbles = CompactEncoder.binToNibblesNoTerminator(key.asBytes());
-                String keyString = CompactEncoder.nibblesToPrettyString(keyNibbles);
-                buffer.append(keyString);
+                byte[] keyNibbles = NibbleEncoder.binToNibblesNoTerminator(key.asBytes());
+                String keyString = NibbleEncoder.nibblesToPrettyString(keyNibbles);
+                buffer.append('"' + keyString + '"');
 
-                buffer.append(",");
+                buffer.append(":");
 
                 Value val = new Value(list[1]);
                 buffer.append(val.toString());
 
-                buffer.append(" ]");
+                buffer.append(" } \n ");
                 return buffer.toString();
             }
-            buffer.append(" [");
+            buffer.append(" [ \n \t");
 
             for (int i = 0; i < list.length; ++i){
                 Value val = new Value(list[i]);
                 if (val.isString() || val.isEmpty()){
-                    buffer.append("'").append(val.toString()).append("'");
+                    buffer.append('{').append(val.toString()).append('}');
                 } else {
                     buffer.append(val.toString());
                 }
                 if (i < list.length - 1)
                     buffer.append(", ");
             }
-            buffer.append("] ");
+            buffer.append("] \n ");
 
             return buffer.toString();
         } else if (isEmpty()) {
@@ -150,15 +150,15 @@ public class Value {
             if (isHashCode()) {
                 output.append(Hex.toHexString(asBytes()));
             } else if (isReadbleString()) {
-                output.append("'");
+                output.append('"');
                 for (byte oneByte : asBytes()) {
                     if (oneByte < 16) {
-                        output.append("\\x").append(CompactEncoder.oneByteToHexString(oneByte));
+                        output.append("\\x").append(NibbleEncoder.oneByteToHexString(oneByte));
                     } else {
                         output.append(Character.valueOf((char)oneByte));
                     }
                 }
-                output.append("'");
+                output.append('"');
                 return output.toString();
             }
             return Hex.toHexString(this.asBytes());

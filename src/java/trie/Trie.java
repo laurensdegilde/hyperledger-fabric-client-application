@@ -1,13 +1,12 @@
 package trie;
 
 import org.bouncycastle.util.encoders.Hex;
-import org.iq80.leveldb.DB;
-import util.CompactEncoder;
+import util.NibbleEncoder;
 
 import static java.util.Arrays.copyOfRange;
-import static util.CompactEncoder.binToNibbles;
-import static util.CompactEncoder.packNibbles;
-import static util.CompactEncoder.unpackToNibbles;
+import static util.NibbleEncoder.binToNibbles;
+import static util.NibbleEncoder.packNibbles;
+import static util.NibbleEncoder.unpackToNibbles;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -20,25 +19,28 @@ public class Trie {
     private static byte LIST_SIZE = 17;
 
     private Object root;
-    private DatabaseWrapper databaseWrapper;
+    private DatabaseExposure databaseExposure;
 
     public Trie(Object root) throws IOException {
         this.root = root;
-        this.databaseWrapper = new DatabaseWrapper("trie");
+        this.databaseExposure = new DatabaseExposure();
     }
 
-    public byte[] get(String key) {
+    public void setRoot(Object root) {
+        this.root = root;
+    }
+
+    public byte[] get(String key) throws NoSuchAlgorithmException {
         return this.get(key.getBytes());
     }
 
-    public byte[] get(byte[] key) {
+    public byte[] get(byte[] key) throws NoSuchAlgorithmException {
         byte[] k = binToNibbles(key);
         Value c = new Value(this.get(this.root, k));
-
         return (c == null)? null : c.asBytes();
     }
 
-    private Object get(Object node, byte[] key) {
+    private Object get(Object node, byte[] key) throws NoSuchAlgorithmException {
         // Return the node if key is empty (= found)
         if (key.length == 0 || isEmptyNode(node)) {
             return node;
@@ -75,7 +77,7 @@ public class Trie {
 
         if (isEmptyNode(node)) {
             Object[] newNode = new Object[] { packNibbles(key), value };
-            this.databaseWrapper.put(newNode);
+            this.databaseExposure.put(newNode);
             return newNode;
         }
 
@@ -87,7 +89,7 @@ public class Trie {
 
             if (Arrays.equals(k, key)) {
                 Object[] newNode = new Object[] {packNibbles(key), value};
-                this.databaseWrapper.put(newNode);
+                this.databaseExposure.put(newNode);
                 return newNode;
             }
 
@@ -111,7 +113,7 @@ public class Trie {
                 // Set the copied and new node
                 scaledSlice[k[matchingLength]] = oldNode;
                 scaledSlice[key[matchingLength]] = newNode;
-                this.databaseWrapper.put(scaledSlice);
+                this.databaseExposure.put(scaledSlice);
 
                 newHash = scaledSlice;
             }
@@ -121,7 +123,7 @@ public class Trie {
                 return newHash;
             } else {
                 Object[] newNode = new Object[] { packNibbles(copyOfRange(key, 0, matchingLength)), newHash};
-                this.databaseWrapper.put(newNode);
+                this.databaseExposure.put(newNode);
                 return newNode;
             }
         } else {
@@ -129,14 +131,19 @@ public class Trie {
             // Copy the current node over to the new node
             Object[] newNode = copyNode(currentNode);
             // Replace the first nibble in the key
+
             newNode[key[0]] = this.insert(currentNode.get(key[0]).asObj(), copyOfRange(key, 1, key.length), value);
-            this.databaseWrapper.put(newNode);
+            this.databaseExposure.put(newNode);
             return newNode;
         }
     }
 
-    private Value getNode(Object node) {
-        Value val = new Value(node);
+    private Value getNode(Object node) throws NoSuchAlgorithmException {
+        Value value = new Value(node);
+        MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+        byte[] v = value.encode();
+        byte[] k = sha256.digest(v);
+        Value val = Value.fromRlpEncoded(this.databaseExposure.get(k));
 
         // in that case we got a node
         // so no need to encode it
@@ -181,7 +188,7 @@ public class Trie {
         if (root == null
                 || (root instanceof byte[] && ((byte[]) root).length == 0)
                 || (root instanceof String && "".equals((String) root))) {
-            return CompactEncoder.EMPTY_BYTE_ARRAY;
+            return NibbleEncoder.EMPTY_BYTE_ARRAY;
         } else if (root instanceof byte[]) {
             return (byte[]) this.root;
         } else {
@@ -203,7 +210,7 @@ public class Trie {
     }
 
     private void scanTree(byte[] hash, ScanAction scanAction) {
-        byte [] data = this.databaseWrapper.get(hash);
+        byte [] data = this.databaseExposure.get(hash);
         Value node = Value.fromRlpEncoded(data);
         if (node == null) return;
 

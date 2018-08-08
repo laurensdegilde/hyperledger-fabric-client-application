@@ -647,7 +647,7 @@ public class RLP {
                 }
                 // null item
                 if ((msgData[pos] & 0xFF) == OFFSET_SHORT_ITEM) {
-                    byte[] item = CompactEncoder.EMPTY_BYTE_ARRAY;
+                    byte[] item = NibbleEncoder.EMPTY_BYTE_ARRAY;
                     RLPItem rlpItem = new RLPItem(item);
                     rlpList.add(rlpItem);
                     pos += 1;
@@ -743,7 +743,7 @@ public class RLP {
             if (inputArray.size() == 0) {
                 return encodeLength(inputArray.size(), OFFSET_SHORT_LIST);
             }
-            byte[] output = CompactEncoder.EMPTY_BYTE_ARRAY;
+            byte[] output = NibbleEncoder.EMPTY_BYTE_ARRAY;
             for (Object object : inputArray) {
                 output = concatenate(output, encode(object));
             }
@@ -918,13 +918,13 @@ public class RLP {
             return inputString.getBytes();
         } else if(input instanceof Long) {
             Long inputLong = (Long) input;
-            return (inputLong == 0) ? CompactEncoder.EMPTY_BYTE_ARRAY : asUnsignedByteArray(BigInteger.valueOf(inputLong));
+            return (inputLong == 0) ? NibbleEncoder.EMPTY_BYTE_ARRAY : asUnsignedByteArray(BigInteger.valueOf(inputLong));
         } else if(input instanceof Integer) {
             Integer inputInt = (Integer) input;
-            return (inputInt == 0) ? CompactEncoder.EMPTY_BYTE_ARRAY : asUnsignedByteArray(BigInteger.valueOf(inputInt.intValue()));
+            return (inputInt == 0) ? NibbleEncoder.EMPTY_BYTE_ARRAY : asUnsignedByteArray(BigInteger.valueOf(inputInt.intValue()));
         } else if(input instanceof BigInteger) {
             BigInteger inputBigInt = (BigInteger) input;
-            return (inputBigInt == BigInteger.ZERO) ? CompactEncoder.EMPTY_BYTE_ARRAY : asUnsignedByteArray(inputBigInt);
+            return (inputBigInt == BigInteger.ZERO) ? NibbleEncoder.EMPTY_BYTE_ARRAY : asUnsignedByteArray(inputBigInt);
         } else if (input instanceof Value) {
             Value val = (Value) input;
             return toBytes(val.asObj());

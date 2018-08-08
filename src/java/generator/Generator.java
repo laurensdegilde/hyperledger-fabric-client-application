@@ -26,13 +26,14 @@ public class Generator {
 
     public List<String[]> generateRecordForUser(int user_id, int amount_of_attributes) {
         int amountOfRecordsInSheet = this.sheet.getPhysicalNumberOfRows();
+        this.generatedDataRepresentation = new HashMap<>();
         Random random = new Random();
         String key;
         String value;
         List<String []> generatedListOfUserData = new ArrayList<>();
         int specificTempCounter = 0;
         int counter = 0;
-        for (int i = 1; i < amount_of_attributes; i++){
+        for (int i = 1; i <= amount_of_attributes; i++){
             boolean isSpecific = false;
             counter++;
             if (1 != specificTempCounter){

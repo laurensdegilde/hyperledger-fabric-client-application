@@ -10,18 +10,14 @@ import java.security.NoSuchAlgorithmException;
 
 import static org.iq80.leveldb.impl.Iq80DBFactory.*;
 
-public class DatabaseWrapper {
+public class DatabaseExposure {
 
+    private final String DATABASE_FILE_PATH = "trie";
     private DB database;
     private Options options;
-
-    public DatabaseWrapper(String filePath) throws IOException {
+    public DatabaseExposure() throws IOException {
         options = new Options();
-        database = factory.open(new File(filePath), options);
-    }
-
-    public DB getDatabase() {
-        return database;
+        database = factory.open(new File(DATABASE_FILE_PATH), options);
     }
 
     public void put(Object o) throws NoSuchAlgorithmException {
@@ -29,7 +25,6 @@ public class DatabaseWrapper {
         MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
         byte[] v = value.encode();
         byte[] k = sha256.digest(v);
-        System.out.println(v.length);
         this.database.put(k, v);
     }
 
