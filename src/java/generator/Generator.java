@@ -26,7 +26,6 @@ public class Generator {
 
     public List<String[]> generateRecordForUser(int user_id, int amount_of_attributes) {
         int amountOfRecordsInSheet = this.sheet.getPhysicalNumberOfRows();
-        this.generatedDataRepresentation = new HashMap<>();
         Random random = new Random();
         String key;
         String value;

@@ -11,7 +11,11 @@
     <TextField fx:id="tfAmountOfUsers" layoutX="217.0" layoutY="9.0" text="3" />
     <TextField fx:id="tfAmountOfAttributes" layoutX="217.0" layoutY="56.0" text="3" />
     <Button layoutX="14.0" layoutY="204.0" mnemonicParsing="false" onAction="#generateTrie" text="Generate Trie" />
-    <Label layoutX="14.0" layoutY="101.0" text="Get value for key" />
-    <TextField fx:id="tfGetValue" layoutX="217.0" layoutY="101.0" text="" />
+    <Label layoutX="14.0" layoutY="101.0" text="Key" />
+    <Label layoutX="14.0" layoutY="139.0" text="Value" />
+    <TextField fx:id="tfKey" layoutX="217.0" layoutY="101.0" text="" />
+    <TextField fx:id="tfValue" layoutX="217.0" layoutY="139.0" text="" />
     <Button layoutX="14.0" layoutY="242.0" mnemonicParsing="false" onAction="#getValue" prefWidth="109.0" text="Get value" />
+    <Button layoutX="14.0" layoutY="280.0" mnemonicParsing="false" onAction="#insertValue" prefWidth="109.0" text="Insert value" />
+    <Button layoutX="14.0" layoutY="318.0" mnemonicParsing="false" onAction="#dumpTrie" prefWidth="109.0" text="Dump trie" />
 </AnchorPane>

@@ -2,12 +2,15 @@ package trie;
 
 import org.bouncycastle.util.encoders.Hex;
 import util.NibbleEncoder;
+import util.Util;
 
 import static java.util.Arrays.copyOfRange;
 import static util.NibbleEncoder.binToNibbles;
 import static util.NibbleEncoder.packNibbles;
 import static util.NibbleEncoder.unpackToNibbles;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -21,23 +24,24 @@ public class Trie {
     private Object root;
     private DatabaseExposure databaseExposure;
 
-    public Trie(Object root) throws IOException {
-        this.root = root;
+    public Trie() throws IOException, NoSuchAlgorithmException {
         this.databaseExposure = new DatabaseExposure();
+        this.root = setRoot();
     }
 
-    public void setRoot(Object root) {
-        this.root = root;
+    public Object setRoot() throws NoSuchAlgorithmException {
+        byte [] data = this.databaseExposure.get(this.getRoot());
+        if (data == null){
+            return new byte[]{};
+        }
+        Value node = Value.decode(data);
+        return node;
     }
 
     public byte[] get(String key) throws NoSuchAlgorithmException {
-        return this.get(key.getBytes());
-    }
-
-    public byte[] get(byte[] key) throws NoSuchAlgorithmException {
-        byte[] k = binToNibbles(key);
-        Value c = new Value(this.get(this.root, k));
-        return (c == null)? null : c.asBytes();
+        byte[] k = binToNibbles(key.getBytes());
+        Value value = new Value(this.get(this.root, k));
+        return (value == null)? null : value.asBytes();
     }
 
     private Object get(Object node, byte[] key) throws NoSuchAlgorithmException {
@@ -64,10 +68,10 @@ public class Trie {
         }
     }
 
-
-    public void insert(String key, String value) throws NoSuchAlgorithmException {
+    public void insert(String key, String value) throws NoSuchAlgorithmException, IOException {
         byte[] k = binToNibbles(key.getBytes());
         this.root = this.insert(this.root, k, value);
+        Util.writeToFile("root-hash.txt", Hex.toHexString(this.getRoot()));
     }
 
     private Object insert(Object node, byte[] key, Object value) throws NoSuchAlgorithmException {
@@ -136,6 +140,7 @@ public class Trie {
             this.databaseExposure.put(newNode);
             return newNode;
         }
+
     }
 
     private Value getNode(Object node) throws NoSuchAlgorithmException {
@@ -143,7 +148,7 @@ public class Trie {
         MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
         byte[] v = value.encode();
         byte[] k = sha256.digest(v);
-        Value val = Value.fromRlpEncoded(this.databaseExposure.get(k));
+        Value val = Value.decode(this.databaseExposure.get(k));
 
         // in that case we got a node
         // so no need to encode it
@@ -176,7 +181,6 @@ public class Trie {
         return itemList;
     }
 
-    // Simple compare function which compares two tries based on their stateRoot
     private Object[] emptyStringSlice(int l) {
         Object[] slice = new Object[l];
         for (int i = 0; i < l; i++) {
@@ -184,18 +188,22 @@ public class Trie {
         }
         return slice;
     }
-    public byte[] getRootHash() throws NoSuchAlgorithmException {
+
+    public byte[] getRoot() throws NoSuchAlgorithmException {
         if (root == null
                 || (root instanceof byte[] && ((byte[]) root).length == 0)
                 || (root instanceof String && "".equals((String) root))) {
-            return NibbleEncoder.EMPTY_BYTE_ARRAY;
+            try{
+                return Hex.decode(Util.readFile("root-hash.txt"));
+            }catch(Exception ee){
+                return new byte[]{};
+            }
         } else if (root instanceof byte[]) {
             return (byte[]) this.root;
         } else {
-            Value rootValue = new Value(this.root);
-            byte[] val = rootValue.encode();
-            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-            return sha256.digest(val);
+            Value value = new Value(this.root);
+            byte[] val = value.encode();
+            return Util.getSHA256().digest(val);
         }
     }
     public static int matchingNibbleLength(byte[] a, byte[] b) {
@@ -211,7 +219,7 @@ public class Trie {
 
     private void scanTree(byte[] hash, ScanAction scanAction) {
         byte [] data = this.databaseExposure.get(hash);
-        Value node = Value.fromRlpEncoded(data);
+        Value node = Value.decode(data);
         if (node == null) return;
 
         if (node.isList()) {
@@ -235,12 +243,12 @@ public class Trie {
 
         String root = "";
         TraceAllNodes traceAction = new TraceAllNodes();
-        this.scanTree(this.getRootHash(), traceAction);
+        this.scanTree(this.getRoot(), traceAction);
 
         if (this.root instanceof Value) {
-            root = "root: " + Hex.toHexString(getRootHash()) +  " => " + this.root +  "\n";
+            root = "root: " + Hex.toHexString(getRoot()) +  " => " + this.root +  "\n";
         } else {
-            root = "root: " + Hex.toHexString(getRootHash()) + "\n";
+            root = "root: " + Hex.toHexString(getRoot()) + "\n";
         }
         return root + traceAction.getOutput();
     }

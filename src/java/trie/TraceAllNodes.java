@@ -16,7 +16,6 @@ public class TraceAllNodes implements Trie.ScanAction {
 
     @Override
     public void doOnNode(byte[] hash, Value node) {
-        System.out.println("yes yes");
         output.append(Hex.toHexString(hash)).append(" ==> ").append(node.toString()).append("\n");
     }
 

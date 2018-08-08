@@ -21,14 +21,17 @@ public class Value {
             this.value = obj;
         }
     }
-    public static Value fromRlpEncoded(byte[] data) {
+
+    public static Value decode(byte[] data) {
         if (data != null && data.length != 0) {
             return new Value(RLP.decode(data, 0).getDecoded());
         } return null;
     }
+
     public byte[] encode() {
         return RLP.encode(value);
     }
+
     public Object asObj() {
         return value;
     }

@@ -7,6 +7,8 @@ import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
 import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.Security;
 
@@ -69,6 +71,22 @@ public class Util {
     }
     public byte[] fileToByteArray(File file) throws IOException {
         return IOUtils.toByteArray(new FileInputStream(file));
+    }
+
+    public static String readFile(String fileName) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        return reader.readLine();
+    }
+
+    public static void writeToFile(String fileName, String dump) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+        writer.write(dump);
+        writer.close();
+
+    }
+
+    public static MessageDigest getSHA256() throws NoSuchAlgorithmException {
+        return MessageDigest.getInstance("SHA-256");
     }
 
     public void getAvailableNetworks(String networksFolderPath){

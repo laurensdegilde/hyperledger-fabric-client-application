@@ -4,8 +4,10 @@ import generator.Generator;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.bouncycastle.util.encoders.Hex;
 import trie.DatabaseExposure;
 import trie.Trie;
+import util.Util;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -22,35 +24,43 @@ public class TrieController {
     public TextField tfAmountOfAttributes;
 
     @FXML
-    public TextField tfGetValue;
+    public TextField tfKey;
+
+    @FXML
+    public TextField tfValue;
 
     private Generator generator;
-    private DatabaseExposure databaseExposure;
 
     private Trie trie;
 
-    public TrieController() throws IOException, InvalidFormatException {
+    public TrieController() throws IOException, InvalidFormatException, NoSuchAlgorithmException {
         this.generator = new Generator();
-        trie = new Trie(new byte[]{});
+        this.trie = new Trie();
     }
 
     @FXML
     public void getValue() throws NoSuchAlgorithmException {
-        System.out.println(new String(this.trie.get(tfGetValue.getText())));
+        tfValue.setText(new String(this.trie.get(tfKey.getText())));
     }
-
     @FXML
-    public void generateTrie() throws IOException, NoSuchAlgorithmException {
-        this.trie.setRoot(new byte[]{});
+    public void insertValue() throws NoSuchAlgorithmException, IOException {
+        this.trie.insert(tfKey.getText(), tfValue.getText());
+        this.dumpTrie();
+    }
+    @FXML
+    public void dumpTrie() throws NoSuchAlgorithmException, IOException {
+        Util.writeToFile("trie-dump.json", trie.getTrieDump());
+        System.out.println(trie.getTrieDump());
+    }
+    @FXML
+    public void generateTrie() throws IOException, NoSuchAlgorithmException, InvalidFormatException {
+        this.generator = new Generator();
         for (int i = 1; i <= Integer.valueOf(tfAmountOfUsers.getText()); i++){
             for (String [] kv: this.generator.generateRecordForUser(i, Integer.valueOf(tfAmountOfAttributes.getText()))){
-                trie.insert(kv[0], kv[1]);
+                this.trie.insert(kv[0], kv[1]);
             }
         }
-        System.out.println(trie.getTrieDump());
-        BufferedWriter writer = new BufferedWriter(new FileWriter("trie-dump.json"));
-        writer.write(trie.getTrieDump());
-        writer.close();
+        this.dumpTrie();
         this.printGeneratedRecordData();
     }
 
