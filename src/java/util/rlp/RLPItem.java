@@ -1,11 +1,6 @@
-package util;
+package util.rlp;
 
 
-/**
- * www.ethereumJ.com
- * @author: Roman Mandeleil
- * Created on: 21/04/14 16:26
- */
 public class RLPItem implements RLPElement {
 
     byte[] rlpData;

@@ -31,10 +31,9 @@ public class Generator {
         String value;
         List<String []> generatedListOfUserData = new ArrayList<>();
         int specificTempCounter = 0;
-        int counter = 0;
+        boolean isSpecific = false;
         for (int i = 1; i <= amount_of_attributes; i++){
-            boolean isSpecific = false;
-            counter++;
+            isSpecific = false;
             if (1 != specificTempCounter){
                 isSpecific = random.nextBoolean();
             }
@@ -49,6 +48,12 @@ public class Generator {
 
             generatedListOfUserData.add(new String [] {key, value});
             this.generatedDataRepresentation.put(key, value);
+        }
+        if (!isSpecific){
+            key = "User_" + user_id + "_00/0000";
+            value = "385";
+            generatedListOfUserData.remove(generatedListOfUserData.size() - 1);
+            generatedListOfUserData.add(new String [] {key, value});
         }
         return generatedListOfUserData;
     }

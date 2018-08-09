@@ -2,21 +2,15 @@ package trie;
 
 
 import org.bouncycastle.util.encoders.Hex;
-
-/**
- * www.ethereumJ.com
- *
- * @author: Roman Mandeleil
- * Created on: 29/08/2014 10:46
- */
+import util.encrypt.EncryptedNode;
 
 public class TraceAllNodes implements Trie.ScanAction {
 
     StringBuilder output = new StringBuilder();
 
     @Override
-    public void doOnNode(byte[] hash, Value node) {
-        output.append(Hex.toHexString(hash)).append(" ==> ").append(node.toString()).append("\n");
+    public void doOnNode(EncryptedNode node_, Value node) {
+        output.append(Hex.toHexString(node_.getEncryptedKey())).append(" ==> ").append(node.toString()).append("\n");
     }
 
     public String getOutput() {

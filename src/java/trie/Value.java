@@ -1,8 +1,8 @@
 package trie;
 
 import org.bouncycastle.util.encoders.Hex;
-import util.NibbleEncoder;
-import util.RLP;
+import util.NibbleHelper;
+import util.rlp.RLP;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,15 +22,7 @@ public class Value {
         }
     }
 
-    public static Value decode(byte[] data) {
-        if (data != null && data.length != 0) {
-            return new Value(RLP.decode(data, 0).getDecoded());
-        } return null;
-    }
 
-    public byte[] encode() {
-        return RLP.encode(value);
-    }
 
     public Object asObj() {
         return value;
@@ -56,7 +48,7 @@ public class Value {
         } else if(isString()) {
             return asString().getBytes();
         }
-        return NibbleEncoder.EMPTY_BYTE_ARRAY;
+        return NibbleHelper.EMPTY_BYTE_ARRAY;
     }
 
     public Value get(int index) {
@@ -118,8 +110,8 @@ public class Value {
 
                 Value key = new Value(list[0]);
 
-                byte[] keyNibbles = NibbleEncoder.binToNibblesNoTerminator(key.asBytes());
-                String keyString = NibbleEncoder.nibblesToPrettyString(keyNibbles);
+                byte[] keyNibbles = NibbleHelper.binToNibblesNoTerminator(key.asBytes());
+                String keyString = NibbleHelper.nibblesToPrettyString(keyNibbles);
                 buffer.append('"' + keyString + '"');
 
                 buffer.append(":");
@@ -156,7 +148,7 @@ public class Value {
                 output.append('"');
                 for (byte oneByte : asBytes()) {
                     if (oneByte < 16) {
-                        output.append("\\x").append(NibbleEncoder.oneByteToHexString(oneByte));
+                        output.append("\\x").append(NibbleHelper.oneByteToHexString(oneByte));
                     } else {
                         output.append(Character.valueOf((char)oneByte));
                     }

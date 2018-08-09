@@ -1,4 +1,4 @@
-package util;
+package util.rlp;
 
 import org.bouncycastle.util.encoders.Hex;
 

@@ -85,10 +85,6 @@ public class Util {
 
     }
 
-    public static MessageDigest getSHA256() throws NoSuchAlgorithmException {
-        return MessageDigest.getInstance("SHA-256");
-    }
-
     public void getAvailableNetworks(String networksFolderPath){
         File directory = new File(networksFolderPath);
         File[] matches = directory.listFiles((dir, name) -> dir.isDirectory());

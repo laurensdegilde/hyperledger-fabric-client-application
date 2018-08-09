@@ -45,11 +45,10 @@ public class TrieController {
     @FXML
     public void insertValue() throws NoSuchAlgorithmException, IOException {
         this.trie.insert(tfKey.getText(), tfValue.getText());
-        this.dumpTrie();
+        this.trie.dumpTrie();
     }
     @FXML
-    public void dumpTrie() throws NoSuchAlgorithmException, IOException {
-        Util.writeToFile("trie-dump.json", trie.getTrieDump());
+    public void dumpTrie() throws NoSuchAlgorithmException {
         System.out.println(trie.getTrieDump());
     }
     @FXML
@@ -60,7 +59,7 @@ public class TrieController {
                 this.trie.insert(kv[0], kv[1]);
             }
         }
-        this.dumpTrie();
+        this.trie.dumpTrie();
         this.printGeneratedRecordData();
     }
 

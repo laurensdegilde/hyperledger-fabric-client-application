@@ -1,9 +1,10 @@
 package util;
 
+import org.bouncycastle.util.encoders.Hex;
+
 import static java.util.Arrays.copyOf;
 import static java.util.Arrays.copyOfRange;
 import static org.bouncycastle.pqc.math.linearalgebra.ByteUtils.concatenate;
-import static org.bouncycastle.util.encoders.Hex.encode;
 
 
 import java.io.ByteArrayOutputStream;
@@ -12,7 +13,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NibbleEncoder {
+public class NibbleHelper {
 
     private final static byte TERMINATOR = 16;
     public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
@@ -92,7 +93,8 @@ public class NibbleEncoder {
      * @return array with each individual nibble adding a terminator at the end
      */
     public static byte[] binToNibbles(byte[] str) {
-        byte[] hexEncoded = encode(str);
+        byte[] hexEncoded = Hex.encode(str);
+        System.out.println("HexEncoded" + Arrays.toString(hexEncoded));
         ByteBuffer slice = ByteBuffer.allocate(hexEncoded.length + 1);
         for (byte b : hexEncoded) {
             slice.put(hexMap.get((char)b));
@@ -102,7 +104,7 @@ public class NibbleEncoder {
     }
 
     public static byte[] binToNibblesNoTerminator(byte[] str) {
-        byte[] hexEncoded = encode(str);
+        byte[] hexEncoded = Hex.encode(str);
         ByteBuffer slice = ByteBuffer.allocate(hexEncoded.length);
         for (byte b : hexEncoded) {
             slice.put(hexMap.get((char)b));
