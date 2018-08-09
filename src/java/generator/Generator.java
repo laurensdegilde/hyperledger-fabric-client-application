@@ -13,7 +13,7 @@ import java.util.*;
 public class Generator {
 
     private final String XLS_FILE_PATH = getClass().getClassLoader().getResource("generation-codes.xlsx").getFile();
-    private Map<String, String> generatedDataRepresentation;
+    private Map<String, Double> generatedDataRepresentation;
 
     private Workbook workbook;
     private Sheet sheet;
@@ -28,7 +28,7 @@ public class Generator {
         int amountOfRecordsInSheet = this.sheet.getPhysicalNumberOfRows();
         Random random = new Random();
         String key;
-        String value;
+        double value;
         List<String []> generatedListOfUserData = new ArrayList<>();
         int specificTempCounter = 0;
         boolean isSpecific = false;
@@ -37,23 +37,23 @@ public class Generator {
             if (1 != specificTempCounter){
                 isSpecific = random.nextBoolean();
             }
-            key = "User_" + user_id + "_" + this.sheet.getRow(i).getCell(0).getStringCellValue();
-            value = sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(1).getStringCellValue();
+            key = String.format ("%.0f",this.sheet.getRow(user_id).getCell(0).getNumericCellValue()) + "-" + this.sheet.getRow(i).getCell(1).getStringCellValue();
+            value = sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(2).getNumericCellValue();
 
             if (isSpecific){
-                key = "User_" + user_id + "_00/0000";
-                value = "385";
+                key = String.format ("%.0f",this.sheet.getRow(user_id).getCell(0).getNumericCellValue()) + "-" + "eigen_risico";
+                value = 385;
                 specificTempCounter++;
             }
 
-            generatedListOfUserData.add(new String [] {key, value});
+            generatedListOfUserData.add(new String [] {key, Double.toString(value)});
             this.generatedDataRepresentation.put(key, value);
         }
         if (!isSpecific){
-            key = "User_" + user_id + "_00/0000";
-            value = "385";
+            key = String.format ("%.0f",this.sheet.getRow(user_id).getCell(0).getNumericCellValue()) + "-" + "eigen_risico";
+            value = 385;
             generatedListOfUserData.remove(generatedListOfUserData.size() - 1);
-            generatedListOfUserData.add(new String [] {key, value});
+            generatedListOfUserData.add(new String [] {key, Double.toString(value)});
         }
         return generatedListOfUserData;
     }
@@ -63,7 +63,7 @@ public class Generator {
         this.sheet = workbook.getSheetAt(0);
     }
 
-    public Map<String, String> getGeneratedDataRepresentation() {
+    public Map<String, Double> getGeneratedDataRepresentation() {
         return generatedDataRepresentation;
     }
 }

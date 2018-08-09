@@ -1,6 +1,6 @@
 package util.rlp;
 
-import trie.Value;
+import trie.Node;
 import util.NibbleHelper;
 
 import java.math.BigInteger;
@@ -648,7 +648,7 @@ public class RLP {
      * @return byte[] rlp encoded
      */
     public static byte[] encode(Object input) {
-        Value val = new Value(input);
+        Node val = new Node(input);
         if (val.isList()) {
             List<Object> inputArray = val.asList();
             if (inputArray.size() == 0) {
@@ -836,8 +836,8 @@ public class RLP {
         } else if(input instanceof BigInteger) {
             BigInteger inputBigInt = (BigInteger) input;
             return (inputBigInt == BigInteger.ZERO) ? NibbleHelper.EMPTY_BYTE_ARRAY : asUnsignedByteArray(inputBigInt);
-        } else if (input instanceof Value) {
-            Value val = (Value) input;
+        } else if (input instanceof Node) {
+            Node val = (Node) input;
             return toBytes(val.asObj());
         }
         throw new RuntimeException("Unsupported type: Only accepting String, Integer and BigInteger for now");

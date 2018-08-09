@@ -1,15 +1,12 @@
 package trie;
 
 import org.bouncycastle.util.encoders.Hex;
+import util.NibbleHelper;
 import util.encrypt.EncryptHelper;
 import util.encrypt.EncryptedNode;
 import util.Util;
 import util.rlp.RLPHelper;
 
-import static java.util.Arrays.copyOfRange;
-import static util.NibbleHelper.binToNibbles;
-import static util.NibbleHelper.packNibbles;
-import static util.NibbleHelper.unpackToNibbles;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -25,24 +22,24 @@ public class Trie {
     private Object root;
     private DatabaseExposure databaseExposure;
 
-    public Trie() throws IOException {
+    public Trie() throws IOException, NoSuchAlgorithmException {
         this.databaseExposure = new DatabaseExposure();
         this.root = setRoot();
     }
 
-    public Object setRoot() {
+    public Object setRoot() throws NoSuchAlgorithmException {
         byte [] data = this.databaseExposure.get(this.getRoot());
         if (data == null){
             return new byte[]{};
         }
-        Value node = RLPHelper.decode(data);
+        Node node = RLPHelper.decode(data);
         return node;
     }
 
     public byte[] get(String key) throws NoSuchAlgorithmException {
-        byte[] k = binToNibbles(key.getBytes());
-        Value value = new Value(this.get(this.root, k));
-        return (value == null)? null : value.asBytes();
+        byte[] k = NibbleHelper.binToNibbles(key.getBytes());
+        Node node = new Node(this.get(this.root, k));
+        return (node == null)? null : node.asBytes();
     }
 
     private Object get(Object node, byte[] key) throws NoSuchAlgorithmException {
@@ -50,26 +47,26 @@ public class Trie {
             return node;
         }
 
-        Value currentNode = this.getNode(node);
+        Node currentNode = this.getNode(node);
         if (currentNode == null) return null;
 
         if (currentNode.length() == PAIR_SIZE) {
 
-            byte[] k = unpackToNibbles(currentNode.get(0).asBytes());
+            byte[] k = NibbleHelper.unpackToNibbles(currentNode.get(0).asBytes());
             Object v = currentNode.get(1).asObj();
 
-            if (key.length >= k.length && Arrays.equals(k, copyOfRange(key, 0, k.length))) {
-                return this.get(v, copyOfRange(key, k.length, key.length));
+            if (key.length >= k.length && Arrays.equals(k, Arrays.copyOfRange(key, 0, k.length))) {
+                return this.get(v, Arrays.copyOfRange(key, k.length, key.length));
             } else {
-                return "";
+                return "Nothing found";
             }
         } else {
-            return this.get(currentNode.get(key[0]).asObj(), copyOfRange(key, 1, key.length));
+            return this.get(currentNode.get(key[0]).asObj(), Arrays.copyOfRange(key, 1, key.length));
         }
     }
 
     public void insert(String key, String value) throws NoSuchAlgorithmException, IOException {
-        byte[] k = binToNibbles(key.getBytes());
+        byte[] k = NibbleHelper.binToNibbles(key.getBytes());
         this.root = this.insert(this.root, k, value);
         Util.writeToFile(ROOTHASH_FILE_PATH, Hex.toHexString(this.getRoot().getEncryptedKey()));
     }
@@ -80,20 +77,20 @@ public class Trie {
         }
 
         if (isEmptyNode(node)) {
-            Object[] newNode = new Object[] { packNibbles(key), value };
+            Object[] newNode = new Object[] { NibbleHelper.packNibbles(key), value };
             EncryptedNode encryptedNode = EncryptHelper.encryptNode(newNode);
             this.databaseExposure.put(encryptedNode);
             return newNode;
         }
 
-        Value currentNode = this.getNode(node);
+        Node currentNode = this.getNode(node);
 
         if (currentNode.length() == PAIR_SIZE) {
-            byte[] k = unpackToNibbles(currentNode.get(0).asBytes());
+            byte[] k = NibbleHelper.unpackToNibbles(currentNode.get(0).asBytes());
             Object v = currentNode.get(1).asObj();
 
             if (Arrays.equals(k, key)) {
-                Object[] newNode = new Object[] {packNibbles(key), value};
+                Object[] newNode = new Object[] {NibbleHelper.packNibbles(key), value};
                 EncryptedNode encryptedNode = EncryptHelper.encryptNode(newNode);
                 this.databaseExposure.put(encryptedNode);
                 return newNode;
@@ -103,13 +100,13 @@ public class Trie {
             int matchingLength = matchingNibbleLength(key, k);
             if (matchingLength == k.length) {
 
-                byte[] remainingKeypart = copyOfRange(key, matchingLength, key.length);
+                byte[] remainingKeypart = Arrays.copyOfRange(key, matchingLength, key.length);
                 newHash = this.insert(v, remainingKeypart, value);
 
             } else {
 
-                Object oldNode = this.insert("", copyOfRange(k, matchingLength+1, k.length), v);
-                Object newNode = this.insert("", copyOfRange(key, matchingLength+1, key.length), value);
+                Object oldNode = this.insert("", Arrays.copyOfRange(k, matchingLength+1, k.length), v);
+                Object newNode = this.insert("", Arrays.copyOfRange(key, matchingLength+1, key.length), value);
 
                 Object[] scaledSlice = emptyStringSlice(17);
 
@@ -124,7 +121,7 @@ public class Trie {
             if (matchingLength == 0) {
                 return newHash;
             } else {
-                Object[] newNode = new Object[] { packNibbles(copyOfRange(key, 0, matchingLength)), newHash};
+                Object[] newNode = new Object[] { NibbleHelper.packNibbles(Arrays.copyOfRange(key, 0, matchingLength)), newHash};
                 EncryptedNode encryptedNode = EncryptHelper.encryptNode(newNode);
                 this.databaseExposure.put(encryptedNode);
                 return newNode;
@@ -132,7 +129,7 @@ public class Trie {
         } else {
             Object[] newNode = copyNode(currentNode);
 
-            newNode[key[0]] = this.insert(currentNode.get(key[0]).asObj(), copyOfRange(key, 1, key.length), value);
+            newNode[key[0]] = this.insert(currentNode.get(key[0]).asObj(), Arrays.copyOfRange(key, 1, key.length), value);
             EncryptedNode encryptedNode = EncryptHelper.encryptNode(newNode);
             this.databaseExposure.put(encryptedNode);
             return newNode;
@@ -140,9 +137,8 @@ public class Trie {
 
     }
 
-    private Value getNode(Object node) throws NoSuchAlgorithmException {
-        EncryptedNode encryptedNode = EncryptHelper.encryptNode(node);
-        Value val = RLPHelper.decode(this.databaseExposure.get(encryptedNode));
+    private Node getNode(Object node) {
+        Node val = new Node(node);
 
         if (!val.isBytes()) {
             return val;
@@ -152,18 +148,18 @@ public class Trie {
         if (keyBytes.length == 0) {
             return val;
         } else if (keyBytes.length < 32) {
-            return new Value(keyBytes);
+            return new Node(keyBytes);
         }
         return null;
     }
 
 
     private boolean isEmptyNode(Object node) {
-        Value n = new Value(node);
+        Node n = new Node(node);
         return (node == null || (n.isString() && (n.asString() == "" || n.get(0).isNull())) || n.length() == 0);
     }
 
-    private Object[] copyNode(Value currentNode) {
+    private Object[] copyNode(Node currentNode) {
         Object[] itemList = emptyStringSlice(LIST_SIZE);
         for (int i = 0; i < LIST_SIZE; i++) {
             Object cpy = currentNode.get(i).asObj();
@@ -181,14 +177,22 @@ public class Trie {
         return slice;
     }
 
-    public EncryptedNode getRoot(){
-        EncryptedNode encryptedRoot;
-        try{
-           encryptedRoot = new EncryptedNode(Hex.decode(Util.readFile(ROOTHASH_FILE_PATH)), null);
-        }catch(Exception ee){
-           encryptedRoot = new EncryptedNode(new byte[]{}, null);
+    public EncryptedNode getRoot() throws NoSuchAlgorithmException {
+        if (root == null
+                || (root instanceof byte[] && ((byte[]) root).length == 0)
+                || (root instanceof String && "".equals((String) root))) {
+            try{
+                return new EncryptedNode(Hex.decode(Util.readFile(ROOTHASH_FILE_PATH)),null);
+            }catch(Exception ee){
+                return new EncryptedNode(new byte[]{}, null);
+            }
+        } else if (root instanceof byte[]) {
+            return new EncryptedNode((byte[]) this.root, null);
+        } else {
+            Node node = new Node(this.root);
+            byte[] val = RLPHelper.encode(node);
+            return new EncryptedNode(EncryptHelper.getSHA256().digest(val), null);
         }
-        return encryptedRoot;
     }
 
     public static int matchingNibbleLength(byte[] a, byte[] b) {
@@ -204,18 +208,18 @@ public class Trie {
 
     private void scanTree(EncryptedNode encryptedNode, ScanAction scanAction) {
         byte [] data = this.databaseExposure.get(encryptedNode);
-        Value node = RLPHelper.decode(data);
+        Node node = RLPHelper.decode(data);
         if (node == null) return;
 
         if (node.isList()) {
             List<Object> siblings =  node.asList();
             if (siblings.size() == PAIR_SIZE) {
-                Value val = new Value(siblings.get(1));
+                Node val = new Node(siblings.get(1));
                 if (val.isHashCode())
                     scanTree(new EncryptedNode(val.asBytes(),null), scanAction);
             } else {
                 for (int j = 0; j < LIST_SIZE; ++j) {
-                    Value val = new Value(siblings.get(j));
+                    Node val = new Node(siblings.get(j));
                     if (val.isHashCode())
                         scanTree(new EncryptedNode(val.asBytes(),null), scanAction);
                 }
@@ -224,13 +228,13 @@ public class Trie {
         }
     }
 
-    public String getTrieDump() {
+    public String getTrieDump() throws NoSuchAlgorithmException {
 
         String root = "";
         TraceAllNodes traceAction = new TraceAllNodes();
         this.scanTree(this.getRoot(), traceAction);
 
-        if (this.root instanceof Value) {
+        if (this.root instanceof Node) {
             root = "root: " + Hex.toHexString(getRoot().getEncryptedKey()) +  " => " + this.root +  "\n";
         } else {
             root = "root: " + Hex.toHexString(getRoot().getEncryptedKey()) + "\n";
@@ -238,11 +242,11 @@ public class Trie {
         return root + traceAction.getOutput();
     }
 
-    public void dumpTrie() throws  IOException {
+    public void dumpTrie() throws IOException, NoSuchAlgorithmException {
         Util.writeToFile(TREEDUMP_FILE_PATH, this.getTrieDump());
     }
 
     public interface ScanAction {
-        public void doOnNode(EncryptedNode encryptedNode, Value node);
+        public void doOnNode(EncryptedNode encryptedNode, Node node);
     }
 }

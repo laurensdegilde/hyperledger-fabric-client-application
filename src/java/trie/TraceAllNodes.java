@@ -9,7 +9,7 @@ public class TraceAllNodes implements Trie.ScanAction {
     StringBuilder output = new StringBuilder();
 
     @Override
-    public void doOnNode(EncryptedNode node_, Value node) {
+    public void doOnNode(EncryptedNode node_, Node node) {
         output.append(Hex.toHexString(node_.getEncryptedKey())).append(" ==> ").append(node.toString()).append("\n");
     }
 

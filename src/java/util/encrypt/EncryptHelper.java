@@ -1,6 +1,6 @@
 package util.encrypt;
 
-import trie.Value;
+import trie.Node;
 import util.rlp.RLPHelper;
 
 import java.security.MessageDigest;
@@ -11,7 +11,7 @@ public class EncryptHelper {
 
 
     public static EncryptedNode encryptNode(Object node) throws NoSuchAlgorithmException {
-        Value value = new Value(node);
+        Node value = new Node(node);
         byte[] v = RLPHelper.encode(value);
         byte[] k = getSHA256().digest(v);
         return new EncryptedNode(k, v);

@@ -61,7 +61,7 @@ public class InsertController {
     }
 
     public void printGeneratedRecordData(){
-        for (Map.Entry<String, String> entry : this.generator.getGeneratedDataRepresentation().entrySet()) {
+        for (Map.Entry<String, Double> entry : this.generator.getGeneratedDataRepresentation().entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }

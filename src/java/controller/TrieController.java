@@ -38,6 +38,7 @@ public class TrieController {
         this.trie = new Trie();
     }
 
+
     @FXML
     public void getValue() throws NoSuchAlgorithmException {
         tfValue.setText(new String(this.trie.get(tfKey.getText())));
@@ -64,7 +65,7 @@ public class TrieController {
     }
 
     public void printGeneratedRecordData(){
-        for (Map.Entry<String, String> entry : this.generator.getGeneratedDataRepresentation().entrySet()) {
+        for (Map.Entry<String, Double> entry : this.generator.getGeneratedDataRepresentation().entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
