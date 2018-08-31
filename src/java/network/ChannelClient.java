@@ -1,10 +1,14 @@
 package network;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import domain.TransactionWrapper;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
+import com.google.*;
 
+import javax.json.Json;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,31 +33,27 @@ public class ChannelClient {
     }
     
     public List<TransactionWrapper> invokeChainCode(String situationType, String methodType, TransactionProposalRequest request) throws ProposalException, InvalidArgumentException {
+        
         long startStepA = System.currentTimeMillis();
-        System.out.println(startStepA);
         Collection<ProposalResponse> responses = channel.sendTransactionProposal(request, channel.getPeers());
-        long endTime = System.currentTimeMillis();
+        long endStepA = System.currentTimeMillis();
+        
+        JsonParser parser = new JsonParser();
+        
         CompletableFuture<BlockEvent.TransactionEvent> cf = channel.sendTransaction(responses);
+        
         List<TransactionWrapper> temp = new ArrayList<>();
         for (ProposalResponse pr : responses) {
-            System.out.println(pr.getTransactionID());
-            System.out.println(pr.getChaincodeActionResponseReadWriteSetInfo().getNsRwsetCount());
-            temp.add(new TransactionWrapper(situationType, methodType, endTime - startStepA, pr));
+            JsonObject json = (JsonObject) parser.parse(new String(pr.getChaincodeActionResponsePayload()));
+            json.addProperty("StartTransaction", Long.toString(startStepA));
+            json.addProperty("EndTransaction", Long.toString(endStepA));
+            json.addProperty("Situation", situationType);
+            json.addProperty("Method", methodType);
+            json.addProperty("TransactionId", pr.getTransactionID());
+            System.out.println(json);
+            temp.add(new TransactionWrapper(situationType, methodType, json, pr));
         }
         
         return temp;
     }
-    
-    public TransactionInfo queryByTransactionId(String txnId) throws ProposalException, InvalidArgumentException {
-        Logger.getLogger(ChannelClient.class.getName()).log(Level.INFO,
-                "Querying by trasaction id " + txnId + " on channel " + channel.getName());
-        Collection<Peer> peers = channel.getPeers();
-        TransactionInfo info = null;
-        for (Peer peer : peers) {
-            info = channel.queryTransactionByID(peer, txnId);
-            
-        }
-        return info;
-    }
-    
 }

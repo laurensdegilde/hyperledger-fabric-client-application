@@ -77,7 +77,6 @@ public class ConnectController {
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Interact.fxml"));
             this.openStage(root);
         }
-        ;
     }
     
     public void openGenerate() throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {

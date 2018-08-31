@@ -1,8 +1,12 @@
 package domain;
 
+
+import network.NetworkExposure;
+
 public enum SituationType {
-    DEFAULT("default-chaincodev5"),
-    PMT("pmt-chaincodev15");
+    
+    DEFAULT(NetworkExposure.specification.getChannelProperties()[1]),
+    PMT(NetworkExposure.specification.getChannelProperties()[2]);
     
     private String text;
     

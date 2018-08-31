@@ -5,8 +5,8 @@ public class LDGNetwork implements NetworkSpecification {
     public String[] getChannelProperties() {
         return new String[]{
                 "ldegilde-channel",
-                "default-chaincodev4",
-                "pmt-chaincodev15"
+                "default-chaincodev11",
+                "pmt-chaincodev19"
         };
     }
     

@@ -65,7 +65,6 @@ public class InsertController {
         
         for (TransactionWrapper transactionWrapper : transactionWrappers) {
             lvGenerateOverview.getItems().add(lvGenerateOverview.getItems().size() + 1 + " " + transactionWrapper.toString());
-            computedTimeSpend += transactionWrapper.getExecutionTime();
         }
         lbAverageTimeSpend.setText(String.valueOf(computedTimeSpend / lvGenerateOverview.getItems().size()) + " ms");
     }
