@@ -1,13 +1,9 @@
 package network;
 
-import domain.TransactionType;
 import domain.TransactionWrapper;
-import org.hyperledger.fabric.protos.peer.PeerEvents;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
-
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
@@ -29,17 +25,17 @@ public class ChannelClient {
 		this.fabClient = fabClient;
 	}
 
-	public List<TransactionWrapper> invokeChainCode(TransactionProposalRequest request)	throws ProposalException, InvalidArgumentException {
-	    long startTime = System.currentTimeMillis();
-
+	public List<TransactionWrapper> invokeChainCode(String situationType, String methodType, TransactionProposalRequest request)	throws ProposalException, InvalidArgumentException {
+	    long startStepA = System.currentTimeMillis();
+		System.out.println(startStepA);
 	    Collection<ProposalResponse> responses = channel.sendTransactionProposal(request, channel.getPeers());
+		long endTime = System.currentTimeMillis();
         CompletableFuture<BlockEvent.TransactionEvent> cf = channel.sendTransaction(responses);
-        long endTime = System.currentTimeMillis();
-
         List<TransactionWrapper> temp = new ArrayList<>();
         for (ProposalResponse pr : responses){
 			System.out.println(pr.getTransactionID());
-            temp.add(new TransactionWrapper(TransactionType.INVOKE,endTime - startTime, pr));
+			System.out.println(pr.getChaincodeActionResponseReadWriteSetInfo().getNsRwsetCount());
+			temp.add(new TransactionWrapper(situationType , methodType,endTime - startStepA, pr));
         }
 
         return temp;

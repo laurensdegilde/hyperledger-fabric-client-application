@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -15,8 +16,8 @@ import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.hyperledger.fabric_ca.sdk.exception.EnrollmentException;
+import specification.LDGNetwork;
 import specification.NetworkSpecification;
-import specification.PlaygroundNetwork;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -28,15 +29,15 @@ public class ConnectController {
     @FXML
     private TextField txAdminUsername;
     @FXML
-    private TextField txAdminPassword;
+    private PasswordField txAdminPassword;
     @FXML
     private ComboBox cbNetworks;
     private final String COlOUR_WARNING = "#f44242";
-
+    private NetworkSpecification ns;
     @FXML
     void initialize() {
         this.cbNetworks.setItems(FXCollections.observableArrayList(
-                new String("Playground network")));
+            new String("LDG network")));
         cbNetworks.getSelectionModel().select(0);
         changeNetwork();
     }
@@ -44,11 +45,11 @@ public class ConnectController {
     @FXML
     public void changeNetwork() {
         String network = cbNetworks.getSelectionModel().getSelectedItem().toString();
-        NetworkSpecification ns = null;
+        ns = null;
 
         switch (network) {
-            case "Playground network":
-                ns = new PlaygroundNetwork();
+            case "LDG network":
+                ns = new LDGNetwork();
                 break;
         }
         NetworkExposure.setBuilder(ns);
@@ -61,7 +62,7 @@ public class ConnectController {
             this.setStatusLabel(lbBuildStatus, this.COlOUR_WARNING, "Network connection failed. fabricClient is null, did you setFabricClient?");
             return false;
         }
-        NetworkExposure.setChannelClient("mychannel", NetworkExposure.fabricClient);
+        NetworkExposure.setChannelClient(ns.getChannelProperties()[0], NetworkExposure.fabricClient);
         return true;
     }
 
@@ -82,18 +83,6 @@ public class ConnectController {
             this.openStage(root);
         };
     }
-
-    public void openLookup() throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {
-        if(connectNetwork()){
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Lookup.fxml"));
-            this.openStage(root);
-        };
-    }
-    public void openTrie() throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException, EnrollmentException, CryptoException, ClassNotFoundException, TransactionException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Trie.fxml"));
-        this.openStage(root);
-    }
-
     private void openStage(Parent root){
         Stage stage = new Stage();
         stage.setTitle("Alpha client application");

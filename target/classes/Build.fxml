@@ -7,19 +7,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.PasswordField?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConnectController">
       <AnchorPane prefHeight="265.0" prefWidth="448.0">
         <Label layoutX="15.0" layoutY="36.0" text="Choose network" />
         <ComboBox fx:id="cbNetworks" layoutX="216.0" layoutY="31.0" onAction="#changeNetwork" prefHeight="31.0" prefWidth="209.0" />
         <TextField fx:id="txAdminUsername" layoutX="216.0" layoutY="73.0" prefHeight="31.0" prefWidth="209.0" text="admin" />
-        <TextField fx:id="txAdminPassword" layoutX="216.0" layoutY="112.0" prefHeight="31.0" prefWidth="209.0" text="adminpw" />
+        <PasswordField fx:id="txAdminPassword" layoutX="216.0" layoutY="112.0" prefHeight="31.0" prefWidth="209.0" text="adminpw" />
         <Label layoutX="15.0" layoutY="78.0" text="Admin username" />
         <Label layoutX="15.0" layoutY="117.0" text="Admin password" />
         <Label layoutX="15.0" layoutY="152.0" text="Build network status: " />
         <Label fx:id="lbBuildStatus" layoutX="216.0" layoutY="152.0" prefHeight="21.0" prefWidth="209.0" />
-        <Button layoutX="54.0" layoutY="204.0" mnemonicParsing="false" onAction="#openSearch" text="Search" />
-        <Button layoutX="321.0" layoutY="204.0" mnemonicParsing="false" onAction="#openGenerate" text="Insert" />
-        <Button layoutX="193.0" layoutY="204.0" mnemonicParsing="false" onAction="#openLookup" text="Look up" />
-        <Button layoutX="54.0" layoutY="234.0" mnemonicParsing="false" onAction="#openTrie" prefWidth="65.0" text="Trie" />
+        <Button layoutX="160.0" layoutY="183.0" mnemonicParsing="false" onAction="#openSearch" prefHeight="31.0" prefWidth="113.0" text="Search" />
+        <Button layoutX="160.0" layoutY="220.0" mnemonicParsing="false" onAction="#openGenerate" prefHeight="31.0" prefWidth="113.0" text="Insert" />
       </AnchorPane>
 </VBox>

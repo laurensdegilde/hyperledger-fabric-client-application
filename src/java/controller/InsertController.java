@@ -1,6 +1,7 @@
 package controller;
 
 import domain.TransactionWrapper;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -41,9 +42,19 @@ public class InsertController {
 
         for (int i = 0; i < Integer.valueOf(tfAmountOfUsers.getText()); i++){
             for (String [] kv: this.generator.generateRecordForUser(i, Integer.valueOf(tfAmountOfAttributes.getText()))){
+
                 TransactionProposalRequest tpr = NetworkExposure.fabricClient.createTransactionProposalRequest(
-                        "testkeyvalue-1", "testkeyvalue", kv);
-                response = NetworkExposure.channelClient.invokeChainCode(tpr);
+                        NetworkExposure.specification.getChannelProperties()[1],
+                        NetworkExposure.specification.getChannelMethodProperties()[1],
+                        kv
+                );
+
+                response = NetworkExposure.channelClient.invokeChainCode(
+                    NetworkExposure.specification.getChannelProperties()[1],
+                    NetworkExposure.specification.getChannelMethodProperties()[1],
+                    tpr
+                );
+
                 this.addGenerateInformation(response);
             }
         }

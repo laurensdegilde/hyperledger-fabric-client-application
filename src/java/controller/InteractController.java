@@ -1,7 +1,9 @@
 package controller;
 
 import domain.TransactionWrapper;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -18,9 +20,9 @@ public class InteractController {
     @FXML
     private TextField tfArgument;
     @FXML
-    private TextField tfChaincodeName;
+    private ComboBox cbChaincodeName;
     @FXML
-    private TextField tfChaincodeFunctionName;
+    private ComboBox cbChaincodeMethodName;
     @FXML
     private ListView<String> lvInvokeOverview;
     @FXML
@@ -31,14 +33,27 @@ public class InteractController {
 
     private long computedTimeSpend = 0;
 
-
+    @FXML
+    void initialize() {
+        this.cbChaincodeName.setItems(FXCollections.observableArrayList(
+            NetworkExposure.specification.getChannelProperties()[1],
+            NetworkExposure.specification.getChannelProperties()[2]
+        ));
+        cbChaincodeName.getSelectionModel().select(0);
+        this.cbChaincodeMethodName.setItems(FXCollections.observableArrayList(
+                NetworkExposure.specification.getChannelMethodProperties()[0],
+                NetworkExposure.specification.getChannelMethodProperties()[1]
+        ));
+        cbChaincodeMethodName.getSelectionModel().select(0);
+    }
     public void invokeChaincode() throws ProposalException, InvalidArgumentException {
+        String ccName = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
+        String ccMethodName = cbChaincodeMethodName.getSelectionModel().getSelectedItem().toString();
         TransactionProposalRequest tpr;
         List<TransactionWrapper> response;
-
         for (int i = 0; i < Integer.valueOf(tfInvokeAmountOfTime.getText()); i++){
-            tpr = NetworkExposure.fabricClient.createTransactionProposalRequest(tfChaincodeName.getText(), tfChaincodeFunctionName.getText(),lvArguments.getItems().toArray(new String[lvArguments.getItems().size()]));
-            response = NetworkExposure.channelClient.invokeChainCode(tpr);
+            tpr = NetworkExposure.fabricClient.createTransactionProposalRequest(ccName, ccMethodName,lvArguments.getItems().toArray(new String[lvArguments.getItems().size()]));
+            response = NetworkExposure.channelClient.invokeChainCode(ccName, ccMethodName, tpr);
             this.addInvokeInformation(response);
         }
     }
