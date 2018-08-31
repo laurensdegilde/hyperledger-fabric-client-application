@@ -3,17 +3,13 @@ package domain;
 public enum SituationType {
     DEFAULT("default-chaincodev5"),
     PMT("pmt-chaincodev15");
-
+    
     private String text;
-
+    
     SituationType(String text) {
         this.text = text;
     }
-
-    public String getText() {
-        return this.text;
-    }
-
+    
     public static SituationType fromString(String text) {
         for (SituationType b : SituationType.values()) {
             if (b.text.equalsIgnoreCase(text)) {
@@ -21,5 +17,9 @@ public enum SituationType {
             }
         }
         return null;
+    }
+    
+    public String getText() {
+        return this.text;
     }
 }

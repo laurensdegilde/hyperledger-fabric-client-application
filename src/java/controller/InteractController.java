@@ -27,17 +27,17 @@ public class InteractController {
     private ListView<String> lvInvokeOverview;
     @FXML
     private Label lbAverageTimeSpend;
-
+    
     @FXML
     private TextField tfInvokeAmountOfTime;
-
+    
     private long computedTimeSpend = 0;
-
+    
     @FXML
     void initialize() {
         this.cbChaincodeName.setItems(FXCollections.observableArrayList(
-            NetworkExposure.specification.getChannelProperties()[1],
-            NetworkExposure.specification.getChannelProperties()[2]
+                NetworkExposure.specification.getChannelProperties()[1],
+                NetworkExposure.specification.getChannelProperties()[2]
         ));
         cbChaincodeName.getSelectionModel().select(0);
         this.cbChaincodeMethodName.setItems(FXCollections.observableArrayList(
@@ -46,33 +46,34 @@ public class InteractController {
         ));
         cbChaincodeMethodName.getSelectionModel().select(0);
     }
+    
     public void invokeChaincode() throws ProposalException, InvalidArgumentException {
         String ccName = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
         String ccMethodName = cbChaincodeMethodName.getSelectionModel().getSelectedItem().toString();
         TransactionProposalRequest tpr;
         List<TransactionWrapper> response;
-        for (int i = 0; i < Integer.valueOf(tfInvokeAmountOfTime.getText()); i++){
-            tpr = NetworkExposure.fabricClient.createTransactionProposalRequest(ccName, ccMethodName,lvArguments.getItems().toArray(new String[lvArguments.getItems().size()]));
+        for (int i = 0; i < Integer.valueOf(tfInvokeAmountOfTime.getText()); i++) {
+            tpr = NetworkExposure.fabricClient.createTransactionProposalRequest(ccName, ccMethodName, lvArguments.getItems().toArray(new String[lvArguments.getItems().size()]));
             response = NetworkExposure.channelClient.invokeChainCode(ccName, ccMethodName, tpr);
             this.addInvokeInformation(response);
         }
     }
-
-    private void addInvokeInformation(List<TransactionWrapper> transactionWrappers){
+    
+    private void addInvokeInformation(List<TransactionWrapper> transactionWrappers) {
         for (TransactionWrapper transactionWrapper : transactionWrappers) {
             lvInvokeOverview.getItems().add(lvInvokeOverview.getItems().size() + 1 + " " + transactionWrapper.toString());
             computedTimeSpend += transactionWrapper.getExecutionTime();
         }
         lbAverageTimeSpend.setText(String.valueOf(computedTimeSpend / lvInvokeOverview.getItems().size()) + " ms");
     }
-
-    public void addArgument(){
-        if (!tfArgument.getText().equals("")){
+    
+    public void addArgument() {
+        if (!tfArgument.getText().equals("")) {
             lvArguments.getItems().add(tfArgument.getText().toString());
         }
     }
-
-    public void deleteArgument(){
+    
+    public void deleteArgument() {
         lvArguments.getItems().remove(lvArguments.getSelectionModel().getSelectedItem());
     }
 }
