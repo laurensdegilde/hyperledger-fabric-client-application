@@ -10,22 +10,31 @@ import java.lang.reflect.InvocationTargetException;
 
 public class NetworkExposure {
     
-    public static Builder builder;
-    public static FabricClient fabricClient;
-    public static ChannelClient channelClient;
-    public static NetworkSpecification specification;
+    private static Builder builder;
+    private static FabricClient fabricClient;
+    private static ChannelClient channelClient;
+    private static NetworkSpecification specification;
     
-    public static void setBuilder(NetworkSpecification ns) {
-        builder = new Builder(ns);
-        specification = ns;
+    public static Builder getBuilder(NetworkSpecification ns) {
+        if (builder == null){
+            builder = new Builder(ns);
+            specification = ns;
+        }
+        return builder;
     }
     
-    public static void setFabricClient(String adminUsername, String adminPassword) throws IllegalAccessException, InvalidArgumentException, InstantiationException, CryptoException, NoSuchMethodException, InvocationTargetException, ClassNotFoundException {
-        fabricClient = builder.createFabricClient(adminUsername, adminPassword);
+    public static FabricClient getFabricClient() throws IllegalAccessException, InvalidArgumentException, InstantiationException, CryptoException, NoSuchMethodException, InvocationTargetException, ClassNotFoundException {
+        if (fabricClient == null){
+            fabricClient = builder.createFabricClient(specification.getAdminOrg1Properties()[0], specification.getAdminOrg1Properties()[1]);
+        }
+        return fabricClient;
     }
     
-    public static void setChannelClient(String channelName, FabricClient client) throws InvalidArgumentException, TransactionException {
-        channelClient = builder.createChannelClient(channelName, client);
+    public static ChannelClient getChannelClient() throws InvalidArgumentException, TransactionException {
+        if (channelClient == null){
+            channelClient = builder.createChannelClient(specification.getChannelProperties()[0], fabricClient);
+        }
+        return channelClient;
     }
     
     public static NetworkSpecification getSpecification() {

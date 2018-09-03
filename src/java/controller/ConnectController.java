@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.common.graph.Network;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import network.ChannelClient;
+import network.FabricClient;
 import network.NetworkExposure;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
@@ -53,17 +56,17 @@ public class ConnectController {
                 ns = new LDGNetwork();
                 break;
         }
-        NetworkExposure.setBuilder(ns);
+        NetworkExposure.getBuilder(ns);
     }
     
     @FXML
     public boolean connectNetwork() throws IllegalAccessException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException, InvalidArgumentException {
-        NetworkExposure.setFabricClient(txAdminUsername.getText(), txAdminPassword.getText());
-        if (NetworkExposure.fabricClient == null) {
+        FabricClient fc = NetworkExposure.getFabricClient();
+        ChannelClient cc = NetworkExposure.getChannelClient();
+        if (fc == null) {
             this.setStatusLabel(lbBuildStatus, this.COlOUR_WARNING, "Network connection failed. fabricClient is null, did you setFabricClient?");
             return false;
         }
-        NetworkExposure.setChannelClient(ns.getChannelProperties()[0], NetworkExposure.fabricClient);
         return true;
     }
     

@@ -5,8 +5,8 @@ public class LDGNetwork implements NetworkSpecification {
     public String[] getChannelProperties() {
         return new String[]{
                 "ldegilde-channel",
-                "default-chaincodev11",
-                "pmt-chaincodev19"
+                "default-chaincodev22",
+                "pmt-chaincodev22"
         };
     }
     
@@ -15,6 +15,13 @@ public class LDGNetwork implements NetworkSpecification {
         return new String[]{
                 "get",
                 "put"
+        };
+    }
+    
+    public String[] getAdminOrg1Properties() {
+        return new String[]{
+                "admin",
+                "adminpw"
         };
     }
     

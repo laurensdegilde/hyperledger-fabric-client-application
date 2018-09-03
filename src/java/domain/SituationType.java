@@ -5,8 +5,8 @@ import network.NetworkExposure;
 
 public enum SituationType {
     
-    DEFAULT(NetworkExposure.specification.getChannelProperties()[1]),
-    PMT(NetworkExposure.specification.getChannelProperties()[2]);
+    DEFAULT(NetworkExposure.getSpecification().getChannelProperties()[1]),
+    PMT(NetworkExposure.getSpecification().getChannelProperties()[2]);
     
     private String text;
     

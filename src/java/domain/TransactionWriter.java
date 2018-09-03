@@ -10,21 +10,15 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Map;
-import java.util.Set;
 
 public class TransactionWriter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
     private int sheetRowCount;
     private final String XLS_FILE_PATH = "./responses/response.xlsx";
-    private FileOutputStream fileOut;
     
     public TransactionWriter() throws IOException, InvalidFormatException {
         workbook = new XSSFWorkbook(new FileInputStream(XLS_FILE_PATH));
-    
     }
     public void writeResponseToExcel(JsonObject jsonResponse){
         this.addRowToSheet(jsonResponse);
@@ -40,6 +34,7 @@ public class TransactionWriter {
     }
     
     private void addRowToSheet(JsonObject jsonResponse) {
+        System.out.println(jsonResponse.toString());
         sheet = workbook.getSheetAt(0);
         this.sheetRowCount = sheet.getPhysicalNumberOfRows();
         Row headerRow = sheet.getRow(0);

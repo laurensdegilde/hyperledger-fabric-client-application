@@ -1,18 +1,24 @@
 package controller;
 
 import domain.TransactionWrapper;
+import domain.TransactionWriter;
 import generator.Generator;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import network.NetworkExposure;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.hyperledger.fabric.sdk.TransactionProposalRequest;
+import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
+import org.hyperledger.fabric.sdk.exception.TransactionException;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -26,47 +32,53 @@ public class InsertController {
     public ListView lvGenerateOverview;
     @FXML
     public Label lbAverageTimeSpend;
-    
-    private int computedTimeSpend = 0;
-    
+    @FXML
+    public ComboBox cbChaincodeName;
     private Generator generator;
+    private TransactionWriter transactionWriter;
     
     public InsertController() throws IOException, InvalidFormatException {
         this.generator = new Generator();
+        this.transactionWriter = new TransactionWriter();
     }
-    
     @FXML
-    public void insertPlainTransactions() throws InvalidArgumentException, ProposalException {
-        List<TransactionWrapper> response = null;
-        
+    public void initialize(){
+        this.cbChaincodeName.setItems(FXCollections.observableArrayList(
+                NetworkExposure.getSpecification().getChannelProperties()[1],
+                NetworkExposure.getSpecification().getChannelProperties()[2]
+        ));
+        cbChaincodeName.getSelectionModel().select(0);
+    }
+    @FXML
+    public void insertPlainTransactions() throws InvalidArgumentException, ProposalException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, CryptoException, ClassNotFoundException, TransactionException {
+        List<TransactionWrapper> responses;
+        String ccName = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
         for (int i = 0; i < Integer.valueOf(tfAmountOfUsers.getText()); i++) {
             for (String[] kv : this.generator.generateRecordForUser(i, Integer.valueOf(tfAmountOfAttributes.getText()))) {
                 
-                TransactionProposalRequest tpr = NetworkExposure.fabricClient.createTransactionProposalRequest(
-                        NetworkExposure.specification.getChannelProperties()[1],
-                        NetworkExposure.specification.getChannelMethodProperties()[1],
+                TransactionProposalRequest tpr = NetworkExposure.getFabricClient().createTransactionProposalRequest(
+                        ccName,
+                        NetworkExposure.getSpecification().getChannelMethodProperties()[1],
                         kv
                 );
                 
-                response = NetworkExposure.channelClient.invokeChainCode(
-                        NetworkExposure.specification.getChannelProperties()[1],
-                        NetworkExposure.specification.getChannelMethodProperties()[1],
+                responses = NetworkExposure.getChannelClient().invokeChainCode(
+                        ccName,
+                        NetworkExposure.getSpecification().getChannelMethodProperties()[1],
                         tpr
                 );
-                
-                this.addGenerateInformation(response);
+                this.addGenerateInformation(responses);
             }
         }
         
         this.printGeneratedRecordData();
     }
-    
     private void addGenerateInformation(List<TransactionWrapper> transactionWrappers) {
         
         for (TransactionWrapper transactionWrapper : transactionWrappers) {
             lvGenerateOverview.getItems().add(lvGenerateOverview.getItems().size() + 1 + " " + transactionWrapper.toString());
+            transactionWriter.writeResponseToExcel(transactionWrapper.getJsonResponse());
         }
-        lbAverageTimeSpend.setText(String.valueOf(computedTimeSpend / lvGenerateOverview.getItems().size()) + " ms");
     }
     
     public void printGeneratedRecordData() {
