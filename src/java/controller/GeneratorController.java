@@ -22,7 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
-public class InsertController {
+public class GeneratorController {
     
     @FXML
     public TextField tfAmountOfUsers;
@@ -37,7 +37,7 @@ public class InsertController {
     private Generator generator;
     private TransactionWriter transactionWriter;
     
-    public InsertController() throws IOException, InvalidFormatException {
+    public GeneratorController() throws IOException, InvalidFormatException {
         this.generator = new Generator();
         this.transactionWriter = new TransactionWriter();
     }

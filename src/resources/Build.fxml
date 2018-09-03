@@ -18,7 +18,7 @@
         <Label layoutX="15.0" layoutY="117.0" text="Admin password" />
         <Label layoutX="15.0" layoutY="152.0" text="Build network status: " />
         <Label fx:id="lbBuildStatus" layoutX="216.0" layoutY="152.0" prefHeight="21.0" prefWidth="209.0" />
-        <Button layoutX="160.0" layoutY="183.0" mnemonicParsing="false" onAction="#openSearch" prefHeight="31.0" prefWidth="113.0" text="Connect" />
-        <Button layoutX="160.0" layoutY="220.0" mnemonicParsing="false" onAction="#openGenerate" prefHeight="31.0" prefWidth="113.0" text="Insert" />
+        <Button layoutX="160.0" layoutY="183.0" mnemonicParsing="false" onAction="#openSearch" prefHeight="31.0" prefWidth="113.0" text="Interact" />
+        <Button layoutX="160.0" layoutY="220.0" mnemonicParsing="false" onAction="#openGenerate" prefHeight="31.0" prefWidth="113.0" text="Generate" />
       </AnchorPane>
 </VBox>

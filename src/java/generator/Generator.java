@@ -13,7 +13,7 @@ import java.util.*;
 public class Generator {
     
     private final String XLS_FILE_PATH = getClass().getClassLoader().getResource("generation-codes.xlsx").getFile();
-    private Map<String, Double> generatedDataRepresentation;
+    private Map<String, String> generatedDataRepresentation;
     
     private Workbook workbook;
     private Sheet sheet;
@@ -28,32 +28,34 @@ public class Generator {
         int amountOfRecordsInSheet = this.sheet.getPhysicalNumberOfRows();
         Random random = new Random();
         String key;
-        double value;
+        String value;
+        
         List<String[]> generatedListOfUserData = new ArrayList<>();
         int specificTempCounter = 0;
         boolean isSpecific = false;
+        
         for (int i = 1; i <= amount_of_attributes; i++) {
             isSpecific = false;
             if (1 != specificTempCounter) {
                 isSpecific = random.nextBoolean();
             }
             key = String.format("%.0f", this.sheet.getRow(user_id).getCell(0).getNumericCellValue()) + "-" + this.sheet.getRow(i).getCell(1).getStringCellValue();
-            value = sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(2).getNumericCellValue();
+            value = String.valueOf(sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(2).getNumericCellValue());
             
             if (isSpecific) {
                 key = String.format("%.0f", this.sheet.getRow(user_id).getCell(0).getNumericCellValue()) + "-" + "eigen_risico";
-                value = 385;
+                value = "385";
                 specificTempCounter++;
             }
             
-            generatedListOfUserData.add(new String[]{key, Double.toString(value)});
+            generatedListOfUserData.add(new String[]{key, value});
             this.generatedDataRepresentation.put(key, value);
         }
         if (!isSpecific) {
             key = String.format("%.0f", this.sheet.getRow(user_id).getCell(0).getNumericCellValue()) + "-" + "eigen_risico";
-            value = 385;
+            value = "385";
             generatedListOfUserData.remove(generatedListOfUserData.size() - 1);
-            generatedListOfUserData.add(new String[]{key, Double.toString(value)});
+            generatedListOfUserData.add(new String[]{key, value});
         }
         return generatedListOfUserData;
     }
@@ -63,7 +65,7 @@ public class Generator {
         this.sheet = workbook.getSheetAt(0);
     }
     
-    public Map<String, Double> getGeneratedDataRepresentation() {
+    public Map<String, String> getGeneratedDataRepresentation() {
         return generatedDataRepresentation;
     }
 }
