@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import domain.TransactionWrapper;
 import domain.TransactionWriter;
 import javafx.application.Platform;
@@ -21,6 +22,7 @@ import org.hyperledger.fabric.sdk.exception.TransactionException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class InteractController {
     @FXML
@@ -53,7 +55,7 @@ public class InteractController {
         transactionWriter = new TransactionWriter();
     }
     
-    public void invokeChaincode() throws ProposalException, InvalidArgumentException, TransactionException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, CryptoException, ClassNotFoundException {
+    public void invokeChaincode() throws ProposalException, InvalidArgumentException, TransactionException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, CryptoException, ClassNotFoundException, InvalidProtocolBufferException, ExecutionException, InterruptedException {
         String ccName = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
         String ccMethodName = cbChaincodeMethodName.getSelectionModel().getSelectedItem().toString();
         TransactionProposalRequest tpr;

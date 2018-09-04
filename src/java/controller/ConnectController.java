@@ -56,15 +56,12 @@ public class ConnectController {
                 ns = new LDGNetwork();
                 break;
         }
-        NetworkExposure.getBuilder(ns);
     }
     
     @FXML
     public boolean connectNetwork() throws IllegalAccessException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException, InvalidArgumentException {
-        FabricClient fc = NetworkExposure.getFabricClient();
-        ChannelClient cc = NetworkExposure.getChannelClient();
-        if (fc == null) {
-            this.setStatusLabel(lbBuildStatus, this.COlOUR_WARNING, "Network connection failed. fabricClient is null, did you setFabricClient?");
+        if (NetworkExposure.getBuilder(ns) == null || NetworkExposure.getFabricClient() == null || NetworkExposure.getChannelClient() == null) {
+            this.setStatusLabel(lbBuildStatus, this.COlOUR_WARNING, "Failed building network artifacts.");
             return false;
         }
         return true;

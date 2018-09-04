@@ -28,9 +28,8 @@ public class TransactionWriter {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("IO Exception could not write. Is the file open already?");
         }
-        System.out.println("Done");
     }
     
     private void addRowToSheet(JsonObject jsonResponse) {
@@ -40,12 +39,12 @@ public class TransactionWriter {
         Row headerRow = sheet.getRow(0);
         Row row = sheet.createRow(this.sheetRowCount++);
         
-        for (int i = 0; i < jsonResponse.size(); i++) {
+        for(int i = 0; i < headerRow.getPhysicalNumberOfCells(); i++){
             Cell cell = row.createCell(i);
             cell.setCellValue(String.valueOf(jsonResponse
-                    .get(headerRow.getCell(i)
-                    .getStringCellValue()))
-                    .replaceAll("\"", ""));
+                    .get(headerRow.getCell(i).getStringCellValue()))
+                    .replaceAll("\"", "")
+                    .replaceAll("null", ""));
         }
     }
 }

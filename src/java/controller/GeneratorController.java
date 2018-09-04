@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import domain.TransactionWrapper;
 import domain.TransactionWriter;
 import generator.Generator;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class GeneratorController {
     
@@ -50,7 +52,7 @@ public class GeneratorController {
         cbChaincodeName.getSelectionModel().select(0);
     }
     @FXML
-    public void insertPlainTransactions() throws InvalidArgumentException, ProposalException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, CryptoException, ClassNotFoundException, TransactionException {
+    public void insertPlainTransactions() throws InvalidArgumentException, ProposalException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, CryptoException, ClassNotFoundException, TransactionException, InvalidProtocolBufferException, ExecutionException, InterruptedException {
         List<TransactionWrapper> responses;
         String ccName = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
         for (int i = 0; i < Integer.valueOf(tfAmountOfUsers.getText()); i++) {
@@ -82,7 +84,7 @@ public class GeneratorController {
     }
     
     public void printGeneratedRecordData() {
-        for (Map.Entry<String, Double> entry : this.generator.getGeneratedDataRepresentation().entrySet()) {
+        for (Map.Entry<String, String> entry : this.generator.getGeneratedDataRepresentation().entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }

@@ -30,9 +30,9 @@ public class NetworkExposure {
         return fabricClient;
     }
     
-    public static ChannelClient getChannelClient() throws InvalidArgumentException, TransactionException {
+    public static ChannelClient getChannelClient() throws InvalidArgumentException, TransactionException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, CryptoException, ClassNotFoundException {
         if (channelClient == null){
-            channelClient = builder.createChannelClient(specification.getChannelProperties()[0], fabricClient);
+            channelClient = builder.createChannelClient(specification.getChannelProperties()[0], getFabricClient());
         }
         return channelClient;
     }

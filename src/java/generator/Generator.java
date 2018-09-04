@@ -24,7 +24,7 @@ public class Generator {
         this.readPredefinedCodes();
     }
     
-    public List<String[]> generateRecordForUser(int user_id, int amount_of_attributes) {
+    public List<String[]> generateRecordForUser(int userId, int amountOfAttributes) {
         int amountOfRecordsInSheet = this.sheet.getPhysicalNumberOfRows();
         Random random = new Random();
         String key;
@@ -34,16 +34,16 @@ public class Generator {
         int specificTempCounter = 0;
         boolean isSpecific = false;
         
-        for (int i = 1; i <= amount_of_attributes; i++) {
+        for (int i = 1; i <= amountOfAttributes; i++) {
             isSpecific = false;
             if (1 != specificTempCounter) {
                 isSpecific = random.nextBoolean();
             }
-            key = String.format("%.0f", this.sheet.getRow(user_id).getCell(0).getNumericCellValue()) + "-" + this.sheet.getRow(i).getCell(1).getStringCellValue();
+            key = String.format("%.0f", this.sheet.getRow(userId).getCell(0).getNumericCellValue()) + "-" + this.sheet.getRow(i).getCell(1).getStringCellValue();
             value = String.valueOf(sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(2).getNumericCellValue());
             
             if (isSpecific) {
-                key = String.format("%.0f", this.sheet.getRow(user_id).getCell(0).getNumericCellValue()) + "-" + "eigen_risico";
+                key = String.format("%.0f", this.sheet.getRow(userId).getCell(0).getNumericCellValue()) + "-" + "eigen_risico";
                 value = "385";
                 specificTempCounter++;
             }
@@ -52,7 +52,7 @@ public class Generator {
             this.generatedDataRepresentation.put(key, value);
         }
         if (!isSpecific) {
-            key = String.format("%.0f", this.sheet.getRow(user_id).getCell(0).getNumericCellValue()) + "-" + "eigen_risico";
+            key = String.format("%.0f", this.sheet.getRow(userId).getCell(0).getNumericCellValue()) + "-" + "eigen_risico";
             value = "385";
             generatedListOfUserData.remove(generatedListOfUserData.size() - 1);
             generatedListOfUserData.add(new String[]{key, value});
