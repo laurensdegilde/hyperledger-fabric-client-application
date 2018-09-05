@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.JsonObject;
 import com.google.protobuf.InvalidProtocolBufferException;
 import domain.TransactionWrapper;
 import domain.TransactionWriter;
@@ -13,6 +14,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import network.NetworkExposure;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.hyperledger.fabric.sdk.BlockEvent;
+import org.hyperledger.fabric.sdk.ProposalResponse;
 import org.hyperledger.fabric.sdk.TransactionProposalRequest;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
@@ -21,7 +24,9 @@ import org.hyperledger.fabric.sdk.exception.TransactionException;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class InteractController {
@@ -58,17 +63,26 @@ public class InteractController {
     public void invokeChaincode() throws ProposalException, InvalidArgumentException, TransactionException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, CryptoException, ClassNotFoundException, InvalidProtocolBufferException, ExecutionException, InterruptedException {
         String ccName = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
         String ccMethodName = cbChaincodeMethodName.getSelectionModel().getSelectedItem().toString();
-        TransactionProposalRequest tpr;
-        List<TransactionWrapper> response;
+        
         for (int i = 0; i < Integer.valueOf(tfInvokeAmountOfTime.getText()); i++) {
-            tpr = NetworkExposure.getFabricClient().createTransactionProposalRequest(ccName, ccMethodName, lvArguments.getItems().toArray(new String[lvArguments.getItems().size()]));
-            response = NetworkExposure.getChannelClient().invokeChainCode(ccName, ccMethodName, tpr);
-            
-            this.addInvokeInformation(response);
+            TransactionProposalRequest tpr = NetworkExposure.getFabricClient().createTransactionProposalRequest(ccName, ccMethodName, lvArguments.getItems().toArray(new String[lvArguments.getItems().size()]));
+            CompletableFuture.supplyAsync(()->{
+                try {
+                    List<TransactionWrapper> responses = NetworkExposure.getChannelClient().invokeChainCode(ccName, ccMethodName, tpr);
+                    return responses;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }).thenAccept( responses ->{
+                Platform.runLater(()->{
+                    this.print(responses);
+                });
+            });
         }
     }
     
-    private void addInvokeInformation(List<TransactionWrapper> transactionWrappers) {
+    private void print(List<TransactionWrapper> transactionWrappers) {
         for (TransactionWrapper transactionWrapper : transactionWrappers) {
             lvInvokeOverview.getItems().add(lvInvokeOverview.getItems().size() + 1 + " " + transactionWrapper.toString());
             transactionWriter.writeResponseToExcel(transactionWrapper.getJsonResponse());

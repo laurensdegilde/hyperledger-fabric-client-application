@@ -1,12 +1,17 @@
 package specification;
 
 public class LDGNetwork implements NetworkSpecification {
+    private String organisation;
+    
+    public LDGNetwork(String organisation){
+        this.organisation = organisation;
+    }
     
     public String[] getChannelProperties() {
         return new String[]{
-                "ldegilde-channel",
-                "default-chaincodev22",
-                "pmt-chaincodev22"
+                "mychannel",
+                "default-chaincode",
+                "pmt-chaincode"
         };
     }
     
@@ -32,7 +37,17 @@ public class LDGNetwork implements NetworkSpecification {
         };
     }
     
-    public String[] getOrg1Properties() {
+    public String[] getOrgProperties(){
+        switch (this.organisation) {
+            case "Organisation 1":
+                return this.getOrg1Properties();
+            case "Organisation 2":
+                return this.getOrg2Properties();
+        }
+        return null;
+    }
+    
+    private String[] getOrg1Properties() {
         return new String[]{
                 "Org1MSP",
                 "org1.ldegilde.com",
@@ -44,7 +59,7 @@ public class LDGNetwork implements NetworkSpecification {
         };
     }
     
-    public String[] getOrg2Properties() {
+    private String[] getOrg2Properties() {
         return new String[]{
                 "Org2MPS",
                 "org2.ldegilde.com",

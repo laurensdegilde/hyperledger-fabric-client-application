@@ -1,6 +1,4 @@
 package controller;
-
-import com.google.common.graph.Network;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import network.ChannelClient;
-import network.FabricClient;
 import network.NetworkExposure;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
@@ -31,11 +25,10 @@ public class ConnectController {
     @FXML
     private Label lbBuildStatus;
     @FXML
-    private TextField txAdminUsername;
-    @FXML
-    private PasswordField txAdminPassword;
-    @FXML
     private ComboBox cbNetworks;
+    @FXML
+    private ComboBox cbOrganisations;
+    
     private NetworkSpecification ns;
     
     @FXML
@@ -43,17 +36,23 @@ public class ConnectController {
         this.cbNetworks.setItems(FXCollections.observableArrayList(
                 new String("LDG network")));
         cbNetworks.getSelectionModel().select(0);
+        
+        this.cbOrganisations.setItems(FXCollections.observableArrayList(
+                new String("Organisation 1"),
+                new String("Organisation 2")));
+        cbOrganisations.getSelectionModel().select(0);
+    
         changeNetwork();
     }
     
     @FXML
     public void changeNetwork() {
         String network = cbNetworks.getSelectionModel().getSelectedItem().toString();
+        String organisation = cbOrganisations.getSelectionModel().getSelectedItem().toString();
         ns = null;
-        
         switch (network) {
             case "LDG network":
-                ns = new LDGNetwork();
+                ns = new LDGNetwork(organisation);
                 break;
         }
     }

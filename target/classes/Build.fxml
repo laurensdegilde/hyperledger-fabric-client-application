@@ -12,10 +12,8 @@
       <AnchorPane prefHeight="265.0" prefWidth="448.0">
         <Label layoutX="15.0" layoutY="36.0" text="Choose network" />
         <ComboBox fx:id="cbNetworks" layoutX="216.0" layoutY="31.0" onAction="#changeNetwork" prefHeight="31.0" prefWidth="209.0" />
-        <TextField fx:id="txAdminUsername" layoutX="216.0" layoutY="73.0" prefHeight="31.0" prefWidth="209.0" text="admin" />
-        <PasswordField fx:id="txAdminPassword" layoutX="216.0" layoutY="112.0" prefHeight="31.0" prefWidth="209.0" text="adminpw" />
-        <Label layoutX="15.0" layoutY="78.0" text="Admin username" />
-        <Label layoutX="15.0" layoutY="117.0" text="Admin password" />
+        <ComboBox fx:id="cbOrganisations" layoutX="216.0" layoutY="78.0" onAction="#changeNetwork" prefHeight="31.0" prefWidth="209.0" />
+        <Label layoutX="15.0" layoutY="78.0" text="Organisation" />
         <Label layoutX="15.0" layoutY="152.0" text="Build network status: " />
         <Label fx:id="lbBuildStatus" layoutX="216.0" layoutY="152.0" prefHeight="21.0" prefWidth="209.0" />
         <Button layoutX="160.0" layoutY="183.0" mnemonicParsing="false" onAction="#openSearch" prefHeight="31.0" prefWidth="113.0" text="Interact" />

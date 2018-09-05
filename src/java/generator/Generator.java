@@ -31,35 +31,39 @@ public class Generator {
         String value;
         
         List<String[]> generatedListOfUserData = new ArrayList<>();
-        int specificTempCounter = 0;
+        boolean wroteSpecificYet = false;
         boolean isSpecific = false;
-        
-        for (int i = 1; i <= amountOfAttributes; i++) {
-            isSpecific = false;
-            if (1 != specificTempCounter) {
+
+        for (int i = 0; i < amountOfAttributes; i++) {
+            if (wroteSpecificYet != true) {
                 isSpecific = random.nextBoolean();
             }
             key = String.format("%.0f", this.sheet.getRow(userId).getCell(0).getNumericCellValue()) + "-" + this.sheet.getRow(i).getCell(1).getStringCellValue();
             value = String.valueOf(sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(2).getNumericCellValue());
             
             if (isSpecific) {
-                key = String.format("%.0f", this.sheet.getRow(userId).getCell(0).getNumericCellValue()) + "-" + "eigen_risico";
-                value = "385";
-                specificTempCounter++;
+                String[] kv = getSpecificRecord(userId);
+                generatedListOfUserData.add(kv);
+                this.generatedDataRepresentation.put(kv[0], kv[1]);
+                wroteSpecificYet = true;
+                isSpecific = false;
+            }else {
+                generatedListOfUserData.add(new String[]{key, value});
+                this.generatedDataRepresentation.put(key, value);
             }
             
-            generatedListOfUserData.add(new String[]{key, value});
-            this.generatedDataRepresentation.put(key, value);
         }
-        if (!isSpecific) {
-            key = String.format("%.0f", this.sheet.getRow(userId).getCell(0).getNumericCellValue()) + "-" + "eigen_risico";
-            value = "385";
+        if (!wroteSpecificYet) {
             generatedListOfUserData.remove(generatedListOfUserData.size() - 1);
-            generatedListOfUserData.add(new String[]{key, value});
+            generatedListOfUserData.add(getSpecificRecord(userId));
         }
         return generatedListOfUserData;
     }
-    
+    private String[] getSpecificRecord(int userId){
+        String key = String.format("%.0f", this.sheet.getRow(userId).getCell(0).getNumericCellValue()) + "-" + "eigen_risico";
+        String value = "385";
+        return new String[]{key, value};
+    }
     private void readPredefinedCodes() throws IOException, InvalidFormatException {
         this.workbook = WorkbookFactory.create(new File(XLS_FILE_PATH));
         this.sheet = workbook.getSheetAt(0);

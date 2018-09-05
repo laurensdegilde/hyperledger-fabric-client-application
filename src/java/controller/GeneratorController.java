@@ -4,6 +4,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import domain.TransactionWrapper;
 import domain.TransactionWriter;
 import generator.Generator;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class GeneratorController {
@@ -53,7 +55,6 @@ public class GeneratorController {
     }
     @FXML
     public void insertPlainTransactions() throws InvalidArgumentException, ProposalException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, CryptoException, ClassNotFoundException, TransactionException, InvalidProtocolBufferException, ExecutionException, InterruptedException {
-        List<TransactionWrapper> responses;
         String ccName = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
         for (int i = 0; i < Integer.valueOf(tfAmountOfUsers.getText()); i++) {
             for (String[] kv : this.generator.generateRecordForUser(i, Integer.valueOf(tfAmountOfAttributes.getText()))) {
@@ -63,19 +64,25 @@ public class GeneratorController {
                         NetworkExposure.getSpecification().getChannelMethodProperties()[1],
                         kv
                 );
-                
-                responses = NetworkExposure.getChannelClient().invokeChainCode(
-                        ccName,
-                        NetworkExposure.getSpecification().getChannelMethodProperties()[1],
-                        tpr
-                );
-                this.addGenerateInformation(responses);
+                CompletableFuture.supplyAsync(()->{
+                    try {
+                        List<TransactionWrapper> responses = NetworkExposure.getChannelClient().invokeChainCode(ccName, NetworkExposure.getSpecification().getChannelMethodProperties()[1], tpr);
+                        return responses;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }).thenAccept( responses ->{
+                    Platform.runLater(()->{
+                        this.print(responses);
+                    });
+                });
             }
         }
         
         this.printGeneratedRecordData();
     }
-    private void addGenerateInformation(List<TransactionWrapper> transactionWrappers) {
+    private void print(List<TransactionWrapper> transactionWrappers) {
         
         for (TransactionWrapper transactionWrapper : transactionWrappers) {
             lvGenerateOverview.getItems().add(lvGenerateOverview.getItems().size() + 1 + " " + transactionWrapper.toString());

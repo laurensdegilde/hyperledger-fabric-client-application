@@ -25,7 +25,7 @@ class Builder {
         Enrollment enrollOrg1Admin = null;
         
         try {
-            HFCAClient hfcaClient = HFCAClient.createNewInstance(specification.getOrg1Properties()[2], null);
+            HFCAClient hfcaClient = HFCAClient.createNewInstance(specification.getOrgProperties()[2], null);
             hfcaClient.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
             enrollOrg1Admin = hfcaClient.enroll(adminUsername, adminPassword);
         } catch (Exception ee) {
@@ -34,8 +34,8 @@ class Builder {
         }
         
         org1Admin.setEnrollment(enrollOrg1Admin);
-        org1Admin.setMspId(specification.getOrg1Properties()[0]);
-        org1Admin.setName(specification.getOrg1Properties()[1]);
+        org1Admin.setMspId(specification.getOrgProperties()[0]);
+        org1Admin.setName(specification.getOrgProperties()[1]);
         FabricClient client = new FabricClient(org1Admin);
         return client;
     }
@@ -43,7 +43,7 @@ class Builder {
     ChannelClient createChannelClient(String channelName, FabricClient client) throws InvalidArgumentException, TransactionException {
         ChannelClient channelClient = client.createChannelClient(channelName);
         channelClient.getChannel().addOrderer(client.getInstance().newOrderer(specification.getOrdererProperties()[0], specification.getOrdererProperties()[1], null));
-        channelClient.getChannel().addPeer(client.getInstance().newPeer(specification.getOrg1Properties()[3], specification.getOrg1Properties()[4], null));
+        channelClient.getChannel().addPeer(client.getInstance().newPeer(specification.getOrgProperties()[3], specification.getOrgProperties()[4], null));
         channelClient.getChannel().initialize();
         return channelClient;
     }
