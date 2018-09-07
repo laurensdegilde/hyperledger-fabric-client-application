@@ -3,7 +3,6 @@ package network;
 
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
-import org.hyperledger.fabric.sdk.exception.TransactionException;
 import specification.NetworkSpecification;
 
 import java.lang.reflect.InvocationTargetException;

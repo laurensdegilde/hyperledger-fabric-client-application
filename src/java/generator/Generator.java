@@ -25,7 +25,7 @@ public class Generator {
     }
     
     public List<String[]> generateRecordForUser(int userId, int amountOfAttributes) {
-        int amountOfRecordsInSheet = this.sheet.getPhysicalNumberOfRows();
+        int amountOfValues = 400;
         Random random = new Random();
         String key;
         String value;
@@ -38,8 +38,8 @@ public class Generator {
             if (wroteSpecificYet != true) {
                 isSpecific = random.nextBoolean();
             }
-            key = String.format("%.0f", this.sheet.getRow(userId).getCell(0).getNumericCellValue()) + "-" + this.sheet.getRow(i).getCell(1).getStringCellValue();
-            value = String.valueOf(sheet.getRow(random.nextInt(amountOfRecordsInSheet)).getCell(2).getNumericCellValue());
+            key = this.sheet.getRow(userId).getCell(0).getStringCellValue() + this.sheet.getRow(random.nextInt(amountOfValues)).getCell(1).getStringCellValue();
+            value = String.valueOf(sheet.getRow(random.nextInt(amountOfValues)).getCell(2).getNumericCellValue());
             
             if (isSpecific) {
                 String[] kv = getSpecificRecord(userId);
@@ -60,7 +60,7 @@ public class Generator {
         return generatedListOfUserData;
     }
     private String[] getSpecificRecord(int userId){
-        String key = String.format("%.0f", this.sheet.getRow(userId).getCell(0).getNumericCellValue()) + "-" + "eigen_risico";
+        String key = this.sheet.getRow(userId).getCell(0).getStringCellValue() + "_" + "eigen_risico";
         String value = "385";
         return new String[]{key, value};
     }

@@ -10,4 +10,9 @@ public interface NetworkSpecification {
     String[] getChannelProperties();
     
     String[] getChannelMethodProperties();
+    
+    String[] getOrg1Properties();
+    
+    String[] getOrg2Properties();
+    
 }

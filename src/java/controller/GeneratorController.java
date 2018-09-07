@@ -1,47 +1,41 @@
 package controller;
 
-import com.google.protobuf.InvalidProtocolBufferException;
 import domain.TransactionWrapper;
 import domain.TransactionWriter;
 import generator.Generator;
+import generator.GeneratorHelper;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import network.NetworkExposure;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.hyperledger.fabric.sdk.TransactionProposalRequest;
-import org.hyperledger.fabric.sdk.exception.CryptoException;
-import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
-import org.hyperledger.fabric.sdk.exception.ProposalException;
-import org.hyperledger.fabric.sdk.exception.TransactionException;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class GeneratorController {
     
-    @FXML
-    public TextField tfAmountOfUsers;
     @FXML
     public TextField tfAmountOfAttributes;
     @FXML
     public ListView lvGenerateOverview;
     @FXML
-    public Label lbAverageTimeSpend;
-    @FXML
     public ComboBox cbChaincodeName;
+    @FXML
+    public ComboBox cbSteps;
+    
     private Generator generator;
+    private GeneratorHelper generatorHelper;
     private TransactionWriter transactionWriter;
     
     public GeneratorController() throws IOException, InvalidFormatException {
+        this.generatorHelper = new GeneratorHelper();
         this.generator = new Generator();
         this.transactionWriter = new TransactionWriter();
     }
@@ -51,21 +45,28 @@ public class GeneratorController {
                 NetworkExposure.getSpecification().getChannelProperties()[1],
                 NetworkExposure.getSpecification().getChannelProperties()[2]
         ));
+        this.cbSteps.setItems((FXCollections.observableArrayList(
+                generatorHelper.getSteps().keySet()
+        )));
         cbChaincodeName.getSelectionModel().select(0);
+        cbSteps.getSelectionModel().select(0);
     }
     @FXML
-    public void insertPlainTransactions() throws InvalidArgumentException, ProposalException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, CryptoException, ClassNotFoundException, TransactionException, InvalidProtocolBufferException, ExecutionException, InterruptedException {
+    public void insertPlainTransactions() {
         String ccName = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
-        for (int i = 0; i < Integer.valueOf(tfAmountOfUsers.getText()); i++) {
+        String step = cbSteps.getSelectionModel().getSelectedItem().toString();
+        Integer[] offsets = this.generatorHelper.getStepOffsets(step);
+        
+        for (int i = offsets[0]; i < offsets[1]; i++) {
             for (String[] kv : this.generator.generateRecordForUser(i, Integer.valueOf(tfAmountOfAttributes.getText()))) {
-                
-                TransactionProposalRequest tpr = NetworkExposure.getFabricClient().createTransactionProposalRequest(
-                        ccName,
-                        NetworkExposure.getSpecification().getChannelMethodProperties()[1],
-                        kv
-                );
+    
                 CompletableFuture.supplyAsync(()->{
                     try {
+                        TransactionProposalRequest tpr = NetworkExposure.getFabricClient().createTransactionProposalRequest(
+                                ccName,
+                                NetworkExposure.getSpecification().getChannelMethodProperties()[1],
+                                kv
+                        );
                         List<TransactionWrapper> responses = NetworkExposure.getChannelClient().invokeChainCode(ccName, NetworkExposure.getSpecification().getChannelMethodProperties()[1], tpr);
                         return responses;
                     } catch (Exception e) {
@@ -86,6 +87,7 @@ public class GeneratorController {
         
         for (TransactionWrapper transactionWrapper : transactionWrappers) {
             lvGenerateOverview.getItems().add(lvGenerateOverview.getItems().size() + 1 + " " + transactionWrapper.toString());
+            transactionWrapper.getJsonResponse().addProperty("Step", cbSteps.getSelectionModel().getSelectedItem().toString());
             transactionWriter.writeResponseToExcel(transactionWrapper.getJsonResponse());
         }
     }

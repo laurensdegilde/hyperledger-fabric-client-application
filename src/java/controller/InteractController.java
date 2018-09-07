@@ -1,21 +1,16 @@
 package controller;
 
-import com.google.gson.JsonObject;
 import com.google.protobuf.InvalidProtocolBufferException;
 import domain.TransactionWrapper;
 import domain.TransactionWriter;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import network.NetworkExposure;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.hyperledger.fabric.sdk.BlockEvent;
-import org.hyperledger.fabric.sdk.ProposalResponse;
 import org.hyperledger.fabric.sdk.TransactionProposalRequest;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
@@ -24,7 +19,6 @@ import org.hyperledger.fabric.sdk.exception.TransactionException;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;

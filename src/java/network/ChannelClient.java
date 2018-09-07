@@ -1,10 +1,12 @@
 package network;
 
+import com.google.common.collect.Iterables;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.protobuf.InvalidProtocolBufferException;
 import domain.TransactionWrapper;
-import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.Channel;
+import org.hyperledger.fabric.sdk.ProposalResponse;
+import org.hyperledger.fabric.sdk.TransactionProposalRequest;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 
@@ -12,21 +14,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class ChannelClient {
     
     String name;
     Channel channel;
-    FabricClient fabClient;
     
-    public ChannelClient(String name, Channel channel, FabricClient fabClient) {
+    public ChannelClient(String name, Channel channel) {
         this.name = name;
         this.channel = channel;
-        this.fabClient = fabClient;
     }
     
     public Channel getChannel() {
@@ -38,20 +37,17 @@ public class ChannelClient {
         long startStepA = System.currentTimeMillis();
         Collection<ProposalResponse> responses = channel.sendTransactionProposal(request, channel.getPeers());
         long endStepA = System.currentTimeMillis();
-        channel.sendTransaction(responses).get();
+        Collection<ProposalResponse> firstResponse = Collections.singletonList(Iterables.get(responses, 0));
+        channel.sendTransaction(firstResponse).get();
         long endStepE = System.currentTimeMillis();
-
+    
         List<TransactionWrapper> temp = new ArrayList<>();
-        JsonObject json = null;
+        JsonObject json;
+
         for (ProposalResponse pr : responses) {
-            try {
-                json = this.toJson(pr, startStepA, endStepA, endStepE, situationType, methodType);
-            } catch (InvalidArgumentException e) {
-                e.printStackTrace();
-            }
+            json = this.toJson(pr, startStepA, endStepA, endStepE, situationType, methodType);
             temp.add(new TransactionWrapper(situationType, methodType, json, pr));
         }
-        System.out.println("Thread: " + Thread.currentThread().getId() + " is done in: " + (endStepE - endStepA));
         return temp;
     }
     
@@ -61,6 +57,7 @@ public class ChannelClient {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         JsonObject json = (JsonObject) parser.parse(new String(pr.getChaincodeActionResponsePayload()));
+        json.addProperty("TransactionId", pr.getTransactionID());
         json.addProperty("StartTransaction", startStepA);
         json.addProperty("Peer", pr.getPeer().getName());
         json.addProperty("EndTransaction", endStepA);

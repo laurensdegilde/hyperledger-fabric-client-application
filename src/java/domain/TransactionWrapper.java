@@ -2,7 +2,6 @@ package domain;
 
 import com.google.gson.JsonObject;
 import org.hyperledger.fabric.sdk.ProposalResponse;
-import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 
 public class TransactionWrapper {
     

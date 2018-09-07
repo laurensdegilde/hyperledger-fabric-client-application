@@ -23,6 +23,13 @@ public class LDGNetwork implements NetworkSpecification {
         };
     }
     
+    public String[] getOrganisationsProperties() {
+        return new String[]{
+                "Organisation 1",
+                "Organisation 2"
+        };
+    }
+    
     public String[] getAdminOrg1Properties() {
         return new String[]{
                 "admin",
@@ -38,7 +45,7 @@ public class LDGNetwork implements NetworkSpecification {
     }
     
     public String[] getOrgProperties(){
-        switch (this.organisation) {
+        switch (organisation) {
             case "Organisation 1":
                 return this.getOrg1Properties();
             case "Organisation 2":
@@ -47,7 +54,7 @@ public class LDGNetwork implements NetworkSpecification {
         return null;
     }
     
-    private String[] getOrg1Properties() {
+    public String[] getOrg1Properties() {
         return new String[]{
                 "Org1MSP",
                 "org1.ldegilde.com",
@@ -59,9 +66,9 @@ public class LDGNetwork implements NetworkSpecification {
         };
     }
     
-    private String[] getOrg2Properties() {
+    public String[] getOrg2Properties() {
         return new String[]{
-                "Org2MPS",
+                "Org2MSP",
                 "org2.ldegilde.com",
                 "http://10.233.22.50:7054",
                 "peer0.org2.ldegilde.com",
