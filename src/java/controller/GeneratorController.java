@@ -1,7 +1,8 @@
 package controller;
 
-import domain.TransactionWrapper;
-import domain.TransactionWriter;
+import concurrency.ConcurrencyService;
+import domain.ProposalWrapper;
+import domain.ProposalWriter;
 import generator.Generator;
 import generator.GeneratorHelper;
 import javafx.application.Platform;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 public class GeneratorController {
     
@@ -32,12 +34,11 @@ public class GeneratorController {
     
     private Generator generator;
     private GeneratorHelper generatorHelper;
-    private TransactionWriter transactionWriter;
-    
+    private ConcurrencyService concurrencyService;
     public GeneratorController() throws IOException, InvalidFormatException {
         this.generatorHelper = new GeneratorHelper();
         this.generator = new Generator();
-        this.transactionWriter = new TransactionWriter();
+        this.concurrencyService = new ConcurrencyService(100);
     }
     @FXML
     public void initialize(){
@@ -53,45 +54,24 @@ public class GeneratorController {
     }
     @FXML
     public void insertPlainTransactions() {
-        String ccName = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
+        String chaincode = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
         String step = cbSteps.getSelectionModel().getSelectedItem().toString();
         Integer[] offsets = this.generatorHelper.getStepOffsets(step);
-        
-        for (int i = offsets[0]; i < offsets[1]; i++) {
-            for (String[] kv : this.generator.generateRecordForUser(i, Integer.valueOf(tfAmountOfAttributes.getText()))) {
-    
-                CompletableFuture.supplyAsync(()->{
-                    try {
-                        TransactionProposalRequest tpr = NetworkExposure.getFabricClient().createTransactionProposalRequest(
-                                ccName,
-                                NetworkExposure.getSpecification().getChannelMethodProperties()[1],
-                                kv
-                        );
-                        List<TransactionWrapper> responses = NetworkExposure.getChannelClient().invokeChainCode(ccName, NetworkExposure.getSpecification().getChannelMethodProperties()[1], tpr);
-                        return responses;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return null;
-                }).thenAccept( responses ->{
-                    Platform.runLater(()->{
-                        this.print(responses);
-                    });
-                });
+
+        for (int i = offsets[0]; i <= offsets[1]; i++) {
+            for (String[] keyValueSet : this.generator.generateRecordForUser(i, Integer.valueOf(tfAmountOfAttributes.getText()))) {
+                this.concurrencyService.invoke(
+                        chaincode,
+                        NetworkExposure.getSpecification().getChannelMethodProperties()[1],
+                        keyValueSet
+                );
             }
+            this.concurrencyService.handleConcurrency();
         }
-        
         this.printGeneratedRecordData();
     }
-    private void print(List<TransactionWrapper> transactionWrappers) {
-        
-        for (TransactionWrapper transactionWrapper : transactionWrappers) {
-            lvGenerateOverview.getItems().add(lvGenerateOverview.getItems().size() + 1 + " " + transactionWrapper.toString());
-            transactionWrapper.getJsonResponse().addProperty("Step", cbSteps.getSelectionModel().getSelectedItem().toString());
-            transactionWriter.writeResponseToExcel(transactionWrapper.getJsonResponse());
-        }
-    }
-    
+
+
     public void printGeneratedRecordData() {
         for (Map.Entry<String, String> entry : this.generator.getGeneratedDataRepresentation().entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());

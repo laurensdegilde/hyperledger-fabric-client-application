@@ -1,8 +1,9 @@
 package controller;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import domain.TransactionWrapper;
-import domain.TransactionWriter;
+import concurrency.ConcurrencyService;
+import domain.ProposalWrapper;
+import domain.ProposalWriter;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -29,58 +30,40 @@ public class InteractController {
     @FXML
     private TextField tfArgument;
     @FXML
-    private ComboBox cbChaincodeName;
+    private ComboBox cbChaincode;
     @FXML
-    private ComboBox cbChaincodeMethodName;
+    private ComboBox cbChaincodeMethod;
     @FXML
     private ListView<String> lvInvokeOverview;
     @FXML
     private TextField tfInvokeAmountOfTime;
     
-    private TransactionWriter transactionWriter;
-    
+    private ConcurrencyService concurrencyService;
     @FXML
     void initialize() throws IOException, InvalidFormatException {
-        this.cbChaincodeName.setItems(FXCollections.observableArrayList(
+        this.cbChaincode.setItems(FXCollections.observableArrayList(
                 NetworkExposure.getSpecification().getChannelProperties()[1],
                 NetworkExposure.getSpecification().getChannelProperties()[2]
         ));
-        cbChaincodeName.getSelectionModel().select(0);
-        this.cbChaincodeMethodName.setItems(FXCollections.observableArrayList(
+        this.cbChaincodeMethod.setItems(FXCollections.observableArrayList(
                 NetworkExposure.getSpecification().getChannelMethodProperties()[0],
                 NetworkExposure.getSpecification().getChannelMethodProperties()[1]
         ));
-        cbChaincodeMethodName.getSelectionModel().select(0);
-        transactionWriter = new TransactionWriter();
+
+        cbChaincode.getSelectionModel().select(0);
+        cbChaincodeMethod.getSelectionModel().select(0);
+
+        concurrencyService = new ConcurrencyService(1);
     }
     
-    public void invokeChaincode() throws ProposalException, InvalidArgumentException, TransactionException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, CryptoException, ClassNotFoundException, InvalidProtocolBufferException, ExecutionException, InterruptedException {
-        String ccName = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
-        String ccMethodName = cbChaincodeMethodName.getSelectionModel().getSelectedItem().toString();
-        
+    public void invokeChaincode() {
+        String chaincode = cbChaincode.getSelectionModel().getSelectedItem().toString();
+        String chaincodeMethod = cbChaincodeMethod.getSelectionModel().getSelectedItem().toString();
+        String [] keyValueSet = lvArguments.getItems().toArray(new String[lvArguments.getItems().size()]);
         for (int i = 0; i < Integer.valueOf(tfInvokeAmountOfTime.getText()); i++) {
-            TransactionProposalRequest tpr = NetworkExposure.getFabricClient().createTransactionProposalRequest(ccName, ccMethodName, lvArguments.getItems().toArray(new String[lvArguments.getItems().size()]));
-            CompletableFuture.supplyAsync(()->{
-                try {
-                    List<TransactionWrapper> responses = NetworkExposure.getChannelClient().invokeChainCode(ccName, ccMethodName, tpr);
-                    return responses;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }).thenAccept( responses ->{
-                Platform.runLater(()->{
-                    this.print(responses);
-                });
-            });
+            this.concurrencyService.invoke(chaincode, chaincodeMethod, keyValueSet);
         }
-    }
-    
-    private void print(List<TransactionWrapper> transactionWrappers) {
-        for (TransactionWrapper transactionWrapper : transactionWrappers) {
-            lvInvokeOverview.getItems().add(lvInvokeOverview.getItems().size() + 1 + " " + transactionWrapper.toString());
-            transactionWriter.writeResponseToExcel(transactionWrapper.getJsonResponse());
-        }
+        this.concurrencyService.handleConcurrency();
     }
     
     public void addArgument() {
