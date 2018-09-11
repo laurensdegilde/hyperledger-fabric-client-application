@@ -1,11 +1,9 @@
 package controller;
 
 import concurrency.ConcurrencyService;
-import domain.ProposalWrapper;
-import domain.ProposalWriter;
+import domain.ExcelHandle;
 import generator.Generator;
 import generator.GeneratorHelper;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -13,13 +11,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import network.NetworkExposure;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.hyperledger.fabric.sdk.TransactionProposalRequest;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
 
 public class GeneratorController {
     
@@ -38,7 +33,6 @@ public class GeneratorController {
     public GeneratorController() throws IOException, InvalidFormatException {
         this.generatorHelper = new GeneratorHelper();
         this.generator = new Generator();
-        this.concurrencyService = new ConcurrencyService(100);
     }
     @FXML
     public void initialize(){
@@ -53,9 +47,12 @@ public class GeneratorController {
         cbSteps.getSelectionModel().select(0);
     }
     @FXML
-    public void insertPlainTransactions() {
+    public void insertKeys() {
         String chaincode = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
         String step = cbSteps.getSelectionModel().getSelectedItem().toString();
+        
+        this.concurrencyService = new ConcurrencyService(100, chaincode, step);
+        
         Integer[] offsets = this.generatorHelper.getStepOffsets(step);
 
         for (int i = offsets[0]; i <= offsets[1]; i++) {
@@ -68,7 +65,28 @@ public class GeneratorController {
             }
             this.concurrencyService.handleConcurrency();
         }
+        ExcelHandle.clean();
         this.printGeneratedRecordData();
+    }
+    
+    @FXML
+    public void getKeys() throws IOException, InvalidFormatException {
+        String chaincode = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
+        String step = cbSteps.getSelectionModel().getSelectedItem().toString();
+        
+        this.concurrencyService = new ConcurrencyService(100, chaincode, step);
+        
+        List<String []> keyValueSet = ExcelHandle.read(Integer.valueOf(tfAmountOfAttributes.getText()), chaincode, step);
+        
+        for (String [] key : keyValueSet) {
+            System.out.println(key[0]);
+            this.concurrencyService.invoke(
+                    chaincode,
+                    NetworkExposure.getSpecification().getChannelMethodProperties()[0],
+                    key
+            );
+        }
+        this.concurrencyService.handleConcurrency();
     }
 
 

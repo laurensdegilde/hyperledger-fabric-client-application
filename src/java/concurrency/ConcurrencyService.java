@@ -1,26 +1,27 @@
 package concurrency;
 
+import domain.ExcelHandle;
 import domain.ProposalWrapper;
-import domain.ProposalWriter;
-import javafx.application.Platform;
 import network.NetworkExposure;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.hyperledger.fabric.sdk.TransactionProposalRequest;
 
-import java.io.IOException;
-import java.sql.Time;
 import java.util.List;
 import java.util.concurrent.*;
 
 public class ConcurrencyService {
     
     private ExecutorService executor;
-    private static ProposalWriter proposalWriter;
     private CountDownLatch countDownLatch;
+    private String chaincode;
+    private String step;
     private int threadCount;
-    public ConcurrencyService(int threadCount) {
+
+    public ConcurrencyService(int threadCount, String chaincode, String step) {
         this.threadCount = threadCount;
-        executor = getExecutorService(threadCount);
+        this.executor = getExecutorService(threadCount);
+        this.chaincode = chaincode;
+        this.step = step;
+        ExcelHandle.open(chaincode, step);
     }
     
     public void invoke(String chaincode, String chaincodeMethod, String []keyValueSet) {
@@ -43,7 +44,9 @@ public class ConcurrencyService {
             }
             return null;
         },this.executor).thenAccept(responses -> {
-            getProposalWriterInstance().write(responses);
+            if(responses != null){
+                ExcelHandle.write(responses);
+            }
             this.countDownLatch.countDown();
         });
     }
@@ -63,22 +66,14 @@ public class ConcurrencyService {
     public void handleConcurrency(){
         this.countDownLatch = new CountDownLatch(threadCount);
         try {
-            getProposalWriterInstance().open();
-            this.getCountDownLatch().await(15, TimeUnit.SECONDS);
-            getProposalWriterInstance().persist();
-            getProposalWriterInstance().clean();
+            this.getCountDownLatch().await(60, TimeUnit.SECONDS);
+            ExcelHandle.persist();
+            ExcelHandle.open(chaincode, step);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     
     
-    }
-    
-    public static ProposalWriter getProposalWriterInstance() {
-        if(proposalWriter == null){
-            proposalWriter = new ProposalWriter();
-        }
-        return proposalWriter;
     }
     
     public CountDownLatch getCountDownLatch() {

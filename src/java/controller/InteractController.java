@@ -1,10 +1,6 @@
 package controller;
 
-import com.google.protobuf.InvalidProtocolBufferException;
 import concurrency.ConcurrencyService;
-import domain.ProposalWrapper;
-import domain.ProposalWriter;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -12,17 +8,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import network.NetworkExposure;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.hyperledger.fabric.sdk.TransactionProposalRequest;
-import org.hyperledger.fabric.sdk.exception.CryptoException;
-import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
-import org.hyperledger.fabric.sdk.exception.ProposalException;
-import org.hyperledger.fabric.sdk.exception.TransactionException;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class InteractController {
     @FXML
@@ -52,8 +39,8 @@ public class InteractController {
 
         cbChaincode.getSelectionModel().select(0);
         cbChaincodeMethod.getSelectionModel().select(0);
-
-        concurrencyService = new ConcurrencyService(1);
+        String chaincode = cbChaincode.getSelectionModel().getSelectedItem().toString();
+        concurrencyService = new ConcurrencyService(1, chaincode, "null");
     }
     
     public void invokeChaincode() {

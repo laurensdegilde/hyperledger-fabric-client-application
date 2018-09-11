@@ -50,9 +50,11 @@ public class ChannelClient {
     
                 proposalWrappers = new ArrayList<>();
                 for (ProposalResponse pr : responses) {
-                    proposalWrapper = new ProposalWrapper(situationType, methodType, pr);
-                    proposalWrapper.setJsonProperties(startStepA, endStepA, endStepE, situationType, methodType);
-                    proposalWrappers.add(proposalWrapper);
+                    if(!pr.isInvalid()){
+                        proposalWrapper = new ProposalWrapper(situationType, methodType, pr);
+                        proposalWrapper.setJsonProperties(startStepA, endStepA, endStepE, situationType, methodType);
+                        proposalWrappers.add(proposalWrapper);
+                    }
                 }
                 return proposalWrappers;
             }
