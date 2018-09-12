@@ -9,9 +9,9 @@ public class GeneratorHelper {
     
     public GeneratorHelper(){
         steps = new TreeMap<>();
-        steps.put("Step1", new Integer[]{1, 10});
-        steps.put("Step2", new Integer[]{36, 100});
-        steps.put("Step3", new Integer[]{101, 1000});
+//        steps.put("Step1", new Integer[]{1, 10}) //200 zoek operaties geprobeerd;
+//        steps.put("Step2", new Integer[]{11, 100}) // 300 zoek operaties geprobeerd;
+        steps.put("Step3", new Integer[]{521, 1000});
         steps.put("Step4", new Integer[]{1001, 10000});
         steps.put("Step5", new Integer[]{10001, 1000000});
     }

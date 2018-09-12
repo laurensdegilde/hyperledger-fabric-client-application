@@ -26,7 +26,6 @@ public class ConcurrencyService {
     
     public void invoke(String chaincode, String chaincodeMethod, String []keyValueSet) {
         CompletableFuture.supplyAsync(() -> {
-            System.out.println(Thread.currentThread().getName());
             try {
                 TransactionProposalRequest tpr = NetworkExposure.getFabricClient().createTransactionProposalRequest(
                         chaincode,
