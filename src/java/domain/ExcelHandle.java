@@ -19,7 +19,7 @@ public class ExcelHandle {
     private static FileOutputStream fileOutputStream;
     private static Row headerRow;
     private static String STEP_XLSX_PATH = "./responses/steps/";
-    
+    private static List<String []> keys;
     public static synchronized void open(String chaincode, String step){
         System.out.println("open");
         clean();
@@ -70,21 +70,26 @@ public class ExcelHandle {
         }
     }
     
-    public static synchronized List<String []> read(int amountOfKeys, String chaincode, String step) throws IOException, InvalidFormatException {
+    public static synchronized List<String []> getKeys(int amountOfKeys, String chaincode, String step) {
         open(chaincode, step);
-        Random rand = new Random();
-        List<String []> keys = new ArrayList<>();
-        if(amountOfKeys > sheet.getPhysicalNumberOfRows()){
-            return null;
-        }
-        
+        keys = new ArrayList<>();
         for (int i = 0; i < amountOfKeys; i++){
-            Row r = sheet.getRow(rand.nextInt(sheet.getPhysicalNumberOfRows() - 1));
-            keys.add(new String [] {String.valueOf(r.getCell(4))});
+            read();
         }
         return keys;
     }
     
+    private static synchronized  void read(){
+        Random rand = new Random();
+        Row r = sheet.getRow(rand.nextInt(sheet.getPhysicalNumberOfRows()));
+        String [] key = new String [] {String.valueOf(r.getCell(5))};
+    
+        if (key[0] == "") {
+            read();
+        }else{
+            keys.add(key);
+        }
+    }
     private static synchronized void addRow(JsonObject jsonResponse) {
         System.out.println(jsonResponse.toString());
         sheetRowCount = sheet.getPhysicalNumberOfRows();

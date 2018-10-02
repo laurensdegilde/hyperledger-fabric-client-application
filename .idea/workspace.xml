@@ -3,12 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="1e3c9712-e88f-4912-8b4d-fbb0bcdeda64" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/responses/response.xlsx" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/responses/template_response.xlsx" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/java/concurrency/ConcurrencyService.java" afterPath="$PROJECT_DIR$/src/java/concurrency/ConcurrencyService.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/controller/GeneratorController.java" afterPath="$PROJECT_DIR$/src/java/controller/GeneratorController.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/domain/ExcelHandle.java" afterPath="$PROJECT_DIR$/src/java/domain/ExcelHandle.java" />
       <change beforePath="$PROJECT_DIR$/src/java/domain/ProposalWrapper.java" afterPath="$PROJECT_DIR$/src/java/domain/ProposalWrapper.java" />
       <change beforePath="$PROJECT_DIR$/src/java/generator/GeneratorHelper.java" afterPath="$PROJECT_DIR$/src/java/generator/GeneratorHelper.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/network/Builder.java" afterPath="$PROJECT_DIR$/src/java/network/Builder.java" />
       <change beforePath="$PROJECT_DIR$/src/java/network/ChannelClient.java" afterPath="$PROJECT_DIR$/src/java/network/ChannelClient.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/network/FabricClient.java" afterPath="$PROJECT_DIR$/src/java/network/FabricClient.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/specification/LDGNetwork.java" afterPath="$PROJECT_DIR$/src/java/specification/LDGNetwork.java" />
+      <change beforePath="$PROJECT_DIR$/src/resources/Build.fxml" afterPath="$PROJECT_DIR$/src/resources/Build.fxml" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Build.fxml" afterPath="$PROJECT_DIR$/target/classes/Build.fxml" />
+      <change beforePath="$PROJECT_DIR$/target/classes/network/Builder.class" afterPath="$PROJECT_DIR$/target/classes/network/Builder.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/network/ChannelClient.class" afterPath="$PROJECT_DIR$/target/classes/network/ChannelClient.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/network/FabricClient.class" afterPath="$PROJECT_DIR$/target/classes/network/FabricClient.class" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,11 +40,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="GeneratorController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GeneratorController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/java/controller/GeneratorController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="37" column="29" lean-forward="false" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
+            <state relative-caret-position="137">
+              <caret line="35" column="53" lean-forward="false" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -44,59 +52,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GeneratorHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/generator/GeneratorHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="16" column="5" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProposalWrapper.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/java/domain/ProposalWrapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="37" column="42" lean-forward="false" selection-start-line="37" selection-start-column="42" selection-end-line="37" selection-end-column="42" />
-              <folding>
-                <element signature="e#2361#2362#0" expanded="true" />
-                <element signature="e#2396#2397#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChannelClient.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/network/ChannelClient.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="52" column="67" lean-forward="false" selection-start-line="52" selection-start-column="67" selection-end-line="52" selection-end-column="67" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ConcurrencyService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/concurrency/ConcurrencyService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="e#1983#1984#0" expanded="true" />
-                <element signature="e#2072#2073#0" expanded="true" />
-                <element signature="e#2537#2538#0" expanded="true" />
-                <element signature="e#2574#2575#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="21">
+              <caret line="35" column="91" lean-forward="false" selection-start-line="35" selection-start-column="91" selection-end-line="35" selection-end-column="91" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CountDownLatch.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/util/concurrent/CountDownLatch.java">
+      <file leaf-file-name="FabricClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/network/FabricClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4956">
-              <caret line="275" column="19" lean-forward="false" selection-start-line="275" selection-start-column="19" selection-end-line="275" selection-end-column="19" />
+            <state relative-caret-position="483">
+              <caret line="33" column="39" lean-forward="false" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GeneratorHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/generator/GeneratorHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="441">
+              <caret line="23" column="24" lean-forward="false" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -105,43 +85,70 @@
       <file leaf-file-name="ExcelHandle.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/domain/ExcelHandle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="17" column="9" lean-forward="false" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileOutputStream.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/io/FileOutputStream.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2982">
-              <caret line="168" column="11" lean-forward="false" selection-start-line="168" selection-start-column="11" selection-end-line="168" selection-end-column="11" />
+            <state relative-caret-position="1575">
+              <caret line="84" column="65" lean-forward="false" selection-start-line="84" selection-start-column="65" selection-end-line="84" selection-end-column="65" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InteractController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/controller/InteractController.java">
+      <file leaf-file-name="ProposalWrapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/domain/ProposalWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="34" column="74" lean-forward="false" selection-start-line="34" selection-start-column="74" selection-end-line="34" selection-end-column="74" />
+            <state relative-caret-position="735">
+              <caret line="42" column="50" lean-forward="false" selection-start-line="42" selection-start-column="50" selection-end-line="42" selection-end-column="50" />
               <folding>
-                <element signature="e#2395#2396#0" expanded="true" />
-                <element signature="e#2491#2492#0" expanded="true" />
+                <element signature="e#2592#2593#0" expanded="true" />
+                <element signature="e#2627#2628#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConnectController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/controller/ConnectController.java">
+      <file leaf-file-name="ChannelClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/network/ChannelClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="903">
-              <caret line="61" column="37" lean-forward="false" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
+            <state relative-caret-position="651">
+              <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TransactionProposalRequest.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/sdk/TransactionProposalRequest.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding>
+                <marker date="1531817739978" expanded="false" signature="0:104" ph="/.../" />
+                <marker date="1531817739978" expanded="false" signature="150:293" ph="..." />
+                <marker date="1531817739978" expanded="false" signature="412:423" ph=" { " />
+                <marker date="1531817739978" expanded="false" signature="442:448" ph=" }" />
+                <marker date="1531817739978" expanded="true" signature="525:592" ph="{...}" />
+                <marker date="1531817739978" expanded="false" signature="654:665" ph=" { " />
+                <marker date="1531817739978" expanded="false" signature="708:714" ph=" }" />
+                <marker date="1531817739978" expanded="true" signature="814:1018" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Builder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/network/Builder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="861">
+              <caret line="53" column="1" lean-forward="false" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Generator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/generator/Generator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="399">
+              <caret line="26" column="26" lean-forward="false" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -177,6 +184,11 @@
       <find>persi</find>
       <find>persis</find>
       <find>peer0.org2.ldegilde.com</find>
+      <find>000000402</find>
+      <find>persisiting</find>
+      <find>Persisiting workbook.</find>
+      <find>Persisiting</find>
+      <find>Per</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -220,14 +232,10 @@
         <option value="$PROJECT_DIR$/src/java/domain/UserWrapper.java" />
         <option value="$PROJECT_DIR$/src/java/domain/SituationType.java" />
         <option value="$PROJECT_DIR$/src/java/controller/InsertController.java" />
-        <option value="$PROJECT_DIR$/src/resources/Build.fxml" />
-        <option value="$PROJECT_DIR$/src/java/network/FabricClient.java" />
         <option value="$PROJECT_DIR$/src/java/controller/ConnectController.java" />
         <option value="$PROJECT_DIR$/src/java/network/NetworkExposure.java" />
         <option value="$PROJECT_DIR$/src/java/generator/Generator.java" />
         <option value="$PROJECT_DIR$/src/java/specification/NetworkSpecification.java" />
-        <option value="$PROJECT_DIR$/src/java/network/Builder.java" />
-        <option value="$PROJECT_DIR$/src/java/specification/LDGNetwork.java" />
         <option value="$PROJECT_DIR$/src/java/domain/TransactionWriter.java" />
         <option value="$PROJECT_DIR$/src/java/concurrency/InvokeService.java" />
         <option value="$PROJECT_DIR$/src/resources/Interact.fxml" />
@@ -235,12 +243,16 @@
         <option value="$PROJECT_DIR$/src/java/controller/InteractController.java" />
         <option value="$PROJECT_DIR$/src/java/domain/ProposalWriter.java" />
         <option value="$PROJECT_DIR$/src/java/domain/ProposalReader.java" />
-        <option value="$PROJECT_DIR$/src/java/domain/ExcelHandle.java" />
-        <option value="$PROJECT_DIR$/src/java/controller/GeneratorController.java" />
-        <option value="$PROJECT_DIR$/src/java/concurrency/ConcurrencyService.java" />
-        <option value="$PROJECT_DIR$/src/java/generator/GeneratorHelper.java" />
-        <option value="$PROJECT_DIR$/src/java/network/ChannelClient.java" />
+        <option value="$PROJECT_DIR$/src/java/specification/LDGNetwork.java" />
+        <option value="$PROJECT_DIR$/src/resources/Build.fxml" />
         <option value="$PROJECT_DIR$/src/java/domain/ProposalWrapper.java" />
+        <option value="$PROJECT_DIR$/src/java/network/FabricClient.java" />
+        <option value="$PROJECT_DIR$/src/java/domain/ExcelHandle.java" />
+        <option value="$PROJECT_DIR$/src/java/network/Builder.java" />
+        <option value="$PROJECT_DIR$/src/java/concurrency/ConcurrencyService.java" />
+        <option value="$PROJECT_DIR$/src/java/network/ChannelClient.java" />
+        <option value="$PROJECT_DIR$/src/java/generator/GeneratorHelper.java" />
+        <option value="$PROJECT_DIR$/src/java/controller/GeneratorController.java" />
       </list>
     </option>
   </component>
@@ -287,7 +299,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -365,9 +380,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -377,21 +389,21 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pmt-trie-rest" />
     <property name="settings.editor.selected.configurable" value="preferences.applicationServers" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\laure\Documents\Git-repositories\alpha-fabric-client\src" />
+      <recent name="C:\Users\laure\Documents\Git-repositories\alpha-fabric-client\src\common\resources" />
+      <recent name="C:\Users\laure\Documents\Git-repositories\alpha-fabric-client\src\server\resources" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="trie" />
       <recent name="main" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\laure\Documents\Git-repositories\alpha-fabric-client\src\main\resources" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\laure\Documents\Git-repositories\alpha-fabric-client\src" />
-      <recent name="C:\Users\laure\Documents\Git-repositories\alpha-fabric-client\src\common\resources" />
-      <recent name="C:\Users\laure\Documents\Git-repositories\alpha-fabric-client\src\server\resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -578,12 +590,30 @@
       <workItem from="1536589440746" duration="2329000" />
       <workItem from="1536646865637" duration="19495000" />
       <workItem from="1536669877981" duration="5994000" />
-      <workItem from="1536731891991" duration="1111000" />
+      <workItem from="1536731891991" duration="1140000" />
+      <workItem from="1536735657937" duration="17998000" />
+      <workItem from="1536756263352" duration="3375000" />
+      <workItem from="1536764061582" duration="1003000" />
+      <workItem from="1536821096757" duration="144000" />
+      <workItem from="1536824098594" duration="4344000" />
+      <workItem from="1536832975752" duration="6941000" />
+      <workItem from="1536919377915" duration="11179000" />
+      <workItem from="1536940022658" duration="1698000" />
+      <workItem from="1537172396999" duration="853000" />
+      <workItem from="1537173719182" duration="5579000" />
+      <workItem from="1537252016616" duration="25874000" />
+      <workItem from="1537340253395" duration="7881000" />
+      <workItem from="1537361003996" duration="4579000" />
+      <workItem from="1537425212614" duration="14458000" />
+      <workItem from="1537805589152" duration="33000" />
+      <workItem from="1537944549813" duration="5230000" />
+      <workItem from="1537954538963" duration="17391000" />
+      <workItem from="1538030594324" duration="15102000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="316255000" />
+    <option name="totallyTimeSpent" value="459946000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -596,22 +626,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.9156821" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Tool Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.49785176" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29445073" sideWeight="0.36090225" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295583" sideWeight="0.45327604" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="1.0" sideWeight="0.10687433" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.4935553" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.54672396" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.89312565" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2434881" sideWeight="0.48925886" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34479055" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44951665" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="ANTLR Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -624,7 +654,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29445073" sideWeight="0.36251342" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.4935553" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -649,7 +678,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/java/util/TraceAllNodes.java" />
     <entry file="file://$PROJECT_DIR$/src/resources/Lookup.fxml" />
     <entry file="file://$PROJECT_DIR$/log4j.properties">
       <provider selected="true" editor-type-id="text-editor">
@@ -754,28 +782,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/resources/Build.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="40" lean-forward="false" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="40" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/util/function/Supplier.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="47" column="6" lean-forward="false" selection-start-line="47" selection-start-column="6" selection-end-line="47" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="22" column="28" lean-forward="false" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -828,14 +838,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/specification/LDGNetwork.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/util/concurrent/CompletableFuture.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -854,7 +856,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="16" column="42" lean-forward="false" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -875,34 +876,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/network/Builder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/network/NetworkExposure.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
           <caret line="35" column="32" lean-forward="false" selection-start-line="35" selection-start-column="32" selection-end-line="35" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/generator/Generator.java">
+    <entry file="file://$PROJECT_DIR$/src/java/controller/InteractController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="59" column="39" lean-forward="false" selection-start-line="59" selection-start-column="39" selection-end-line="59" selection-end-column="39" />
-          <folding />
+        <state relative-caret-position="525">
+          <caret line="34" column="74" lean-forward="false" selection-start-line="34" selection-start-column="74" selection-end-line="34" selection-end-column="74" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/network/FabricClient.java">
+    <entry file="file://$PROJECT_DIR$/src/java/controller/ConnectController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="25" column="24" lean-forward="false" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+        <state relative-caret-position="903">
+          <caret line="61" column="37" lean-forward="false" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/io/FileOutputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2982">
+          <caret line="168" column="11" lean-forward="false" selection-start-line="168" selection-start-column="11" selection-end-line="168" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/domain/ProposalReader.java" />
+    <entry file="file://$PROJECT_DIR$/src/java/domain/ProposalWriter.java" />
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/util/concurrent/CountDownLatch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4956">
+          <caret line="275" column="19" lean-forward="false" selection-start-line="275" selection-start-column="19" selection-end-line="275" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="22" column="28" lean-forward="false" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -918,99 +932,114 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/controller/InteractController.java">
+    <entry file="file://$PROJECT_DIR$/src/resources/Build.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="34" column="74" lean-forward="false" selection-start-line="34" selection-start-column="74" selection-end-line="34" selection-end-column="74" />
+        <state relative-caret-position="399">
+          <caret line="19" column="140" lean-forward="false" selection-start-line="19" selection-start-column="140" selection-end-line="19" selection-end-column="140" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/specification/LDGNetwork.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="13" column="35" lean-forward="false" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/domain/ProposalWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="42" column="50" lean-forward="false" selection-start-line="42" selection-start-column="50" selection-end-line="42" selection-end-column="50" />
           <folding>
-            <element signature="e#2395#2396#0" expanded="true" />
-            <element signature="e#2491#2492#0" expanded="true" />
+            <element signature="e#2592#2593#0" expanded="true" />
+            <element signature="e#2627#2628#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/controller/ConnectController.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/fabric-sdk-java-1.1.0.jar!/org/hyperledger/fabric/sdk/TransactionProposalRequest.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="903">
-          <caret line="61" column="37" lean-forward="false" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
+        <state relative-caret-position="126">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <marker date="1531817739978" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1531817739978" expanded="false" signature="150:293" ph="..." />
+            <marker date="1531817739978" expanded="false" signature="412:423" ph=" { " />
+            <marker date="1531817739978" expanded="false" signature="442:448" ph=" }" />
+            <marker date="1531817739978" expanded="true" signature="525:592" ph="{...}" />
+            <marker date="1531817739978" expanded="false" signature="654:665" ph=" { " />
+            <marker date="1531817739978" expanded="false" signature="708:714" ph=" }" />
+            <marker date="1531817739978" expanded="true" signature="814:1018" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/network/FabricClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="33" column="39" lean-forward="false" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/io/FileOutputStream.java">
+    <entry file="file://$PROJECT_DIR$/src/java/generator/Generator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2982">
-          <caret line="168" column="11" lean-forward="false" selection-start-line="168" selection-start-column="11" selection-end-line="168" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/domain/ProposalReader.java" />
-    <entry file="file://$PROJECT_DIR$/src/java/domain/ProposalWriter.java" />
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/util/concurrent/CountDownLatch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4956">
-          <caret line="275" column="19" lean-forward="false" selection-start-line="275" selection-start-column="19" selection-end-line="275" selection-end-column="19" />
+        <state relative-caret-position="399">
+          <caret line="26" column="26" lean-forward="false" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/domain/ExcelHandle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="17" column="9" lean-forward="false" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="1575">
+          <caret line="84" column="65" lean-forward="false" selection-start-line="84" selection-start-column="65" selection-end-line="84" selection-end-column="65" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/controller/GeneratorController.java">
+    <entry file="file://$PROJECT_DIR$/src/java/network/Builder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="37" column="29" lean-forward="false" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/concurrency/ConcurrencyService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="e#1983#1984#0" expanded="true" />
-            <element signature="e#2072#2073#0" expanded="true" />
-            <element signature="e#2537#2538#0" expanded="true" />
-            <element signature="e#2574#2575#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/generator/GeneratorHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="16" column="5" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        <state relative-caret-position="861">
+          <caret line="53" column="1" lean-forward="false" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/network/ChannelClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="52" column="67" lean-forward="false" selection-start-line="52" selection-start-column="67" selection-end-line="52" selection-end-column="67" />
+        <state relative-caret-position="651">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/domain/ProposalWrapper.java">
+    <entry file="file://$PROJECT_DIR$/src/java/concurrency/ConcurrencyService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="37" column="42" lean-forward="false" selection-start-line="37" selection-start-column="42" selection-end-line="37" selection-end-column="42" />
+        <state relative-caret-position="21">
+          <caret line="35" column="91" lean-forward="false" selection-start-line="35" selection-start-column="91" selection-end-line="35" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/generator/GeneratorHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="23" column="24" lean-forward="false" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/controller/GeneratorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="35" column="53" lean-forward="false" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
           <folding>
-            <element signature="e#2361#2362#0" expanded="true" />
-            <element signature="e#2396#2397#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -47,7 +47,7 @@ class Builder {
         ChannelClient channelClient = new ChannelClient(channelName, channel);
         channelClient.getChannel().addOrderer(client.getInstance().newOrderer(specification.getOrdererProperties()[0], specification.getOrdererProperties()[1], null));
         channelClient.getChannel().addPeer(client.getInstance().newPeer(specification.getOrg1Properties()[3], specification.getOrg1Properties()[4], null));
-        channelClient.getChannel().addPeer(client.getInstance().newPeer(specification.getOrg2Properties()[3], specification.getOrg2Properties()[4], null));
+//        channelClient.getChannel().addPeer(client.getInstance().newPeer(specification.getOrg2Properties()[3], specification.getOrg2Properties()[4], null));
         channelClient.getChannel().initialize();
         return channelClient;
     }

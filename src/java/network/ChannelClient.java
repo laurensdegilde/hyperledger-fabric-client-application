@@ -33,7 +33,7 @@ public class ChannelClient {
     public List<ProposalWrapper> invokeChainCode(String situationType, String methodType, TransactionProposalRequest request) throws InvalidArgumentException {
         long startStepA;
         long endStepA;
-        long endStepE;
+        long endStepE = 0;
         Collection<ProposalResponse> responses;
         List<ProposalWrapper> proposalWrappers;
         ProposalWrapper proposalWrapper;
@@ -42,23 +42,31 @@ public class ChannelClient {
             startStepA = System.currentTimeMillis();
             responses = channel.sendTransactionProposal(request, channel.getPeers());
             endStepA = System.currentTimeMillis();
-            Collection<ProposalResponse> cFirstResponse = Collections.singletonList(Iterables.get(responses, 0));
-            ProposalResponse firstResponse = cFirstResponse.iterator().next();
-            if (!firstResponse.isInvalid()){
-                channel.sendTransaction(cFirstResponse).get();
-                endStepE = System.currentTimeMillis();
-    
-                proposalWrappers = new ArrayList<>();
-                for (ProposalResponse pr : responses) {
-                    proposalWrapper = new ProposalWrapper(situationType, methodType, pr);
-                    proposalWrapper.setAdditionalJSONProperties(!pr.isInvalid(), startStepA, endStepA, endStepE, situationType, methodType);
-                    proposalWrappers.add(proposalWrapper);
-                }
-                return proposalWrappers;
+            
+            Collection<ProposalResponse> cValidResponse = getFirstValidResponse(responses);
+            if(cValidResponse != null){
+                channel.sendTransaction(cValidResponse).get();
             }
-    
+            endStepE = System.currentTimeMillis();
+            
+            proposalWrappers = new ArrayList<>();
+            for (ProposalResponse pr : responses) {
+                proposalWrapper = new ProposalWrapper(situationType, methodType, pr);
+                proposalWrapper.setAdditionalJSONProperties(startStepA, endStepA, endStepE, situationType, methodType);
+                proposalWrappers.add(proposalWrapper);
+            }
+            return proposalWrappers;
         }catch(Exception e){
             e.printStackTrace();
+        }
+        return null;
+    }
+    
+    private Collection<ProposalResponse> getFirstValidResponse(Collection<ProposalResponse> responses){
+        for (ProposalResponse pr : responses){
+            if (!pr.isInvalid()){
+                return Collections.singletonList(pr);
+            }
         }
         return null;
     }

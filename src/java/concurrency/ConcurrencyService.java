@@ -24,13 +24,14 @@ public class ConcurrencyService {
         ExcelHandle.open(chaincode, step);
     }
     
-    public void invoke(String chaincode, String chaincodeMethod, String []keyValueSet) {
+    public void invoke(String chaincode, String chaincodeMethod, String [] arguments) {
         CompletableFuture.supplyAsync(() -> {
             try {
                 TransactionProposalRequest tpr = NetworkExposure.getFabricClient().createTransactionProposalRequest(
                         chaincode,
                         chaincodeMethod,
-                        keyValueSet
+                        60000,
+                        arguments
                 );
                 List<ProposalWrapper> responses = NetworkExposure.getChannelClient().invokeChainCode(
                         chaincode,
@@ -63,9 +64,9 @@ public class ConcurrencyService {
     }
     
     public void handleConcurrency(){
-        this.countDownLatch = new CountDownLatch(threadCount);
+        this.countDownLatch = new CountDownLatch(this.threadCount);
         try {
-            this.getCountDownLatch().await(60, TimeUnit.SECONDS);
+            this.getCountDownLatch().await(20, TimeUnit.SECONDS);
             ExcelHandle.persist();
             ExcelHandle.open(chaincode, step);
         } catch (InterruptedException e) {

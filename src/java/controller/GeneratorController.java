@@ -30,6 +30,8 @@ public class GeneratorController {
     private Generator generator;
     private GeneratorHelper generatorHelper;
     private ConcurrencyService concurrencyService;
+    private static final int THREAD_COUNT = 100;
+    private static final int ATTRIBUTE_COUNT = 100;
     public GeneratorController() throws IOException, InvalidFormatException {
         this.generatorHelper = new GeneratorHelper();
         this.generator = new Generator();
@@ -51,19 +53,25 @@ public class GeneratorController {
         String chaincode = cbChaincodeName.getSelectionModel().getSelectedItem().toString();
         String step = cbSteps.getSelectionModel().getSelectedItem().toString();
         
-        this.concurrencyService = new ConcurrencyService(100, chaincode, step);
+        this.concurrencyService = new ConcurrencyService(THREAD_COUNT, chaincode, step);
         
         Integer[] offsets = this.generatorHelper.getStepOffsets(step);
 
         for (int i = offsets[0]; i <= offsets[1]; i++) {
-            for (String[] keyValueSet : this.generator.generateRecordForUser(i, Integer.valueOf(tfAmountOfAttributes.getText()))) {
-                this.concurrencyService.invoke(
-                        chaincode,
-                        NetworkExposure.getSpecification().getChannelMethodProperties()[1],
-                        keyValueSet
-                );
+            List<String[]> keyValueSet = this.generator.generateRecordForUser(i, Integer.valueOf(tfAmountOfAttributes.getText()));
+            int offset = 0;
+            for (int y = 0; y < ATTRIBUTE_COUNT / THREAD_COUNT; y ++) {
+                List<String [] > slice = keyValueSet.subList(offset, (offset + THREAD_COUNT) - 1);
+                for(String [] kv : slice) {
+                    this.concurrencyService.invoke(
+                            chaincode,
+                            NetworkExposure.getSpecification().getChannelMethodProperties()[1],
+                            kv
+                    );
+                }
+                offset += THREAD_COUNT;
+                this.concurrencyService.handleConcurrency();
             }
-            this.concurrencyService.handleConcurrency();
         }
         ExcelHandle.clean();
         this.printGeneratedRecordData();
@@ -76,7 +84,7 @@ public class GeneratorController {
         
         this.concurrencyService = new ConcurrencyService(100, chaincode, step);
         
-        List<String []> keyValueSet = ExcelHandle.read(Integer.valueOf(tfAmountOfAttributes.getText()), chaincode, step);
+        List<String []> keyValueSet = ExcelHandle.getKeys(Integer.valueOf(tfAmountOfAttributes.getText()), chaincode, step);
         
         for (String [] key : keyValueSet) {
             System.out.println(key[0]);

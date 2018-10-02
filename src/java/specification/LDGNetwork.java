@@ -10,8 +10,8 @@ public class LDGNetwork implements NetworkSpecification {
     public String[] getChannelProperties() {
         return new String[]{
                 "ldegilde-channel",
-                "default-chaincode",
-                "pmt-chaincode"
+                "pmt-chaincode",
+                "default-chaincode"
         };
     }
     
